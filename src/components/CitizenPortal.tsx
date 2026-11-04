@@ -474,71 +474,84 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
   }, []);
 
   return (
-    <div className="space-y-6 max-w-6xl mx-auto animate-in fade-in duration-200 text-slate-800 dark:text-slate-200">
+    <div className="space-y-8 max-w-7xl mx-auto animate-in fade-in duration-300 text-slate-800 dark:text-slate-200 pb-16">
       
-      {/* 1. Header Bar: Quick Region Selector & Seamless Switch to Science Mode */}
-      <div className="bg-white dark:bg-[#0c121e] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-            <h1 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight">
-              {isIndo ? 'Pantauan Karhutla & Kabut Asap Warga' : 'Citizen Peatland Fire & Smoke Safety Watch'}
+      {/* 1. TOP HEADER & REGION QUICK SELECTOR */}
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-white via-slate-50 to-white dark:from-[#0f172a] dark:via-[#0b1120] dark:to-[#0f172a] border border-slate-200/80 dark:border-slate-800/80 p-5 sm:p-7 shadow-xs">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-sky-500/5 dark:bg-sky-400/5 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="space-y-1.5 max-w-2xl">
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                {isIndo ? 'Portal Warga & Desa' : 'Citizen Community Portal'}
+              </span>
+              <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                NASA Space Apps Challenge 2026
+              </span>
+            </div>
+
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              {isIndo ? 'Pantauan Udara Sehat & Bara Gambut' : 'Smoke Safety & Peat Fire Sentinel'}
             </h1>
-            <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-semibold border border-slate-200 dark:border-slate-700">
-              {isIndo ? 'Mode Warga' : 'Citizen Mode'}
-            </span>
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              {isIndo
+                ? 'Informasi peringatan dini ramah warga, proteksi keluarga dari kabut asap beracun PM2.5, serta pelaporan darurat 1-klik terhubung satelit NASA.'
+                : 'Actionable smoke alerts, family health protection against PM2.5 peat haze, and 1-click citizen reporting backed by NASA Earth observations.'}
+            </p>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            {isIndo
-              ? 'Informasi ramah warga, panduan perlindungan kabut asap keluarga, dan lapor bara api desa berbasis citra satelit NASA.'
-              : 'Community-friendly fire danger alerts, smoke health protection, and quick reporting backed by NASA Earth observations.'}
-          </p>
-        </div>
 
-        {/* Region Quick Select Buttons */}
-        <div className="flex items-center gap-1.5 shrink-0 flex-wrap sm:flex-nowrap">
-          {[
-            { id: 'riau', name: 'Riau', note: isIndo ? 'Gambut' : 'Peatland' },
-            { id: 'kalteng', name: 'Kalteng', note: isIndo ? 'Biosfer' : 'Biosphere' },
-            { id: 'sumsel', name: 'Sumsel', note: isIndo ? 'Basin' : 'Basin' },
-            { id: 'indonesia', name: 'Nasional', note: isIndo ? 'Seluruh' : 'All' },
-          ].map((item) => {
-            const isSelected = selectedAOI.id === item.id;
-            const aoiObj = PRESET_AOIS.find((a) => a.id === item.id);
-            return (
-              <button
-                key={item.id}
-                onClick={() => aoiObj && onSelectAOI(aoiObj)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-medium transition cursor-pointer shrink-0 flex items-center gap-1.5 border min-h-[36px] ${
-                  isSelected
-                    ? 'bg-sky-600 text-white border-sky-600 shadow-xs font-semibold'
-                    : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
-                }`}
-              >
-                <span>{item.name}</span>
-                <span className={`text-[10px] ${isSelected ? 'text-sky-200' : 'text-slate-400 font-mono'}`}>
-                  {item.note}
-                </span>
-              </button>
-            );
-          })}
+          {/* Region Switcher Pills */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+            <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+              {isIndo ? 'Wilayah:' : 'Region:'}
+            </span>
+            <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-900/90 p-1 rounded-2xl border border-slate-200 dark:border-slate-800 flex-wrap">
+              {[
+                { id: 'riau', name: 'Riau', note: isIndo ? 'Gambut' : 'Peat' },
+                { id: 'kalteng', name: 'Kalteng', note: isIndo ? 'Biosfer' : 'Sebangau' },
+                { id: 'sumsel', name: 'Sumsel', note: isIndo ? 'Basin' : 'OKI' },
+                { id: 'indonesia', name: 'Nasional', note: isIndo ? 'Seluruh' : 'All' },
+              ].map((item) => {
+                const isSelected = selectedAOI.id === item.id;
+                const aoiObj = PRESET_AOIS.find((a) => a.id === item.id);
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => aoiObj && onSelectAOI(aoiObj)}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                      isSelected
+                        ? 'bg-white dark:bg-slate-800 text-sky-600 dark:text-sky-400 shadow-sm border border-slate-200/80 dark:border-slate-700'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    <span>{item.name}</span>
+                    <span className={`text-[10px] font-mono ${isSelected ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400'}`}>
+                      {item.note}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
-      {/* 2. SECTION 1: Status Bahaya Wilayah Hari Ini (High-Contrast Human-Readable Hero Card) */}
-      <div className={`p-5 sm:p-6 rounded-2xl border transition-all ${
-        threatTier.level === 'safe'
-          ? 'bg-emerald-50/60 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-800'
-          : threatTier.level === 'advisory'
-          ? 'bg-amber-50/60 dark:bg-amber-950/20 border-amber-300 dark:border-amber-800'
-          : threatTier.level === 'warning'
-          ? 'bg-orange-50/60 dark:bg-orange-950/20 border-orange-300 dark:border-orange-800'
-          : 'bg-rose-50/60 dark:bg-rose-950/20 border-rose-300 dark:border-rose-800'
-      }`}>
-        <div className="flex flex-col gap-5">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className={`px-2.5 py-0.5 rounded-md text-xs font-mono font-bold tracking-wider uppercase border shrink-0 ${
+      {/* 2. MODERN BENTO HERO CARD (Live Hazard & Health Status HUD) */}
+      <section className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+        {/* Main Status Callout (7 cols) */}
+        <div className={`lg:col-span-7 rounded-3xl p-6 sm:p-7 border transition-all flex flex-col justify-between relative overflow-hidden ${
+          threatTier.level === 'safe'
+            ? 'bg-gradient-to-br from-emerald-500/10 via-white to-emerald-500/5 dark:from-emerald-950/40 dark:via-[#0c121e] dark:to-emerald-950/20 border-emerald-300 dark:border-emerald-800/80'
+            : threatTier.level === 'advisory'
+            ? 'bg-gradient-to-br from-amber-500/10 via-white to-amber-500/5 dark:from-amber-950/40 dark:via-[#0c121e] dark:to-amber-950/20 border-amber-300 dark:border-amber-800/80'
+            : threatTier.level === 'warning'
+            ? 'bg-gradient-to-br from-orange-500/10 via-white to-orange-500/5 dark:from-orange-950/40 dark:via-[#0c121e] dark:to-orange-950/20 border-orange-300 dark:border-orange-800/80'
+            : 'bg-gradient-to-br from-rose-500/10 via-white to-rose-500/5 dark:from-rose-950/40 dark:via-[#0c121e] dark:to-rose-950/20 border-rose-300 dark:border-rose-800/80'
+        }`}>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <span className={`px-3 py-1 rounded-full text-xs font-mono font-bold tracking-wider uppercase border inline-flex items-center gap-1.5 shadow-2xs ${
                 threatTier.level === 'safe'
                   ? 'bg-emerald-600 text-white border-emerald-600'
                   : threatTier.level === 'advisory'
@@ -547,95 +560,131 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
                   ? 'bg-orange-600 text-white border-orange-600'
                   : 'bg-rose-600 text-white border-rose-600'
               }`}>
+                <span className="w-2 h-2 rounded-full bg-white animate-ping" />
                 {threatTier.badge}
               </span>
-              <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
-                {selectedAOI.name} &bull; {isLiveSync ? (isIndo ? 'Satelit NASA Langsung (NRT)' : 'Live NASA Satellite') : (isIndo ? 'Kompilasi Data 26 Tahun' : '26-Year Records')}
+
+              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                {selectedAOI.name} &bull; {isLiveSync ? (isIndo ? 'Satelit Langsung NASA NRT' : 'Live NASA NRT Feed') : (isIndo ? 'Rekam Jejak 26 Tahun' : '26-Year Trajectory')}
               </span>
             </div>
 
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-snug">
               {threatTier.title}
             </h2>
 
-            <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 max-w-3xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed max-w-2xl">
               {threatTier.desc}
             </p>
           </div>
 
-          {/* Quick Metrics Tile (Clean 3-column responsive grid with full breathing room) */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-white/80 dark:bg-[#0c121e]/80 backdrop-blur-sm p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800/80 shadow-2xs w-full">
-            <div className="p-2.5 text-center sm:border-r border-slate-100 dark:border-slate-800 flex flex-col justify-center items-center">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                {isIndo ? 'Titik Api Aktif' : 'Active Fires'}
+          {/* Action Footer Callout */}
+          <div className="mt-6 pt-4 border-t border-slate-200/80 dark:border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2 text-slate-800 dark:text-slate-200">
+              <ShieldAlert className="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0" />
+              <span className="font-bold">{isIndo ? 'Panduan Warga:' : 'Advice:'}</span>
+              <span className="line-clamp-2">{threatTier.advice}</span>
+            </div>
+
+            {onOpenBriefing && (
+              <button
+                onClick={onOpenBriefing}
+                className="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold transition shrink-0 cursor-pointer text-xs flex items-center gap-1.5 shadow-xs"
+              >
+                <span>🎙️</span>
+                <span>{isIndo ? 'Audio Briefing' : 'Audio Briefing'}</span>
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* 3 Metric Bento Tiles (5 cols) */}
+        <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+          {/* Tile A: Hotspots Count */}
+          <div className="bg-white dark:bg-[#0c121e] rounded-3xl p-5 border border-slate-200/80 dark:border-slate-800/80 shadow-xs flex items-center justify-between gap-4">
+            <div>
+              <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">
+                {isIndo ? 'Titik Api / Hotspot Terdeteksi' : 'Active NASA Detections'}
               </span>
-              <span className="text-xl sm:text-2xl font-black font-mono text-slate-900 dark:text-white tabular-nums block mt-0.5">
+              <div className="text-3xl sm:text-4xl font-black font-mono text-slate-900 dark:text-white tabular-nums mt-1">
                 {activeCount.toLocaleString()}
+              </div>
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 block">
+                {isIndo ? 'Sensor VIIRS 375m & MODIS 1km' : 'Thermal Radiance Sensors'}
               </span>
             </div>
+            <div className="w-14 h-14 rounded-2xl bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0 border border-orange-500/20">
+              <Flame className="w-7 h-7" />
+            </div>
+          </div>
 
-            <div className="p-2.5 text-center sm:border-r border-slate-100 dark:border-slate-800 flex flex-col justify-center items-center">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                {isIndo ? 'Estimasi ISPU' : 'Estimated AQI'}
+          {/* Tile B: ISPU Air Quality Index */}
+          <div className="bg-white dark:bg-[#0c121e] rounded-3xl p-5 border border-slate-200/80 dark:border-slate-800/80 shadow-xs flex items-center justify-between gap-4">
+            <div>
+              <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">
+                {isIndo ? 'Estimasi Kualitas Udara (ISPU)' : 'Estimated Peat AQI'}
               </span>
-              <span className="text-xs font-mono font-bold text-slate-800 dark:text-slate-200 mt-1.5 block">
+              <div className="text-lg sm:text-xl font-bold font-mono text-slate-900 dark:text-white mt-1">
                 {threatTier.ispuEstimate}
+              </div>
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 block">
+                {isIndo ? 'Bahaya debu asap PM2.5 di udara' : 'Hazardous PM2.5 particulate levels'}
               </span>
             </div>
+            <div className="w-14 h-14 rounded-2xl bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center shrink-0 border border-sky-500/20">
+              <Wind className="w-7 h-7" />
+            </div>
+          </div>
 
-            <div className="p-2.5 text-center flex flex-col justify-center items-center">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                {isIndo ? 'Status Masker' : 'Mask Status'}
+          {/* Tile C: Masker Recommendation */}
+          <div className="bg-white dark:bg-[#0c121e] rounded-3xl p-5 border border-slate-200/80 dark:border-slate-800/80 shadow-xs flex items-center justify-between gap-4 sm:col-span-2 lg:col-span-1">
+            <div>
+              <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">
+                {isIndo ? 'Status Proteksi Masker' : 'Mask Status Required'}
               </span>
-              <span className={`text-xs font-bold mt-1.5 ${threatTier.maskRecommended ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
-                {threatTier.maskRecommended ? (isIndo ? 'Wajib Masker N95' : 'N95 Required') : (isIndo ? 'Kondisi Aman' : 'Normal Air')}
+              <div className={`text-base sm:text-lg font-black mt-1 ${threatTier.maskRecommended ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
+                {threatTier.maskRecommended ? (isIndo ? 'Wajib Masker N95 / KN95' : 'N95 Respirator Required') : (isIndo ? 'Aman Beraktivitas Normal' : 'Normal Air (Cloth OK)')}
+              </div>
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 block">
+                {threatTier.maskRecommended
+                  ? (isIndo ? 'Masker kain biasa TIDAK MAMPU menyaring PM2.5' : 'Cloth masks cannot filter micro peat smoke')
+                  : (isIndo ? 'Kondisi udara di luar ruangan terpantau bersih' : 'Ambient air remains within safe baseline')}
               </span>
+            </div>
+            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 border ${
+              threatTier.maskRecommended
+                ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20'
+                : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
+            }`}>
+              <HeartPulse className="w-7 h-7" />
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Action Callout */}
-        <div className="mt-4 pt-3.5 border-t border-slate-200/80 dark:border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2 text-slate-800 dark:text-slate-200">
-            <Info className="w-4 h-4 text-sky-600 shrink-0" />
-            <span className="font-semibold">{isIndo ? 'Tindakan Warga Hari Ini:' : 'Citizen Advice:'}</span>
-            <span>{threatTier.advice}</span>
-          </div>
-
-          {onOpenBriefing && (
-            <button
-              onClick={onOpenBriefing}
-              className="px-3 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold transition shrink-0 cursor-pointer text-xs"
-            >
-              {isIndo ? 'Dengarkan Ringkasan Audio' : 'Listen Audio Briefing'}
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* 2.5 INTERACTIVE VISUAL RADAR MAP (Peta Titik Api Nyata Ramah Warga & Akurat) */}
-      <div className="bg-white dark:bg-[#0c121e] border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs">
+      {/* 3. INTERACTIVE VISUAL RADAR MAP (Peta Titik Api Nyata Ramah Warga & Akurat) */}
+      <section className="bg-white dark:bg-[#0c121e] border border-slate-200/80 dark:border-slate-800/80 rounded-3xl overflow-hidden shadow-xs">
         {/* Map Header with Basemap & Filter Controls */}
-        <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-orange-100 dark:bg-orange-950/60 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0">
-              <Flame className="w-4 h-4" />
+        <div className="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0 border border-orange-500/20">
+              <Flame className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                <h3 className="text-base font-bold text-slate-900 dark:text-white tracking-tight">
                   {isIndo ? 'Peta Satelit Real-Time: Titik Api, Bara Gambut & Sebaran Asap' : 'Live Satellite Map: Peat Fires, Smoldering & Smoke Drift'}
                 </h3>
-                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 font-bold border border-emerald-200 dark:border-emerald-800">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/20">
                   {selectedAOI.name}
                 </span>
-                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold">
-                  {mapHotspots.length} {isIndo ? 'Titik Ditampilkan' : 'Points Displayed'}
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold">
+                  {mapHotspots.length} {isIndo ? 'Titik Nyata' : 'Points'}
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 mt-0.5">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 {isIndo
-                  ? 'Citra satelit NASA beresolusi tinggi dilengkapi nama kota, jalan, batas kabupaten, dan estimasi kedalaman gambut.'
+                  ? 'Citra satelit resolusi tinggi dilengkapi nama kota, jalan, batas kabupaten, dan estimasi kedalaman gambut.'
                   : 'High-resolution NASA observations with city names, roads, district boundaries, and peat depth data.'}
               </p>
             </div>
@@ -644,10 +693,10 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
           {/* Map Controls: Basemap & Hotspot Filter */}
           <div className="flex flex-wrap items-center gap-2 text-xs">
             {/* Basemap Switcher */}
-            <div className="flex items-center bg-slate-100 dark:bg-slate-900 p-0.5 rounded-xl border border-slate-200 dark:border-slate-800">
+            <div className="flex items-center bg-slate-100 dark:bg-slate-900 p-1 rounded-2xl border border-slate-200 dark:border-slate-800">
               <button
                 onClick={() => setMapBasemap('satellite_labeled')}
-                className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition cursor-pointer flex items-center gap-1 ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
                   mapBasemap === 'satellite_labeled'
                     ? 'bg-white dark:bg-slate-800 text-sky-600 dark:text-sky-400 shadow-2xs'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -659,7 +708,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
               </button>
               <button
                 onClick={() => setMapBasemap('streets')}
-                className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition cursor-pointer flex items-center gap-1 ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
                   mapBasemap === 'streets'
                     ? 'bg-white dark:bg-slate-800 text-sky-600 dark:text-sky-400 shadow-2xs'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -671,7 +720,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
               </button>
               <button
                 onClick={() => setMapBasemap('dark')}
-                className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition cursor-pointer flex items-center gap-1 ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
                   mapBasemap === 'dark'
                     ? 'bg-white dark:bg-slate-800 text-sky-600 dark:text-sky-400 shadow-2xs'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -684,10 +733,10 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
             </div>
 
             {/* Severity Filter */}
-            <div className="flex items-center bg-slate-100 dark:bg-slate-900 p-0.5 rounded-xl border border-slate-200 dark:border-slate-800">
+            <div className="flex items-center bg-slate-100 dark:bg-slate-900 p-1 rounded-2xl border border-slate-200 dark:border-slate-800">
               <button
                 onClick={() => setHotspotFilter('all')}
-                className={`px-2 py-1 rounded-lg text-[11px] font-semibold transition cursor-pointer ${
+                className={`px-2.5 py-1.5 rounded-xl text-xs font-semibold transition cursor-pointer ${
                   hotspotFilter === 'all'
                     ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-2xs'
                     : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
@@ -697,7 +746,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
               </button>
               <button
                 onClick={() => setHotspotFilter('severe')}
-                className={`px-2 py-1 rounded-lg text-[11px] font-semibold transition cursor-pointer flex items-center gap-1 ${
+                className={`px-2.5 py-1.5 rounded-xl text-xs font-semibold transition cursor-pointer flex items-center gap-1 ${
                   hotspotFilter === 'severe'
                     ? 'bg-rose-600 text-white shadow-2xs'
                     : 'text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30'
@@ -708,7 +757,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
               </button>
               <button
                 onClick={() => setHotspotFilter('moderate')}
-                className={`px-2 py-1 rounded-lg text-[11px] font-semibold transition cursor-pointer flex items-center gap-1 ${
+                className={`px-2.5 py-1.5 rounded-xl text-xs font-semibold transition cursor-pointer flex items-center gap-1 ${
                   hotspotFilter === 'moderate'
                     ? 'bg-amber-600 text-white shadow-2xs'
                     : 'text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30'
@@ -722,17 +771,17 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
         </div>
 
         {/* Quick Focus Bar & Wind Telemetry */}
-        <div className="px-4 py-2 bg-slate-50 dark:bg-[#0a0f1d] border-b border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs">
+        <div className="px-4 py-2.5 bg-slate-50/80 dark:bg-[#0a0f1d] border-b border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
           {/* Quick Focus Jump Chips */}
           <div className="flex flex-wrap items-center gap-1.5">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1 mr-1">
-              <Navigation className="w-3 h-3 text-sky-500" />
+              <Navigation className="w-3.5 h-3.5 text-sky-500" />
               {isIndo ? 'Fokus Wilayah:' : 'Quick Focus:'}
             </span>
 
             <button
               onClick={() => handleFlyTo(selectedAOI.center[0], selectedAOI.center[1], selectedAOI.zoom)}
-              className="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-sky-50 dark:hover:bg-sky-950/40 text-[11px] font-medium transition cursor-pointer flex items-center gap-1"
+              className="px-2.5 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-sky-50 dark:hover:bg-sky-950/40 text-[11px] font-medium transition cursor-pointer flex items-center gap-1"
             >
               <span>🎯</span>
               <span>{isIndo ? 'Pusat Wilayah' : 'Reset View'}</span>
@@ -741,7 +790,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
             {highestHotspot && (
               <button
                 onClick={() => handleFlyTo(highestHotspot.lat, highestHotspot.lon, 11)}
-                className="px-2.5 py-1 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-800 text-rose-700 dark:text-rose-300 hover:bg-rose-100 text-[11px] font-bold transition cursor-pointer flex items-center gap-1"
+                className="px-2.5 py-1 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-800 text-rose-700 dark:text-rose-300 hover:bg-rose-100 text-[11px] font-bold transition cursor-pointer flex items-center gap-1"
               >
                 <span>🔥</span>
                 <span>{isIndo ? `Titik Terpanas (${Math.round(highestHotspot.frp)} MW)` : `Peak Fire (${Math.round(highestHotspot.frp)} MW)`}</span>
@@ -752,7 +801,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
               <button
                 key={idx}
                 onClick={() => handleFlyTo(chip.lat, chip.lng, chip.zoom)}
-                className="px-2 py-1 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 text-[11px] transition cursor-pointer"
+                className="px-2.5 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 text-[11px] transition cursor-pointer"
               >
                 {chip.label}
               </button>
@@ -766,7 +815,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
               <span>
                 <b>{liveWeather.windSpeedKmH} km/h</b> &bull; Arah {Math.round(liveWeather.windDirectionDeg || 90)}&deg;
               </span>
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800">
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-bold">
                 {isIndo ? 'Asap Terbawa Angin' : 'Downwind Plume'}
               </span>
             </div>
@@ -774,12 +823,12 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
         </div>
 
         {/* The Leaflet Canvas */}
-        <div className="relative w-full h-[380px] sm:h-[460px] bg-slate-950">
+        <div className="relative w-full h-[400px] sm:h-[480px] bg-slate-950">
           <div ref={mapContainerRef} className="w-full h-full z-0" />
 
           {/* Enhanced Radar Legend Overlay */}
-          <div className="absolute bottom-3 left-3 z-[400] bg-white/95 dark:bg-[#0c121e]/95 backdrop-blur-md p-3 rounded-xl border border-slate-200/80 dark:border-slate-800 shadow-md text-[11px] space-y-2 pointer-events-auto max-w-[270px]">
-            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+          <div className="absolute bottom-3 left-3 z-[400] bg-white/95 dark:bg-[#0c121e]/95 backdrop-blur-md p-3 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-lg text-[11px] space-y-2 pointer-events-auto max-w-[280px]">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
               {isIndo ? 'Legenda Akurasi Radar Satelit:' : 'Satellite Radar Legend:'}
             </span>
             <div className="flex items-center gap-2">
@@ -814,14 +863,14 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
 
         {/* Selected Hotspot Detailed Inspection Panel */}
         {selectedHotspot && (
-          <div className="p-4 bg-sky-50/80 dark:bg-sky-950/40 border-t border-sky-200 dark:border-sky-800/80 flex flex-col md:flex-row md:items-center justify-between gap-4 animate-in fade-in duration-150">
+          <div className="p-4 sm:p-5 bg-sky-50/80 dark:bg-sky-950/40 border-t border-sky-200 dark:border-sky-800/80 flex flex-col md:flex-row md:items-center justify-between gap-4 animate-in fade-in duration-150">
             <div className="flex items-start gap-3">
-              <div className="w-9 h-9 rounded-xl bg-rose-500 text-white flex items-center justify-center shrink-0 shadow-xs">
+              <div className="w-10 h-10 rounded-2xl bg-rose-500 text-white flex items-center justify-center shrink-0 shadow-xs">
                 <Flame className="w-5 h-5 animate-pulse" />
               </div>
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-xs font-bold text-slate-900 dark:text-white">
+                  <span className="text-sm font-bold text-slate-900 dark:text-white">
                     {selectedHotspot.loc.regency}
                   </span>
                   {selectedHotspot.loc.district && (
@@ -829,7 +878,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
                       &bull; Kec. <b>{selectedHotspot.loc.district}</b>
                     </span>
                   )}
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-900/60 text-rose-700 dark:text-rose-300 font-bold">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-rose-100 dark:bg-rose-900/60 text-rose-700 dark:text-rose-300 font-bold">
                     {Math.round(selectedHotspot.spot.frp)} MW &bull; {(selectedHotspot.spot.brightness - 273.15).toFixed(1)}&deg;C
                   </span>
                 </div>
@@ -852,7 +901,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
                 href={selectedHotspot.loc.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-xs font-semibold text-sky-600 dark:text-sky-400 transition flex items-center gap-1.5 shadow-2xs"
+                className="px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-xs font-semibold text-sky-600 dark:text-sky-400 transition flex items-center gap-1.5 shadow-2xs"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
                 <span>{isIndo ? 'Rute Google Maps' : 'Google Maps'}</span>
@@ -860,7 +909,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
 
               <button
                 onClick={() => handleUseHotspotForReport(selectedHotspot.spot, selectedHotspot.loc)}
-                className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-2xs cursor-pointer"
+                className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-2xs cursor-pointer"
               >
                 <Send className="w-3.5 h-3.5" />
                 <span>{isIndo ? 'Lapor Titik Ini via WhatsApp' : 'Report via WhatsApp'}</span>
@@ -868,7 +917,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
 
               <button
                 onClick={() => setSelectedHotspot(null)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition cursor-pointer"
+                className="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition cursor-pointer"
                 title="Tutup"
               >
                 <X className="w-4 h-4" />
@@ -876,34 +925,34 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
             </div>
           </div>
         )}
-      </div>
+      </section>
 
-      {/* 3. SECTION 2 & 3 GRID: Panduan Kesehatan Asap & Prospek Cuaca ("Kapan Hujan Datang?") */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      {/* 4. 21ST.DEV STYLE BENTO GRID: KESEHATAN KELUARGA & RADAR CUACA */}
+      <section className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* Panel A: Panduan Kesehatan & Proteksi Asap Keluarga */}
-        <div className="bg-white dark:bg-[#0c121e] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-xs space-y-4">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0">
-              <HeartPulse className="w-4 h-4" />
+        {/* Panel A: Panduan Kesehatan & Proteksi Asap Keluarga (6 cols) */}
+        <div className="lg:col-span-6 bg-white dark:bg-[#0c121e] border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-6 sm:p-7 shadow-xs flex flex-col justify-between space-y-6">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 border border-rose-500/20">
+                <HeartPulse className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white tracking-tight">
+                  {isIndo ? 'Panduan Kesehatan & Perlindungan Asap' : 'Smoke Health & Family Protection'}
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  {isIndo ? 'Langkah praktis melindungi balita, anak, dan lansia dari bahaya partikel halus PM2.5' : 'Actionable guidance against toxic peat PM2.5 smoke'}
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                {isIndo ? 'Panduan Kesehatan & Perlindungan Asap' : 'Smoke Health & Family Protection'}
-              </h3>
-              <p className="text-[11px] text-slate-500">
-                {isIndo ? 'Langkah praktis melindungi balita, anak, dan lansia dari bahaya PM2.5' : 'Actionable guidance against toxic peat PM2.5 smoke'}
-              </p>
-            </div>
-          </div>
 
-          <div className="space-y-2.5 text-xs">
             {/* Visual Particle Comparison Bar */}
-            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
-                {isIndo ? 'Perbandingan Ukuran Partikel Asap vs Rambut Manusia:' : 'Particle Size Comparison (Why N95 is Mandatory):'}
+            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800/80 space-y-2.5">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                {isIndo ? 'Ukuran Partikel Debu Asap vs Rambut Manusia:' : 'Particle Size Comparison (Why N95 is Mandatory):'}
               </span>
-              <div className="space-y-1.5 font-mono text-[10px]">
+              <div className="space-y-2 font-mono text-[10px]">
                 <div className="flex items-center justify-between text-slate-600 dark:text-slate-400">
                   <span>Rambut Manusia (~70 µm)</span>
                   <span className="font-bold">Masker Kain Biasa</span>
@@ -930,65 +979,68 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
               </div>
             </div>
 
-            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1">
-              <div className="flex items-center justify-between font-bold">
-                <span className="text-slate-900 dark:text-white">{isIndo ? '1. Pemilihan Masker yang Benar' : '1. Proper Respirator Selection'}</span>
-                <span className="text-[10px] font-mono text-rose-600 dark:text-rose-400 font-bold">N95 / KN95</span>
+            {/* Actionable Health Protocols List */}
+            <div className="space-y-3 text-xs">
+              <div className="p-3.5 rounded-2xl bg-slate-50/60 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 space-y-1">
+                <div className="flex items-center justify-between font-bold">
+                  <span className="text-slate-900 dark:text-white">{isIndo ? '1. Pemilihan Masker yang Benar' : '1. Proper Respirator Selection'}</span>
+                  <span className="text-[10px] font-mono text-rose-600 dark:text-rose-400 font-bold">N95 / KN95</span>
+                </div>
+                <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
+                  {isIndo
+                    ? 'Masker kain atau masker bedah biasa TIDAK MAMPU menyaring partikel mikroskopis asap gambut (PM2.5). Selalu sediakan masker standar N95/KN95 untuk anak-anak dan lansia jika tercium bau sangit.'
+                    : 'Cloth and standard surgical masks cannot filter microscopic peat particles (PM2.5). Prioritize N95 or KN95 respirators for vulnerable family members.'}
+                </p>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
-                {isIndo
-                  ? 'Masker kain atau masker bedah biasa TIDAK MAMPU menyaring partikel mikroskopis asap gambut (PM2.5). Selalu sediakan masker standar N95/KN95 untuk anak-anak dan lansia jika tercium bau sangit.'
-                  : 'Cloth and standard surgical masks cannot filter microscopic peat particles (PM2.5). Prioritize N95 or KN95 respirators for vulnerable family members.'}
-              </p>
-            </div>
 
-            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1">
-              <div className="flex items-center justify-between font-bold">
-                <span className="text-slate-900 dark:text-white">{isIndo ? '2. Bikin Ruang Bebas Asap di Rumah' : '2. DIY Smoke-Safe Room'}</span>
-                <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">{isIndo ? 'Trik Kain Basah' : 'Damp Towel Seal'}</span>
+              <div className="p-3.5 rounded-2xl bg-slate-50/60 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 space-y-1">
+                <div className="flex items-center justify-between font-bold">
+                  <span className="text-slate-900 dark:text-white">{isIndo ? '2. Bikin Ruang Bebas Asap di Rumah' : '2. DIY Smoke-Safe Room'}</span>
+                  <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">{isIndo ? 'Trik Kain Basah' : 'Damp Towel Seal'}</span>
+                </div>
+                <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
+                  {isIndo
+                    ? 'Tutup celah ventilasi dan bawah pintu kamar memakai handuk atau kain yang dibasahi air. Taruh baskom air di pojok ruangan untuk menangkap debu sulfat yang melayang di udara.'
+                    : 'Seal vent cracks and door gaps with moist towels. Place shallow water basins in corners to catch settled sulfate ash particles.'}
+                </p>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
-                {isIndo
-                  ? 'Tutup celah ventilasi dan bawah pintu kamar memakai handuk atau kain yang dibasahi air. Taruh baskom air di pojok ruangan untuk menangkap debu sulfat yang melayang di udara.'
-                  : 'Seal vent cracks and door gaps with moist towels. Place shallow water basins in corners to catch settled sulfate ash particles.'}
-              </p>
-            </div>
 
-            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1">
-              <div className="flex items-center justify-between font-bold">
-                <span className="text-slate-900 dark:text-white">{isIndo ? '3. Waktu Paling Berbahaya: Pagi Hari' : '3. Critical Peak Hours: Morning'}</span>
-                <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 font-bold">06:00 - 09:00 WIB</span>
+              <div className="p-3.5 rounded-2xl bg-slate-50/60 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 space-y-1">
+                <div className="flex items-center justify-between font-bold">
+                  <span className="text-slate-900 dark:text-white">{isIndo ? '3. Waktu Paling Berbahaya: Pagi Hari' : '3. Critical Peak Hours: Morning'}</span>
+                  <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 font-bold">06:00 - 09:00 WIB</span>
+                </div>
+                <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
+                  {isIndo
+                    ? 'Akibat fenomena inversi suhu malam hari, asap pembakaran gambut tertahan di ketinggian rendah dekat tanah pada pagi hari. Tunda olahraga luar ruangan sampai matahari terik memecah lapisan asap.'
+                    : 'Thermal inversion traps peat smoke near the ground during early morning hours. Delay outdoor activities until mid-day sun disperses the trapped layer.'}
+                </p>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
-                {isIndo
-                  ? 'Akibat fenomena inversi suhu malam hari, asap pembakaran gambut tertahan di ketinggian rendah dekat tanah pada pagi hari. Tunda olahraga luar ruangan sampai matahari terik memecah lapisan asap.'
-                  : 'Thermal inversion traps peat smoke near the ground during early morning hours. Delay outdoor activities until mid-day sun disperses the trapped layer.'}
-              </p>
             </div>
           </div>
         </div>
 
-        {/* Panel B: Prospek Cuaca & Musim Kedepan ("Kapan Hujan Datang?") */}
-        <div className="bg-white dark:bg-[#0c121e] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-xs space-y-4">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-sky-100 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 flex items-center justify-center shrink-0">
-              <CloudRain className="w-4 h-4" />
+        {/* Panel B: Prospek Cuaca & Musim Kedepan ("Kapan Hujan Datang?") (6 cols) */}
+        <div className="lg:col-span-6 bg-white dark:bg-[#0c121e] border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-6 sm:p-7 shadow-xs flex flex-col justify-between space-y-6">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center shrink-0 border border-sky-500/20">
+                <CloudRain className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white tracking-tight">
+                  {isIndo ? 'Prospek Cuaca & Musim: Kapan Hujan Datang?' : 'Weather Outlook: When Will It Rain?'}
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  {isIndo ? 'Proyeksi curah hujan dan durasi kemarau tahun 2026' : 'Rainfall forecast and 2026 dry-season trajectory'}
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                {isIndo ? 'Prospek Cuaca & Musim: Kapan Hujan Datang?' : 'Weather Outlook: When Will It Rain?'}
-              </h3>
-              <p className="text-[11px] text-slate-500">
-                {isIndo ? 'Proyeksi curah hujan dan durasi kemarau tahun 2026' : 'Rainfall forecast and 2026 dry-season trajectory'}
-              </p>
-            </div>
-          </div>
 
-          <div className="space-y-2.5 text-xs">
             {/* Visual Dry Spell Progress Bar */}
-            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800/80 space-y-2.5">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-slate-900 dark:text-white">
+                <span className="font-bold text-slate-900 dark:text-white text-xs">
                   {isIndo ? 'Tingkat Kekeringan Lahan Gambut' : 'Peat Dryness Gauge'}
                 </span>
                 <span className="text-xs font-mono font-bold text-amber-600 dark:text-amber-400">
@@ -1000,81 +1052,84 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
                 <div className="bg-amber-500 h-full w-[35%]" title="Mulai Surut" />
                 <div className="bg-rose-500 h-full w-[35%]" title="Kritis Terbakar" />
               </div>
-              <div className="flex justify-between text-[9px] font-mono text-slate-400">
+              <div className="flex justify-between text-[10px] font-mono text-slate-400">
                 <span>Basah (&lt;40cm)</span>
                 <span>Siaga</span>
                 <span className="text-rose-500 font-bold">Rawan Terbakar</span>
               </div>
             </div>
 
-            {/* Indikator Hari Tanpa Hujan */}
-            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3">
-              <div>
-                <span className="font-bold text-slate-900 dark:text-white block">
-                  {isIndo ? 'Hari Tanpa Hujan Berturut-turut' : 'Consecutive Dry Days'}
-                </span>
-                <span className="text-[11px] text-slate-500">
-                  {isIndo ? `Wilayah ${selectedAOI.name} (Data Dasarian BMKG & Satelit GPM)` : `${selectedAOI.name} basin metrics`}
-                </span>
+            {/* Weather Prognosis Cards */}
+            <div className="space-y-3 text-xs">
+              {/* Indikator Hari Tanpa Hujan */}
+              <div className="p-3.5 rounded-2xl bg-slate-50/60 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between gap-3">
+                <div>
+                  <span className="font-bold text-slate-900 dark:text-white block">
+                    {isIndo ? 'Hari Tanpa Hujan Berturut-turut' : 'Consecutive Dry Days'}
+                  </span>
+                  <span className="text-[11px] text-slate-500">
+                    {isIndo ? `Wilayah ${selectedAOI.name} (Data Dasarian BMKG & Satelit GPM)` : `${selectedAOI.name} basin metrics`}
+                  </span>
+                </div>
+                <div className="text-right shrink-0 font-mono">
+                  <span className="text-xl font-black text-amber-600 dark:text-amber-400">
+                    {activeCount > 50 ? '14 Hari' : '4 Hari'}
+                  </span>
+                  <span className="text-[10px] text-slate-400 block">{isIndo ? 'Gambut Kering' : 'Peat Drying'}</span>
+                </div>
               </div>
-              <div className="text-right shrink-0 font-mono">
-                <span className="text-xl font-bold text-amber-600 dark:text-amber-400">
-                  {activeCount > 50 ? '14 Hari' : '4 Hari'}
-                </span>
-                <span className="text-[10px] text-slate-400 block">{isIndo ? 'Gambut Kering' : 'Peat Drying'}</span>
-              </div>
-            </div>
 
-            {/* Proyeksi Kapan Hujan Datang */}
-            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1">
-              <div className="flex items-center justify-between font-bold">
-                <span className="text-slate-900 dark:text-white">
-                  {isIndo ? 'Prakiraan Hujan Terdekat' : 'Next Expected Rainfall'}
-                </span>
-                <span className="text-[10px] font-mono text-sky-600 dark:text-sky-400 font-bold">
-                  {isIndo ? '2 - 4 Hari Lagi' : '2 - 4 Days'}
-                </span>
+              {/* Proyeksi Kapan Hujan Datang */}
+              <div className="p-3.5 rounded-2xl bg-slate-50/60 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 space-y-1">
+                <div className="flex items-center justify-between font-bold">
+                  <span className="text-slate-900 dark:text-white">
+                    {isIndo ? 'Prakiraan Hujan Terdekat' : 'Next Expected Rainfall'}
+                  </span>
+                  <span className="text-[10px] font-mono text-sky-600 dark:text-sky-400 font-bold">
+                    {isIndo ? '2 - 4 Hari Lagi' : '2 - 4 Days'}
+                  </span>
+                </div>
+                <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
+                  {isIndo
+                    ? 'Aktivitas awan konvektif mulai terbentuk di pesisir barat. Potensi hujan intensitas ringan hingga sedang diperkirakan membasahi sebagian kubah gambut pada pertengahan pekan.'
+                    : 'Convective cloud bands are forming along the western coast, with light-to-moderate showers expected to provide relief mid-week.'}
+                </p>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
-                {isIndo
-                  ? 'Aktivitas awan konvektif mulai terbentuk di pesisir barat. Potensi hujan intensitas ringan hingga sedang diperkirakan membasahi sebagian kubah gambut pada pertengahan pekan.'
-                  : 'Convective cloud bands are forming along the western coast, with light-to-moderate showers expected to provide relief mid-week.'}
-              </p>
-            </div>
 
-            {/* Analisis Durasi Kemarau Tahun 2026 */}
-            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1">
-              <div className="flex items-center justify-between font-bold">
-                <span className="text-slate-900 dark:text-white">
-                  {isIndo ? 'Prediksi Musim 2026 (ENSO & IOD)' : '2026 Climate Trajectory (ENSO & IOD)'}
-                </span>
-                <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">
-                  {isIndo ? 'Fase Netral' : 'Neutral Phase'}
-                </span>
+              {/* Analisis Durasi Kemarau Tahun 2026 */}
+              <div className="p-3.5 rounded-2xl bg-slate-50/60 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 space-y-1">
+                <div className="flex items-center justify-between font-bold">
+                  <span className="text-slate-900 dark:text-white">
+                    {isIndo ? 'Prediksi Musim 2026 (ENSO & IOD)' : '2026 Climate Trajectory (ENSO & IOD)'}
+                  </span>
+                  <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">
+                    {isIndo ? 'Fase Netral' : 'Neutral Phase'}
+                  </span>
+                </div>
+                <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
+                  {isIndo
+                    ? 'Suhu muka laut Samudera Pasifik (ENSO) dan Samudera Hindia (IOD) berada dalam kondisi normal netral. Tahun ini diperkirakan bukan kemarau panjang ekstrem seperti 2015 atau 2019.'
+                    : 'Equatorial Pacific and Indian Ocean sea surface temperatures remain neutral, indicating a standard dry season without extreme drought surges.'}
+                </p>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
-                {isIndo
-                  ? 'Suhu muka laut Samudera Pasifik (ENSO) dan Samudera Hindia (IOD) berada dalam kondisi normal netral. Tahun ini diperkirakan bukan kemarau panjang ekstrem seperti 2015 atau 2019.'
-                  : 'Equatorial Pacific and Indian Ocean sea surface temperatures remain neutral, indicating a standard dry season without extreme drought surges.'}
-              </p>
             </div>
           </div>
         </div>
 
-      </div>
+      </section>
 
-      {/* 4. SECTION 4: Jalur Cepat Lapor Bara Api / Asap via WhatsApp (1-Klik) */}
-      <div id="citizen-whatsapp-report" className="bg-white dark:bg-[#0c121e] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xs space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
-              <Send className="w-4 h-4" />
+      {/* 5. DISPATCH ACTION BAND: LAPOR BARA VIA WHATSAPP (1-KLIK) */}
+      <section id="citizen-whatsapp-report" className="bg-white dark:bg-[#0c121e] border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-6 sm:p-7 shadow-xs space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/20">
+              <Send className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight">
                 {isIndo ? 'Jalur Cepat Lapor Bara / Asap ke Posko Desa (WhatsApp)' : '1-Click WhatsApp Quick Report to Local Fire Brigades'}
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 {isIndo
                   ? 'Kirim laporan instan ke Masyarakat Peduli Api (MPA) / Posko BPBD setempat tanpa login atau formulir panjang.'
                   : 'Dispatch instant emergency reports to local fire brigades and MPA volunteers without complex logins.'}
@@ -1086,25 +1141,25 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
           <button
             onClick={handleGetLocation}
             disabled={isGettingLocation}
-            className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 transition flex items-center gap-1.5 cursor-pointer shrink-0"
+            className="px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 transition flex items-center gap-2 cursor-pointer shrink-0 shadow-2xs"
           >
-            <MapPin className="w-3.5 h-3.5 text-sky-600" />
+            <MapPin className="w-4 h-4 text-sky-600" />
             <span>
               {isGettingLocation
                 ? (isIndo ? 'Mencari GPS...' : 'Locating GPS...')
                 : coords
                 ? `${coords.lat.toFixed(4)}°, ${coords.lng.toFixed(4)}°`
-                : (isIndo ? 'Ambil GPS Saya' : 'Get My GPS')}
+                : (isIndo ? 'Ambil Koordinat GPS Saya' : 'Get My GPS Coordinates')}
             </span>
           </button>
         </div>
 
         {/* Report Type Selector Pills */}
-        <div className="space-y-1.5">
-          <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+        <div className="space-y-2">
+          <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
             {isIndo ? 'Pilih Kondisi di Lapangan:' : 'Select Situation:'}
           </label>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
               {
                 id: 'bara',
@@ -1125,7 +1180,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
               <button
                 key={item.id}
                 onClick={() => setReportType(item.id as any)}
-                className={`p-3 rounded-xl border text-left transition cursor-pointer ${
+                className={`p-4 rounded-2xl border text-left transition cursor-pointer ${
                   reportType === item.id
                     ? 'bg-sky-50 dark:bg-sky-950/40 border-sky-600 dark:border-sky-500 shadow-2xs'
                     : 'bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'
@@ -1134,7 +1189,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
                 <span className="font-bold text-xs text-slate-900 dark:text-white block">
                   {item.label}
                 </span>
-                <span className="text-[11px] text-slate-500 mt-0.5 block">
+                <span className="text-[11px] text-slate-500 mt-1 block leading-relaxed">
                   {item.desc}
                 </span>
               </button>
@@ -1144,7 +1199,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
 
         {/* Location Note Input */}
         <div>
-          <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1">
+          <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
             {isIndo ? 'Catatan Patok / Lokasi Spesifik (Opsional):' : 'Location Landmark Notes (Optional):'}
           </label>
           <input
@@ -1152,15 +1207,15 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
             value={userLocationNote}
             onChange={(e) => setUserLocationNote(e.target.value)}
             placeholder={isIndo ? 'Contoh: Dekat jembatan kayu Parit 4 Desa Rimbo Panjang...' : 'E.g., Near wooden bridge Canal 4...'}
-            className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-sky-500"
+            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-sky-500"
           />
         </div>
 
         {/* Action Buttons: WhatsApp & Copy */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
           <button
             onClick={handleOpenWhatsApp}
-            className="flex-1 py-2.5 px-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-xs cursor-pointer min-h-[42px]"
+            className="flex-1 py-3 px-5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-xs cursor-pointer min-h-[44px]"
           >
             <Send className="w-4 h-4 shrink-0" />
             <span>{isIndo ? 'Kirim Laporan via WhatsApp Sekarang' : 'Send Report via WhatsApp Now'}</span>
@@ -1168,64 +1223,64 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
 
           <button
             onClick={handleCopyReport}
-            className="py-2.5 px-4 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer min-h-[42px]"
+            className="py-3 px-5 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px]"
           >
-            <Copy className="w-3.5 h-3.5 shrink-0" />
+            <Copy className="w-4 h-4 shrink-0" />
             <span>{isCopied ? (isIndo ? 'Berhasil Disalin!' : 'Copied!') : (isIndo ? 'Salin Teks Pesan' : 'Copy Message')}</span>
           </button>
         </div>
-      </div>
+      </section>
 
-      {/* 5. SECTION 5: Panduan Warga Jaga Lahan Gambut Basah */}
-      <div className="bg-white dark:bg-[#0c121e] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-xs space-y-4">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
-            <Droplets className="w-4 h-4" />
+      {/* 6. PANDUAN TAKTIS WARGA: JAGA GAMBUT BASAH & CARA PADAM SUNTIK */}
+      <section className="bg-white dark:bg-[#0c121e] border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-6 sm:p-7 shadow-xs space-y-6">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/20">
+            <Droplets className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            <h3 className="text-base font-bold text-slate-900 dark:text-white tracking-tight">
               {isIndo ? 'Panduan Warga: Cara Jaga Gambut Tetap Basah' : 'Peatland Stewardship: Keeping Peat Wet'}
             </h3>
-            <p className="text-[11px] text-slate-500">
-              {isIndo ? 'Trik sederhana menjaga kebun agar tidak mudah terbakar di musim kemarau' : 'Simple community practices to prevent deep underground peat fires'}
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              {isIndo ? 'Trik praktis menjaga kebun agar tidak mudah terbakar di musim kemarau' : 'Simple community practices to prevent deep underground peat fires'}
             </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 text-xs">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
           {/* Card 1: 40cm Canal Rule with Visual Cross-Section Diagram */}
-          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
+          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800/80 space-y-4">
             <div className="flex items-center justify-between">
-              <span className="font-bold text-slate-900 dark:text-white">
+              <span className="font-bold text-slate-900 dark:text-white text-sm">
                 {isIndo ? '1. Aturan Parit 40 cm (PP 71/2014 & BRGM)' : '1. The 40 cm Ditch Water Rule'}
               </span>
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 font-bold">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold border border-blue-500/20">
                 Muka Air Tanah
               </span>
             </div>
 
             {/* Visual SVG Soil Cross Section */}
-            <div className="p-2.5 rounded-lg bg-white dark:bg-[#0c121e] border border-slate-200 dark:border-slate-800">
-              <div className="space-y-1 font-mono text-[10px]">
+            <div className="p-3 rounded-xl bg-white dark:bg-[#0c121e] border border-slate-200/80 dark:border-slate-800/80">
+              <div className="space-y-1.5 font-mono text-[10px]">
                 {/* Surface Ground */}
                 <div className="flex items-center justify-between text-emerald-700 dark:text-emerald-400 font-bold border-b border-emerald-500 pb-1">
                   <span>Permukaan Lahan Kebun (0 cm)</span>
                   <span>🌿 Lapisan Rumput</span>
                 </div>
                 {/* 0 to -40cm Zone (Safe Moist Saturated Zone) */}
-                <div className="h-7 bg-amber-500/15 border-l-4 border-amber-500 px-2 flex items-center justify-between text-amber-700 dark:text-amber-300">
+                <div className="h-8 bg-amber-500/15 border-l-4 border-amber-500 px-2.5 flex items-center justify-between text-amber-700 dark:text-amber-300">
                   <span>Batas Kritis: 0 s/d -40 cm</span>
                   <span className="text-[9px] font-bold">ZONA AMAN (Gambut Basah)</span>
                 </div>
                 {/* Below -40cm Danger Zone */}
-                <div className="h-8 bg-rose-500/20 border-l-4 border-rose-500 px-2 flex items-center justify-between text-rose-700 dark:text-rose-300 font-bold">
+                <div className="h-9 bg-rose-500/20 border-l-4 border-rose-500 px-2.5 flex items-center justify-between text-rose-700 dark:text-rose-300 font-bold">
                   <span>Surut &gt; -40 cm</span>
                   <span className="text-[9px] animate-pulse">🔥 BAHAYA MUDAH TERBAKAR!</span>
                 </div>
               </div>
             </div>
 
-            <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
+            <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
               {isIndo
                 ? 'Lahan gambut seperti spons raksasa. Jika air parit surut lebih dari 40 cm dari bibir tanah, pori-pori gambut terisi oksigen dan mudah meledak terbakar. Pasang sekat kanal dari karung pasir agar air tidak habis mengalir ke sungai.'
                 : 'Peat acts like a giant sponge. If canal water drops lower than 40 cm below the surface, the peat dries out and becomes highly flammable. Close canal blocks to trap water in the soil.'}
@@ -1233,49 +1288,49 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
           </div>
 
           {/* Card 2: Peat Fire Extinguishing with Lance Injection Diagram */}
-          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
+          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800/80 space-y-4">
             <div className="flex items-center justify-between">
-              <span className="font-bold text-slate-900 dark:text-white">
+              <span className="font-bold text-slate-900 dark:text-white text-sm">
                 {isIndo ? '2. Cara Padamkan Bara: Jangan Semprot Atas!' : '2. Peat Fire Extinguishing: Deep Injection'}
               </span>
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300 font-bold">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold border border-rose-500/20">
                 Tusuk & Suntik Air
               </span>
             </div>
 
             {/* Visual Action Diagram: Wrong vs Right */}
-            <div className="grid grid-cols-2 gap-2 text-[10px] font-mono">
-              <div className="p-2 rounded-lg bg-rose-50/70 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/60 text-rose-800 dark:text-rose-300">
-                <span className="font-bold block text-rose-600 dark:text-rose-400 mb-0.5">❌ SALAH: Semprot Atas</span>
-                <span>Hanya basahi abu luar. Bara di kedalaman 1 meter tetap menjalar dan menyala lagi.</span>
+            <div className="grid grid-cols-2 gap-3 text-[10px] font-mono">
+              <div className="p-3 rounded-xl bg-rose-50/70 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/60 text-rose-800 dark:text-rose-300">
+                <span className="font-bold block text-rose-600 dark:text-rose-400 mb-1">❌ SALAH: Semprot Atas</span>
+                <span className="leading-relaxed">Hanya basahi abu luar. Bara di kedalaman 1 meter tetap menjalar dan menyala lagi.</span>
               </div>
-              <div className="p-2 rounded-lg bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/60 text-emerald-800 dark:text-emerald-300">
-                <span className="font-bold block text-emerald-600 dark:text-emerald-400 mb-0.5">✅ BENAR: Suntik Pipa</span>
-                <span>Tancapkan pipa pompa ke dalam tanah 50-100cm hingga tanah jadi bubur lumpur dingin.</span>
+              <div className="p-3 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/60 text-emerald-800 dark:text-emerald-300">
+                <span className="font-bold block text-emerald-600 dark:text-emerald-400 mb-1">✅ BENAR: Suntik Pipa</span>
+                <span className="leading-relaxed">Tancapkan pipa pompa ke dalam tanah 50-100cm hingga tanah jadi bubur lumpur dingin.</span>
               </div>
             </div>
 
-            <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
+            <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
               {isIndo
                 ? 'Menyiram air dari atas hanya membuang ribuan liter air tanpa mematikan sumber api bawah tanah. Gunakan tombak pemadam (nozzle injeksi) yang ditancapkan ke dalam tanah sampai keluar gelembung uap air panas dan lumpur basah.'
                 : 'Spraying surface water does not extinguish underground peat fires. Drive a pipe or bamboo lance 50–100 cm into the ground to inject pressurized water directly into the smoldering root layer.'}
             </p>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* 6. CALLOUT: Jembatan Menuju Mode Riset & Satgas (Untuk Juri NASA) */}
-      <div className="p-4 sm:p-5 rounded-2xl bg-slate-900 text-white border border-slate-800 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="space-y-1">
+      {/* 7. CALLOUT: JEMBATAN KE MODE RISET & SATGAS (UNTUK JURI NASA) */}
+      <section className="p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900 to-sky-950 text-white border border-slate-800 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <div className="space-y-1.5">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-800 font-bold">
+            <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/30 font-bold">
               {isIndo ? 'Untuk Peneliti & Juri NASA Space Apps' : 'For Researchers & NASA Judges'}
             </span>
             <span className="text-xs font-bold text-slate-300">
               {isIndo ? 'Ingin Melihat Analisis Satelit Mendalam?' : 'Need Deep Satellite Intelligence?'}
             </span>
           </div>
-          <p className="text-xs text-slate-400 max-w-2xl">
+          <p className="text-xs text-slate-400 max-w-2xl leading-relaxed">
             {isIndo
               ? 'Buka Mode Riset & Satgas untuk memeriksa harmonisasi 26 tahun MODIS/VIIRS, formula fisika Stefan-Boltzmann, fusi spasial 5.5 km, dan unduh layer GeoJSON (RFC 7946).'
               : 'Switch to Science Mode to inspect 26-year MODIS/VIIRS cross-sensor calibration, Stefan-Boltzmann physics formulas, equal-area grid fusion, and GeoJSON downloads.'}
@@ -1284,12 +1339,12 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
 
         <button
           onClick={onSwitchToScience}
-          className="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl text-xs transition flex items-center justify-center gap-1.5 shrink-0 cursor-pointer shadow-xs min-h-[38px]"
+          className="px-5 py-2.5 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl text-xs transition flex items-center justify-center gap-2 shrink-0 cursor-pointer shadow-md min-h-[42px]"
         >
           <span>{isIndo ? 'Buka Mode Riset & Satgas' : 'Open Science & Research Mode'}</span>
-          <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+          <ArrowRight className="w-4 h-4 shrink-0" />
         </button>
-      </div>
+      </section>
 
     </div>
   );
