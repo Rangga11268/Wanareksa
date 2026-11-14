@@ -15,9 +15,11 @@ import {
   Check,
   ArrowRight,
   PlayCircle,
-  Award
+  Award,
+  Sparkles
 } from 'lucide-react';
 import { NavTab } from './Navbar';
+import { HeroSignatureTelemetry } from './HeroSignatureTelemetry';
 
 interface LandingStoryProps {
   language: Language;
@@ -95,7 +97,7 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
   return (
     <div className="w-full space-y-10 sm:space-y-14 animate-in fade-in duration-200 max-w-full overflow-hidden">
       
-      {/* 1. HERO SECTION (Editorial 2-Column Split Layout) */}
+      {/* 1. HERO SECTION (Editorial 2-Column Split Layout with Signature Telemetry Stage) */}
       <section className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-neutral-800 bg-[#070A10] text-white p-6 sm:p-10 lg:p-12 shadow-2xl">
         
         {/* Subtle Ambient Background Mesh */}
@@ -107,8 +109,14 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
           {/* Left Column: Concise Editorial Content & Actions */}
           <div className="lg:col-span-7 space-y-5 text-left">
             
+            {/* Editorial Kicker Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-neutral-900/90 border border-neutral-700/80 text-[11px] font-mono tracking-wider text-sky-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+              <span>NASA SPACE APPS 2026 &bull; SENSOR HARMONIZATION</span>
+            </div>
+
             {/* Main Headline */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-[-0.035em] text-white leading-[1.08]">
               {language === 'id' ? (
                 <>
                   Harmonisasi <span className="text-sky-400">26 Tahun Titik Api</span> Satelit NASA di Indonesia
@@ -131,7 +139,7 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
               <button
                 onClick={() => onSelectTab('overview')}
-                className="w-full sm:w-auto h-12 min-h-[48px] px-6 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]"
+                className="w-full sm:w-auto h-12 min-h-[48px] px-6 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
               >
                 <Activity className="w-4 h-4" />
                 <span>{language === 'id' ? 'Buka Peta & Data' : 'Launch Intel & Map'}</span>
@@ -140,7 +148,7 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
 
               <button
                 onClick={() => onSelectTab('lab')}
-                className="w-full sm:w-auto h-12 min-h-[48px] px-5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 hover:text-white border border-neutral-700 font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]"
+                className="w-full sm:w-auto h-12 min-h-[48px] px-5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 hover:text-white border border-neutral-700 font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
               >
                 <Cpu className="w-4 h-4 text-sky-400" />
                 <span>{language === 'id' ? 'Lab Harmonisasi' : 'Harmonization Lab'}</span>
@@ -148,7 +156,7 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
 
               <button
                 onClick={onOpenTour}
-                className="w-full sm:w-auto h-12 min-h-[48px] px-4 rounded-xl text-neutral-400 hover:text-sky-300 text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer"
+                className="w-full sm:w-auto h-12 min-h-[48px] px-4 rounded-xl text-neutral-400 hover:text-sky-300 text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-[0.98]"
               >
                 <PlayCircle className="w-3.5 h-3.5 text-sky-400" />
                 <span>{language === 'id' ? 'Tur 30 Detik' : '30-Sec Tour'}</span>
@@ -173,42 +181,9 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
 
           </div>
 
-          {/* Right Column: High-Definition Interactive Satellite Frame */}
+          {/* Right Column: Signature Interactive Telemetry & Footprint Stage */}
           <div className="lg:col-span-5">
-            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-700/80 bg-neutral-950 shadow-2xl group aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3]">
-              <img
-                src="/terra_hero_satellite_earth.jpg"
-                alt="NASA Terra and Suomi-NPP Earth Observation Satellite Fleet over Indonesia"
-                className="w-full h-full object-cover object-center transform transition duration-700 group-hover:scale-105"
-                loading="eager"
-              />
-
-              {/* Dark Vignette Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/90 via-neutral-950/20 to-neutral-950/30 pointer-events-none" />
-
-              {/* Live HUD Badges on Visual */}
-              <div className="absolute inset-0 p-3.5 sm:p-4 flex flex-col justify-between pointer-events-none">
-                <div className="flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-neutral-950/80 backdrop-blur-md border border-neutral-700/80 text-[10px] font-mono text-sky-300">
-                    <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-ping" />
-                    <span>NASA TERRA &bull; SUOMI-NPP</span>
-                  </span>
-                  <span className="text-[10px] font-mono text-neutral-400 bg-neutral-950/80 backdrop-blur-md px-2 py-0.5 rounded border border-neutral-800">
-                    LEO 705 km
-                  </span>
-                </div>
-
-                <div className="p-2.5 rounded-xl bg-neutral-950/90 backdrop-blur-md border border-neutral-700/80 space-y-0.5">
-                  <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold text-amber-400">
-                    <Flame className="w-3 h-3 text-amber-400" />
-                    <span>Pemindaian Lahan Gambut Indonesia</span>
-                  </div>
-                  <p className="text-[10px] text-neutral-300 font-mono">
-                    Kalimantan &bull; Sumatra &bull; Riau &bull; Papua
-                  </p>
-                </div>
-              </div>
-            </div>
+            <HeroSignatureTelemetry language={language} />
           </div>
 
         </div>

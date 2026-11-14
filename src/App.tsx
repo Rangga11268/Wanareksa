@@ -264,6 +264,13 @@ export function App() {
     } catch (e) {}
   }, [appMode, activeTab, selectedAOI.id]);
 
+  // Smooth scroll to top on tab change for fluid editorial continuity
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [activeTab, appMode]);
+
   const [rawMode, setRawMode] = useState<boolean>(false);
   const [selectedKey, setSelectedKey] = useState<string | null>('2015-38');
   const [selectedWeekData, setSelectedWeekData] = useState<HarmonizedWeekData | null>(null);
@@ -488,38 +495,40 @@ export function App() {
       <main className="flex-1 w-full px-4 sm:px-6 lg:px-8 py-6">
         {/* DUAL MODE: MODE WARGA (CITIZEN) vs MODE RISET / SATGAS (SCIENCE) */}
         {appMode === 'citizen' ? (
-          <CitizenPortal
-            language={language}
-            selectedAOI={selectedAOI}
-            onSelectAOI={(aoi) => {
-              setSelectedAOI(aoi);
-              setSelectedKey(null);
-              setSelectedWeekData(null);
-            }}
-            hotspots={displayedHotspots}
-            isLiveSync={isLiveSync}
-            onSwitchToScience={() => handleToggleAppMode('science')}
-            onOpenBriefing={() => setIsBriefingModalOpen(true)}
-            onOpenAlertModal={() => setIsAlertModalOpen(true)}
-          />
+          <div className="tab-view-enter">
+            <CitizenPortal
+              language={language}
+              selectedAOI={selectedAOI}
+              onSelectAOI={(aoi) => {
+                setSelectedAOI(aoi);
+                setSelectedKey(null);
+                setSelectedWeekData(null);
+              }}
+              hotspots={displayedHotspots}
+              isLiveSync={isLiveSync}
+              onSwitchToScience={() => handleToggleAppMode('science')}
+              onOpenBriefing={() => setIsBriefingModalOpen(true)}
+              onOpenAlertModal={() => setIsAlertModalOpen(true)}
+            />
+          </div>
         ) : (
           <>
             {/* Tab 0: Mission Story & Executive Overview */}
             {activeTab === 'story' && (
               <Suspense fallback={<TabLoadingFallback label={language === 'id' ? 'Memuat Misi & Ikhtisar Eksekutif...' : 'Loading Mission Story...'} />}>
-            <div className="animate-in fade-in duration-200">
-              <LandingStory
-                language={language}
-                onSelectTab={setActiveTab}
-                onOpenTour={() => setIsTourModalOpen(true)}
-              />
-            </div>
-          </Suspense>
-        )}
+                <div className="tab-view-enter">
+                  <LandingStory
+                    language={language}
+                    onSelectTab={setActiveTab}
+                    onOpenTour={() => setIsTourModalOpen(true)}
+                  />
+                </div>
+              </Suspense>
+            )}
 
-        {/* Tab 1: Live Intelligence & Harmonized Calendar (Overview) */}
-        {activeTab === 'overview' && (
-          <div className="space-y-6 animate-in fade-in duration-200">
+            {/* Tab 1: Live Intelligence & Harmonized Calendar (Overview) */}
+            {activeTab === 'overview' && (
+              <div className="space-y-6 tab-view-enter">
             
             {/* Control bar with Segmented Tool Switcher & Historic Case Studies */}
             <DashboardControlBar
@@ -816,7 +825,7 @@ export function App() {
         {/* Tab 2: Harmonization Lab */}
         {activeTab === 'lab' && (
           <Suspense fallback={<TabLoadingFallback label={language === 'id' ? 'Memuat Laboratorium Harmonisasi...' : 'Loading Harmonization Lab...'} />}>
-            <div className="animate-in fade-in duration-200">
+            <div className="tab-view-enter">
               <HarmonizationLab language={language} />
             </div>
           </Suspense>
@@ -825,7 +834,7 @@ export function App() {
         {/* Tab 3: Mitigation Hub & Executive SitRep */}
         {activeTab === 'mitigation' && (
           <Suspense fallback={<TabLoadingFallback label={language === 'id' ? 'Memuat Pusat Mitigasi & SitRep...' : 'Loading Mitigation Hub & SitRep...'} />}>
-            <div className="animate-in fade-in duration-200">
+            <div className="tab-view-enter">
               <MitigationHub
                 language={language}
                 selectedAOI={selectedAOI}
@@ -845,7 +854,7 @@ export function App() {
         {/* Tab 4: Open Data Registry */}
         {activeTab === 'data-hub' && (
           <Suspense fallback={<TabLoadingFallback label={language === 'id' ? 'Memuat Pusat Data Terbuka...' : 'Loading Open Data Hub...'} />}>
-            <div className="animate-in fade-in duration-200">
+            <div className="tab-view-enter">
               <DataHub
                 language={language}
                 selectedAOI={selectedAOI}
@@ -860,7 +869,7 @@ export function App() {
             {/* Tab 5: Team Profile & Scientific Dossier */}
             {activeTab === 'team' && (
               <Suspense fallback={<TabLoadingFallback label={language === 'id' ? 'Memuat Profil Tim & Berkas Ilmiah...' : 'Loading Team Dossier...'} />}>
-                <div className="animate-in fade-in duration-200">
+                <div className="tab-view-enter">
                   <TeamPage language={language} />
                 </div>
               </Suspense>
