@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Logo } from './Logo';
 import { Language, translations } from '../data/translations';
-import { Menu, X, Sun, Moon, Compass, BookOpen, Globe2, SlidersHorizontal, ShieldAlert, Database, Users } from 'lucide-react';
+import { Menu, X, Sun, Moon, Compass, BookOpen, Globe2, SlidersHorizontal, ShieldAlert, Database, Users, Bell } from 'lucide-react';
 
 export type NavTab = 'story' | 'overview' | 'lab' | 'mitigation' | 'data-hub' | 'team';
 export type ThemeMode = 'system' | 'light' | 'dark';
@@ -16,6 +16,7 @@ interface NavbarProps {
   onToggleAppMode: (mode: AppMode) => void;
   onOpenTeam?: () => void;
   onOpenTour?: () => void;
+  onOpenAlertModal?: () => void;
   isLiveSync?: boolean;
   theme?: 'light' | 'dark';
   onToggleTheme?: () => void;
@@ -30,6 +31,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onToggleAppMode,
   onOpenTeam,
   onOpenTour,
+  onOpenAlertModal,
   isLiveSync = false,
   theme = 'light',
   onToggleTheme,
@@ -90,8 +92,25 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
           </div>
 
-          {/* Right Controls: Theme, Language, Tour & Mobile Toggle */}
+          {/* Right Controls: Alert Hub, Theme, Language, Tour & Mobile Toggle */}
           <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+            {/* Early Warning Alert Center Trigger */}
+            {onOpenAlertModal && (
+              <button
+                onClick={onOpenAlertModal}
+                className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 font-mono text-xs font-bold transition-all shadow-2xs cursor-pointer group"
+                title={language === 'id' ? 'Pusat Siaga & Peringatan Dini Gambut (3 Aktif)' : 'Early Warning Alert Hub (3 Active)'}
+                aria-label="Pusat Peringatan Dini"
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+                </span>
+                <Bell className="w-3.5 h-3.5 text-rose-500 transition-transform group-hover:scale-110" />
+                <span className="hidden sm:inline font-semibold">3 Siaga</span>
+              </button>
+            )}
+
             {/* Live Indicator */}
             {isLiveSync && (
               <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-mono font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 px-2.5 py-1 rounded-lg">

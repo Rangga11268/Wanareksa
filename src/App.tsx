@@ -13,6 +13,7 @@ import { Footer } from './components/Footer';
 import { NasaApiKeyModal } from './components/NasaApiKeyModal';
 import { CinematicIntroTour } from './components/CinematicIntroTour';
 import { ExecutiveBriefingModal } from './components/ExecutiveBriefingModal';
+import { EarlyWarningAlertModal } from './components/EarlyWarningAlertModal';
 import { PRESET_AOIS, AOIRegion, RawHotspot, HarmonizedWeekData, harmonizeHotspots } from './engine/harmonizer';
 import { generateHistoricalFireData } from './data/generator';
 import { fetchLiveNASAHotspots, LiveSyncResult } from './services/nasaFirmsApi';
@@ -277,6 +278,7 @@ export function App() {
     return false;
   });
   const [isBriefingModalOpen, setIsBriefingModalOpen] = useState<boolean>(false);
+  const [isAlertModalOpen, setIsAlertModalOpen] = useState<boolean>(false);
   const [activeScenario, setActiveScenario] = useState<string | null>(null);
   const [isLinkCopied, setIsLinkCopied] = useState<boolean>(false);
 
@@ -475,6 +477,7 @@ export function App() {
         onToggleAppMode={handleToggleAppMode}
         onOpenTeam={() => setActiveTab('team')}
         onOpenTour={() => setIsTourModalOpen(true)}
+        onOpenAlertModal={() => setIsAlertModalOpen(true)}
         isLiveSync={isLiveSync}
       />
 
@@ -497,6 +500,7 @@ export function App() {
             isLiveSync={isLiveSync}
             onSwitchToScience={() => handleToggleAppMode('science')}
             onOpenBriefing={() => setIsBriefingModalOpen(true)}
+            onOpenAlertModal={() => setIsAlertModalOpen(true)}
           />
         ) : (
           <>
@@ -914,6 +918,13 @@ export function App() {
         calendarMatrix={calendarMatrix}
         liveHotspots={displayedHotspots}
         userMapKey={userMapKey}
+      />
+
+      {/* Real-time Subsurface Peat Early Warning Alert Dispatch Modal */}
+      <EarlyWarningAlertModal
+        isOpen={isAlertModalOpen}
+        onClose={() => setIsAlertModalOpen(false)}
+        language={language}
       />
     </div>
   );

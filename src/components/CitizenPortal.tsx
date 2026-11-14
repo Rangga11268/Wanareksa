@@ -25,7 +25,8 @@ import {
   ExternalLink,
   ShieldCheck,
   Radio,
-  FileText
+  FileText,
+  Bell
 } from 'lucide-react';
 
 interface CitizenPortalProps {
@@ -36,6 +37,7 @@ interface CitizenPortalProps {
   isLiveSync: boolean;
   onSwitchToScience: () => void;
   onOpenBriefing?: () => void;
+  onOpenAlertModal?: () => void;
 }
 
 export const CitizenPortal: React.FC<CitizenPortalProps> = ({
@@ -46,6 +48,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
   isLiveSync,
   onSwitchToScience,
   onOpenBriefing,
+  onOpenAlertModal,
 }) => {
   const isIndo = language === 'id';
   const [reportType, setReportType] = useState<'asap' | 'bara' | 'parit_kering'>('bara');
@@ -303,6 +306,46 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
   return (
     <div className="w-full max-w-7xl mx-auto space-y-6 pb-16">
       
+      {/* 0. LIVE PEAT EMERGENCY ALERT TICKER & QUICK DISPATCH BAR */}
+      <div className="rounded-2xl p-4 bg-gradient-to-r from-rose-950/80 via-slate-900 to-slate-900 border border-rose-500/40 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-3 animate-in fade-in">
+        <div className="flex items-center gap-3">
+          <div className="relative p-2 rounded-xl bg-rose-600/20 border border-rose-500/50 text-rose-400 shrink-0">
+            <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
+            </span>
+            <AlertTriangle className="w-5 h-5 text-rose-400" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-mono font-bold tracking-widest px-2 py-0.5 rounded-full bg-rose-500/30 text-rose-300 border border-rose-500/40 uppercase">
+                {isIndo ? 'Status Siaga Darurat' : 'Active Peat Alert'}
+              </span>
+              <span className="text-xs font-mono text-slate-400">
+                {isIndo ? '3 Wilayah Kubah Gambut Siaga 1' : '3 Critical Dome Zones Monitored'}
+              </span>
+            </div>
+            <p className="text-xs sm:text-sm font-semibold text-white mt-0.5">
+              {isIndo
+                ? 'Peringatan Dini: Penurunan Muka Air Tanah < -40 cm (PP 71/2014) di KHG Riau & Titik Panas Termal Aktif.'
+                : 'Early Warning: Groundwater < -40 cm statutory deficit in Riau Peat Dome with active FIRMS thermal anomalies.'}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 shrink-0">
+          {onOpenAlertModal && (
+            <button
+              onClick={onOpenAlertModal}
+              className="px-3.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs flex items-center gap-1.5 transition shadow-xs cursor-pointer"
+            >
+              <Bell className="w-3.5 h-3.5" />
+              <span>{isIndo ? 'Buka Pusat Siaga (3 Titik)' : 'View 3 Active Alerts'}</span>
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* 1. TOP CONTROL & CONTEXT DOCK */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#0E1626] border border-slate-200 dark:border-slate-800 shadow-xs">
         <div className="flex items-center gap-3">
