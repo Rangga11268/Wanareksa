@@ -41,7 +41,7 @@ export const JudgesEvaluationGuide: React.FC<JudgesEvaluationGuideProps> = ({
   onSelectTab,
   onOpenTour,
 }) => {
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
   const [activeStep, setActiveStep] = useState<number>(1);
 
   const steps = [
