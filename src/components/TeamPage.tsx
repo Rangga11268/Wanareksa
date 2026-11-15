@@ -147,8 +147,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({ language }) => {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f5f5f7] dark:bg-[#151d2f] border border-[#e5e5e7] dark:border-[#1f2937] text-xs font-semibold text-[#1d1d1f] dark:text-white">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#f5f5f7] dark:bg-[#151d2f] border border-[#e5e5e7] dark:border-[#1f2937] text-xs font-semibold text-[#1d1d1f] dark:text-white">
               {t.footerChallenge}
             </span>
           </div>
@@ -197,7 +196,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({ language }) => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
           
           <div className="absolute bottom-6 left-6 right-6 text-white space-y-2.5">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-xl bg-white/20 backdrop-blur-md text-xs font-semibold">
               <Sparkles className="w-3.5 h-3.5 text-amber-300" />
               <span>Solo Creator &bull; Indonesia</span>
             </div>
@@ -210,13 +209,13 @@ export const TeamPage: React.FC<TeamPageProps> = ({ language }) => {
                 : 'Solo Creator, Geospatial Architect & Full-Stack Engineer of Wanareksa for NASA Space Apps Challenge 2026.'}
             </p>
             <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px]">
-              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 font-medium">
+              <span className="px-2.5 py-0.5 rounded-md bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 font-medium">
                 100% Solo Built
               </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-blue-500/30 text-blue-200 border border-blue-400/30 font-medium">
+              <span className="px-2.5 py-0.5 rounded-md bg-blue-500/30 text-blue-200 border border-blue-400/30 font-medium">
                 Full-Stack GIS &amp; Data Science
               </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-purple-500/30 text-purple-200 border border-purple-400/30 font-medium">
+              <span className="px-2.5 py-0.5 rounded-md bg-purple-500/30 text-purple-200 border border-purple-400/30 font-medium">
                 Open Science MIT
               </span>
             </div>
@@ -650,7 +649,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({ language }) => {
                 : 'All engineering aspects of Wanareksa were independently architected by Rangga across 4 core multidisciplinary pillars:'}
             </p>
           </div>
-          <span className="text-xs font-semibold text-[#86868b] dark:text-[#9ca3af] bg-[#f5f5f7] dark:bg-[#151d2f] px-3.5 py-1.5 rounded-full border border-[#e5e5e7] dark:border-[#1f2937] shrink-0 self-start sm:self-auto">
+          <span className="text-xs font-semibold text-[#86868b] dark:text-[#9ca3af] bg-[#f5f5f7] dark:bg-[#151d2f] px-3.5 py-1.5 rounded-xl border border-[#e5e5e7] dark:border-[#1f2937] shrink-0 self-start sm:self-auto">
             {language === 'id' ? 'Kreator Mandiri (Solo Developer)' : 'Solo Creator & Architect'}
           </span>
         </div>
@@ -679,7 +678,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({ language }) => {
                       </div>
                     </div>
 
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border shrink-0 ${pillar.badgeBg}`}>
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border shrink-0 ${pillar.badgeBg}`}>
                       Pilar {index + 1}
                     </span>
                   </div>

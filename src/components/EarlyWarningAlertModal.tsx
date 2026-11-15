@@ -217,10 +217,10 @@ Mohon konfirmasi kesiapan posko MPA!`;
         {/* TOP STATUS HEADER */}
         <div className="p-5 sm:p-6 bg-gradient-to-r from-rose-950/60 via-slate-900 to-slate-900 border-b border-rose-900/30 text-white flex items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
-            <IconBadge icon={ShieldAlert} variant="rose" size="xl" ping />
+            <IconBadge icon={ShieldAlert} variant="rose" size="xl" />
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono font-bold tracking-widest px-2 py-0.5 rounded-full bg-rose-500/30 text-rose-300 border border-rose-500/40 uppercase">
+                <span className="text-[10px] font-mono font-bold tracking-widest text-rose-400 uppercase">
                   Live Emergency Broadcast
                 </span>
                 <span className="text-[11px] font-mono text-slate-400">
@@ -312,13 +312,12 @@ Mohon konfirmasi kesiapan posko MPA!`;
                   {/* Alert Header */}
                   <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200/80 dark:border-slate-800">
                     <div className="flex items-center gap-2.5">
-                      <IconBadge icon={isCritical ? AlertTriangle : ShieldAlert} variant={isCritical ? 'rose' : 'amber'} size="sm" ping={isCritical} />
-                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold tracking-wider uppercase flex items-center gap-1.5 ${
+                      <IconBadge icon={isCritical ? AlertTriangle : ShieldAlert} variant={isCritical ? 'rose' : 'amber'} size="sm" />
+                      <span className={`text-[11px] font-mono font-bold tracking-wider uppercase ${
                         isCritical
-                          ? 'bg-rose-600 text-white'
-                          : 'bg-amber-500 text-black font-extrabold'
+                          ? 'text-rose-600 dark:text-rose-400'
+                          : 'text-amber-600 dark:text-amber-400'
                       }`}>
-                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                         {isCritical ? 'SIAGA 1 KRITIS' : 'WASPADA'}
                       </span>
                       <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white">
@@ -440,7 +439,7 @@ Mohon konfirmasi kesiapan posko MPA!`;
         {/* FOOTER AUDIT STAMP */}
         <div className="p-4 sm:p-5 bg-white dark:bg-[#0c121e] border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
           <div className="flex items-center gap-2 font-mono text-[11px]">
-            <Radio className="w-3.5 h-3.5 text-emerald-500 animate-pulse" />
+            <Radio className="w-3.5 h-3.5 text-emerald-500" />
             <span>
               {language === 'id'
                 ? 'Terhubung ke Feed NASA FIRMS & Model Hidrologi Kubah Gambut'

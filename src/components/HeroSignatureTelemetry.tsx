@@ -395,7 +395,6 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
         </div>
 
         <div className="flex items-center gap-1.5 sm:gap-2 font-mono text-[9px] sm:text-[10px] text-neutral-400">
-          <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-500 animate-pulse" />
           <span className="hidden sm:inline">LEO 705 KM</span>
           <span className="text-neutral-600 hidden sm:inline">&bull;</span>
           <span className="text-sky-400 font-bold">TERRA &bull; NPP</span>

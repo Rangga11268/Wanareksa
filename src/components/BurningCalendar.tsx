@@ -159,7 +159,7 @@ export const BurningCalendar: React.FC<BurningCalendarProps> = ({
             <h2 className="font-bold text-base sm:text-lg text-[#1d1d1f] dark:text-white tracking-tight">
               {t.calendarTitle}
             </h2>
-            <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#f5f5f7] dark:bg-[#1f2937] text-[#6e6e73] dark:text-[#9ca3af] border border-[#e5e5e7] dark:border-[#374151] num">
+            <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-[#f5f5f7] dark:bg-[#1f2937] text-[#6e6e73] dark:text-[#9ca3af] border border-[#e5e5e7] dark:border-[#374151] num">
               {t.calendarSpan}
             </span>
           </div>
@@ -251,7 +251,7 @@ export const BurningCalendar: React.FC<BurningCalendarProps> = ({
 
         {/* Dynamic Dry Season Peak Badge */}
         <div className="flex items-center gap-2 text-[11px] text-[#86868b] dark:text-[#9ca3af]">
-          <span className="inline-block w-2 h-2 rounded-full bg-red-500" />
+          <span className="inline-block w-2 h-2 rounded-xs bg-red-500" />
           <span>{t.primaryDrySeason} <b>{t.primaryDrySeasonMonths}</b></span>
         </div>
       </div>

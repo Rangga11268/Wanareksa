@@ -174,7 +174,7 @@ export const DataHub: React.FC<DataHubProps> = ({
               <span className="font-bold text-sm text-emerald-900 dark:text-emerald-300">
                 NASA Open-Source Science Initiative (OSSI) Compliance
               </span>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white tracking-wide uppercase">
+              <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-600 text-white tracking-wide uppercase">
                 FAIR Certified
               </span>
             </div>

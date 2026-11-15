@@ -733,7 +733,7 @@ export function App() {
                       <span className={`text-[10px] font-mono uppercase tracking-wider ${
                         anomalyCount > 10 ? 'text-rose-500 font-bold' : 'text-slate-400 dark:text-slate-500'
                       }`}>
-                        {anomalyCount > 10 ? '● IKLIM EKSTREM' : '● NORMAL'}
+                        {anomalyCount > 10 ? 'IKLIM EKSTREM' : 'NORMAL'}
                       </span>
                     </div>
 

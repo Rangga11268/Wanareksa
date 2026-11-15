@@ -63,7 +63,6 @@ export const IconBadge: React.FC<IconBadgeProps> = ({
   icon: Icon,
   variant = 'emerald',
   size = 'md',
-  ping = false,
   className = '',
   ariaHidden = true,
 }) => {
@@ -76,12 +75,6 @@ export const IconBadge: React.FC<IconBadgeProps> = ({
       aria-hidden={ariaHidden}
     >
       <Icon className={`${sizeStyle.icon} stroke-[1.8]`} />
-      {ping && (
-        <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5 pointer-events-none">
-          <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${variantStyle.dot}`} />
-          <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${variantStyle.dot} ring-2 ring-white dark:ring-slate-900`} />
-        </span>
-      )}
     </div>
   );
 };

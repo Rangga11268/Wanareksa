@@ -599,7 +599,6 @@ export const FullMapModal: React.FC<FullMapModalProps> = ({
           <div className="h-5 w-px bg-slate-200 dark:bg-slate-800 hidden sm:block shrink-0" />
 
           <div className="min-w-0 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0 hidden sm:inline-block" />
             <div className="truncate">
               <h1 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white tracking-tight leading-tight truncate">
                 Wanareksa GIS Explorer
@@ -759,7 +758,6 @@ export const FullMapModal: React.FC<FullMapModalProps> = ({
               }`}
               title="NASA Global Imagery Browse Services (MODIS True Color)"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
               <span>GIBS</span>
             </button>
           </div>

@@ -119,19 +119,18 @@ export const RiskForecast: React.FC<RiskForecastProps> = ({
   return (
     <div className="bg-white dark:bg-[#111827] border border-[#e5e5e7] dark:border-[#1f2937] rounded-2xl p-5 shadow-xs flex flex-col justify-between transition-colors">
       <div className="space-y-4">
-        {/* Header with Live indicator */}
-        <div className="flex items-center justify-between pb-3 border-b border-[#e5e5e7] dark:border-[#1f2937]">
+        {/* Header with Live indicator (Clean Architectural Monospace, No Capsules, No Dots) */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-3 border-b border-[#e5e5e7] dark:border-[#1f2937]">
           <div className="flex items-center gap-2">
             <h2 className="font-bold text-sm text-[#1d1d1f] dark:text-white">
               {language === 'id' ? 'Prognosis Risiko 14 Hari' : '14-Day Fire Risk Prognosis'}
             </h2>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 text-[10px] font-mono font-bold">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>{isLiveSync ? 'LIVE NASA + METEO' : 'LIVE WEATHER SYNC'}</span>
+            <span className="text-[10px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              {isLiveSync ? 'NASA + METEO' : 'WEATHER SYNC'}
             </span>
           </div>
           
-          <span className={`text-[11px] font-bold px-2.5 py-1 rounded-lg border ${riskLabels.bg} ${riskLabels.color}`}>
+          <span className="text-[11px] font-mono font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider self-start sm:self-auto">
             {riskLabels.label}
           </span>
         </div>
@@ -171,15 +170,16 @@ export const RiskForecast: React.FC<RiskForecastProps> = ({
           </div>
         </div>
 
-        {/* Peat Vulnerability Index Score & Progress Bar */}
+        {/* Peat Vulnerability Index Score & Progress Bar (No Text Collision on Mobile) */}
         <div className="p-3.5 bg-[#f5f5f7] dark:bg-[#151d2f] rounded-xl border border-[#e5e5e7] dark:border-[#1f2937]">
-          <div className="flex items-center justify-between text-xs text-[#6e6e73] dark:text-[#9ca3af] mb-2">
-            <span className="font-medium">
-              {language === 'id' ? 'Indeks Kerentanan Gambut (FWI + TMA + FRP)' : 'Peat Vulnerability Index (FWI + GWL + FRP)'}
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 text-xs text-[#6e6e73] dark:text-[#9ca3af] mb-2">
+            <span className="font-medium text-[11px] sm:text-xs">
+              {language === 'id' ? 'Indeks Kerentanan Gambut' : 'Peat Vulnerability Index'}
+              <span className="hidden sm:inline font-normal text-slate-400"> (FWI + TMA + FRP)</span>
             </span>
-            <span className="font-bold text-[#1d1d1f] dark:text-white num">{compositeScore} / 100</span>
+            <span className="font-bold font-mono text-[#1d1d1f] dark:text-white shrink-0 self-end sm:self-auto text-xs sm:text-sm">{compositeScore} / 100</span>
           </div>
-          <div className="w-full h-2 bg-[#e5e5ea] dark:bg-[#1f2937] rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-[#e5e5ea] dark:bg-[#1f2937] rounded-md overflow-hidden">
             <div
               className={`h-full transition-all duration-300 ${
                 compositeScore >= 70 ? 'bg-red-600 dark:bg-red-500'
@@ -191,7 +191,7 @@ export const RiskForecast: React.FC<RiskForecastProps> = ({
             />
           </div>
 
-          <div className="mt-2.5 grid grid-cols-2 gap-2 text-[11px]">
+          <div className="mt-2.5 grid grid-cols-1 min-[420px]:grid-cols-2 gap-2 text-[11px]">
             <div className="flex items-center gap-2 text-[#515154] dark:text-[#d1d5db]">
               <IconBadge icon={Droplets} variant="sky" size="sm" />
               <span>{language === 'id' ? 'TMA Gambut:' : 'Peat Water Table:'}</span>
@@ -200,7 +200,7 @@ export const RiskForecast: React.FC<RiskForecastProps> = ({
               </strong>
             </div>
             <div className="flex items-center gap-2 text-[#515154] dark:text-[#d1d5db]">
-              <IconBadge icon={Flame} variant="rose" size="sm" ping={isLiveSync && liveHotspotCount > 0} />
+              <IconBadge icon={Flame} variant="rose" size="sm" />
               <span>{language === 'id' ? 'Titik Api Aktif:' : 'Active Hotspots:'}</span>
               <strong className="font-mono text-[#1d1d1f] dark:text-white">
                 {isLiveSync ? `${liveHotspotCount} titik` : `${Math.round(baseline.mean)} titik/mgg`}
@@ -350,7 +350,7 @@ export const RiskForecast: React.FC<RiskForecastProps> = ({
                   <CloudFog className="w-3.5 h-3.5 text-amber-500" />
                   <span>{language === 'id' ? 'Emisi Karbon & Asap GFED4s' : 'GFED4s Carbon & Smoke Plume'}</span>
                 </span>
-                <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-bold">
+                <span className="text-[10px] font-mono font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">
                   {emissionImpact.smokeHazardLevel} HAZARD
                 </span>
               </div>

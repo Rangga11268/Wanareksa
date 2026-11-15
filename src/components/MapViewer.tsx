@@ -381,9 +381,8 @@ export const MapViewer: React.FC<MapViewerProps> = ({
         <div className="flex items-center gap-2 flex-wrap">
           <span className="font-bold text-slate-900 dark:text-white text-sm">{selectedAOI.name}</span>
           <span className="text-xs text-slate-500 dark:text-slate-400">({selectedAOI.biome})</span>
-          <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-red-100 dark:bg-red-950/80 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-900/60 flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
-            <span>{displayHotspots.length.toLocaleString()} {language === 'id' ? 'titik api aktif' : 'active fire points'}</span>
+          <span className="text-xs font-mono font-bold text-red-600 dark:text-red-400">
+            {displayHotspots.length.toLocaleString()} {language === 'id' ? 'titik api aktif' : 'active fire points'}
           </span>
         </div>
 
@@ -416,26 +415,24 @@ export const MapViewer: React.FC<MapViewerProps> = ({
             <button
               onClick={() => setShowViirs(!showViirs)}
               aria-label="Toggle VIIRS 375m Satellite Layer"
-              className={`px-2 py-0.5 rounded-lg flex items-center gap-1 font-semibold transition cursor-pointer text-[11px] ${
+              className={`px-2.5 py-0.5 rounded-lg flex items-center gap-1 font-semibold transition cursor-pointer text-[11px] ${
                 showViirs
                   ? 'bg-red-600 text-white shadow-xs'
                   : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
               }`}
             >
-              <span className="w-2 h-2 rounded-full bg-white inline-block" />
               <span>VIIRS (375m)</span>
             </button>
 
             <button
               onClick={() => setShowModis(!showModis)}
               aria-label="Toggle MODIS 1km Satellite Layer"
-              className={`px-2 py-0.5 rounded-lg flex items-center gap-1 font-semibold transition cursor-pointer text-[11px] ${
+              className={`px-2.5 py-0.5 rounded-lg flex items-center gap-1 font-semibold transition cursor-pointer text-[11px] ${
                 showModis
                   ? 'bg-red-700 text-white shadow-xs'
                   : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
               }`}
             >
-              <span className="w-2 h-2 rounded-full bg-white inline-block" />
               <span>MODIS (1km)</span>
             </button>
           </div>
@@ -504,7 +501,6 @@ export const MapViewer: React.FC<MapViewerProps> = ({
               }`}
               title="NASA Global Imagery Browse Services (MODIS Corrected Reflectance True Color)"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-sky-300 inline-block" />
               <span>NASA True</span>
             </button>
             <button
@@ -517,7 +513,6 @@ export const MapViewer: React.FC<MapViewerProps> = ({
               }`}
               title="NASA GIBS False-Color Bands 7-2-1 (Smoke Penetrating / Burn Scars)"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-300 inline-block" />
               <span>7-2-1</span>
             </button>
           </div>
@@ -542,16 +537,15 @@ export const MapViewer: React.FC<MapViewerProps> = ({
         {/* Floating Mini Legend HUD (Top Left inside Map) */}
         <div className="absolute top-3 left-3 z-[1000] pointer-events-auto bg-[#070b14] text-white border border-slate-800 rounded-lg px-3 py-1.5 text-[10px] font-mono flex items-center gap-2.5 shadow-md">
           <span className="text-slate-400 font-semibold uppercase text-[9px] tracking-wider">FRP (MW):</span>
-          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#10b981]" />&lt;15</span>
-          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#f59e0b]" />15-50</span>
-          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#f97316]" />50-150</span>
-          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#dc2626]" />&gt;150</span>
+          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-xs bg-[#10b981]" />&lt;15</span>
+          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-xs bg-[#f59e0b]" />15-50</span>
+          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-xs bg-[#f97316]" />50-150</span>
+          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-xs bg-[#dc2626]" />&gt;150</span>
         </div>
 
         {/* Minimal Floating Telemetry Status (Bottom Left inside Map) */}
         <div className="absolute bottom-3 left-3 z-[1000] pointer-events-auto bg-[#070b14] text-white border border-slate-800 rounded-lg px-3.5 py-2 text-[11px] flex items-center gap-3 shadow-md">
           <div className="flex items-center gap-1.5 text-sky-400 font-semibold uppercase tracking-wider text-[10px]">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span>NASA FIRMS NRT</span>
           </div>
           <span className="text-slate-300 font-mono text-[10px] border-l border-slate-800 pl-2.5">

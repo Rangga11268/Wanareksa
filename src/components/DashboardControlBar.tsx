@@ -69,7 +69,6 @@ export const DashboardControlBar: React.FC<DashboardControlBarProps> = ({
         {/* Region Selector & Quick AOI Pills */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 flex-1 min-w-0">
           <div className="flex items-center gap-2 shrink-0">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <label htmlFor="aoi-select" className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               {t.region}:
             </label>
@@ -128,13 +127,13 @@ export const DashboardControlBar: React.FC<DashboardControlBarProps> = ({
         </div>
 
         {/* Space-Saving Aerospace Control Bar: Segmented Switch, Live Sync & Quick Toolbelt */}
-        <div className="flex flex-wrap items-center gap-2 justify-end shrink-0">
+        <div className="w-full lg:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-2 shrink-0">
           
-          {/* Mode Toggle (Aerospace Segmented Capsule) */}
-          <div className="flex rounded-xl bg-slate-100 dark:bg-slate-900 p-1 text-xs font-medium h-9 items-center border border-slate-200 dark:border-slate-800 shadow-2xs">
+          {/* Mode Toggle (Aerospace Segmented Bar) - Equal 50% width on mobile */}
+          <div className="grid grid-cols-2 sm:flex rounded-xl bg-slate-100 dark:bg-slate-900 p-1 text-xs font-medium h-9 items-center border border-slate-200 dark:border-slate-800 shadow-2xs w-full sm:w-auto">
             <button
               onClick={() => setRawMode(false)}
-              className={`px-3 py-1 rounded-lg transition-all cursor-pointer h-7 flex items-center justify-center text-xs ${
+              className={`px-3 py-1 rounded-lg transition-all cursor-pointer h-7 flex items-center justify-center text-xs w-full ${
                 !rawMode
                   ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs font-bold border border-slate-200/60 dark:border-slate-700'
                   : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -144,7 +143,7 @@ export const DashboardControlBar: React.FC<DashboardControlBarProps> = ({
             </button>
             <button
               onClick={() => setRawMode(true)}
-              className={`px-3 py-1 rounded-lg transition-all cursor-pointer h-7 flex items-center justify-center text-xs ${
+              className={`px-3 py-1 rounded-lg transition-all cursor-pointer h-7 flex items-center justify-center text-xs w-full ${
                 rawMode
                   ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs font-bold border border-slate-200/60 dark:border-slate-700'
                   : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -154,75 +153,78 @@ export const DashboardControlBar: React.FC<DashboardControlBarProps> = ({
             </button>
           </div>
 
-          {/* NASA Live Sync Button */}
-          <div className="flex rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden text-xs h-9 shadow-2xs">
-            <button
-              onClick={onToggleLiveSync}
-              className={`flex items-center justify-center gap-1.5 px-3 py-1 font-medium transition-all cursor-pointer h-9 ${
-                isLiveSync
-                  ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold'
-                  : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800'
-              }`}
-            >
-              {isLoadingLive ? (
-                <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-              ) : (
-                <Radio className={`w-3.5 h-3.5 ${isLiveSync ? 'text-rose-500 animate-pulse' : ''}`} />
-              )}
-              <span className="text-xs">{isLiveSync ? t.liveSyncActive : t.liveSync}</span>
-            </button>
-            <button
-              onClick={onOpenApiKeyModal}
-              title={t.apiKeySettings}
-              className="px-2 bg-slate-50 dark:bg-slate-900 border-l border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer h-9 flex items-center justify-center"
-            >
-              <Settings2 className="w-3.5 h-3.5" />
-            </button>
-          </div>
-
-          {/* Compact Quick Action Toolbelt */}
-          <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-900 p-0.5 rounded-xl border border-slate-200 dark:border-slate-800">
-            {/* Voice Audio Briefing */}
-            <button
-              onClick={handleToggleVoice}
-              className={`p-2 rounded-lg transition-all cursor-pointer h-8 w-8 flex items-center justify-center ${
-                isSpeaking
-                  ? 'bg-rose-600 text-white animate-pulse'
-                  : 'text-[#6e6e73] dark:text-[#9ca3af] hover:text-[#1d1d1f] dark:hover:text-white hover:bg-white dark:hover:bg-[#1f2937]'
-              }`}
-              title={isSpeaking ? t.stopVoice : (language === 'id' ? 'Dengarkan Briefing Suara AI' : 'Listen to Voice Briefing')}
-              aria-label="Voice Briefing"
-            >
-              {isSpeaking ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-            </button>
-
-            {/* 1-Click Executive Briefing */}
-            {onOpenBriefing && (
+          {/* NASA Live Sync & Quick Tools - Equal Height & Proportions on Mobile */}
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            {/* NASA Live Sync Button */}
+            <div className="flex flex-1 sm:flex-initial rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden text-xs h-9 shadow-2xs">
               <button
-                onClick={onOpenBriefing}
-                className="p-2 rounded-lg text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 hover:bg-white dark:hover:bg-[#1f2937] transition-all cursor-pointer h-8 w-8 flex items-center justify-center"
-                title={language === 'id' ? 'Buka Ringkasan Eksekutif (A4 PDF)' : 'Open Executive Briefing (A4 PDF)'}
-                aria-label="Executive Briefing"
+                onClick={onToggleLiveSync}
+                className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-1 font-medium transition-all cursor-pointer h-9 ${
+                  isLiveSync
+                    ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold'
+                    : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800'
+                }`}
               >
-                <Printer className="w-4 h-4" />
+                {isLoadingLive ? (
+                  <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                ) : (
+                  <Radio className="w-3.5 h-3.5" />
+                )}
+                <span className="text-xs">{isLiveSync ? t.liveSyncActive : t.liveSync}</span>
               </button>
-            )}
-
-            {/* Shareable Analysis Permalink */}
-            {onShareLink && (
               <button
-                onClick={onShareLink}
+                onClick={onOpenApiKeyModal}
+                title={t.apiKeySettings}
+                className="px-2.5 bg-slate-50 dark:bg-slate-900 border-l border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer h-9 flex items-center justify-center"
+              >
+                <Settings2 className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            {/* Compact Quick Action Toolbelt */}
+            <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-900 p-0.5 rounded-xl border border-slate-200 dark:border-slate-800 h-9 shrink-0">
+              {/* Voice Audio Briefing */}
+              <button
+                onClick={handleToggleVoice}
                 className={`p-2 rounded-lg transition-all cursor-pointer h-8 w-8 flex items-center justify-center ${
-                  isLinkCopied
-                    ? 'bg-emerald-600 text-white'
+                  isSpeaking
+                    ? 'bg-rose-600 text-white'
                     : 'text-[#6e6e73] dark:text-[#9ca3af] hover:text-[#1d1d1f] dark:hover:text-white hover:bg-white dark:hover:bg-[#1f2937]'
                 }`}
-                title={isLinkCopied ? t.shareLinkCopied : t.shareAnalysisLink}
-                aria-label="Share Link"
+                title={isSpeaking ? t.stopVoice : (language === 'id' ? 'Dengarkan Briefing Suara AI' : 'Listen to Voice Briefing')}
+                aria-label="Voice Briefing"
               >
-                {isLinkCopied ? <CheckCircle2 className="w-4 h-4 text-emerald-300" /> : <Share2 className="w-4 h-4" />}
+                {isSpeaking ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
               </button>
-            )}
+
+              {/* 1-Click Executive Briefing */}
+              {onOpenBriefing && (
+                <button
+                  onClick={onOpenBriefing}
+                  className="p-2 rounded-lg text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 hover:bg-white dark:hover:bg-[#1f2937] transition-all cursor-pointer h-8 w-8 flex items-center justify-center"
+                  title={language === 'id' ? 'Buka Ringkasan Eksekutif (A4 PDF)' : 'Open Executive Briefing (A4 PDF)'}
+                  aria-label="Executive Briefing"
+                >
+                  <Printer className="w-4 h-4" />
+                </button>
+              )}
+
+              {/* Shareable Analysis Permalink */}
+              {onShareLink && (
+                <button
+                  onClick={onShareLink}
+                  className={`p-2 rounded-lg transition-all cursor-pointer h-8 w-8 flex items-center justify-center ${
+                    isLinkCopied
+                      ? 'bg-emerald-600 text-white'
+                      : 'text-[#6e6e73] dark:text-[#9ca3af] hover:text-[#1d1d1f] dark:hover:text-white hover:bg-white dark:hover:bg-[#1f2937]'
+                  }`}
+                  title={isLinkCopied ? t.shareLinkCopied : t.shareAnalysisLink}
+                  aria-label="Share Link"
+                >
+                  {isLinkCopied ? <CheckCircle2 className="w-4 h-4 text-emerald-300" /> : <Share2 className="w-4 h-4" />}
+                </button>
+              )}
+            </div>
           </div>
 
         </div>
@@ -236,7 +238,7 @@ export const DashboardControlBar: React.FC<DashboardControlBarProps> = ({
             <span>{t.scenariosTitle}:</span>
           </div>
 
-          <div className="flex items-center gap-1.5 flex-wrap flex-1 max-w-xl">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 w-full sm:w-auto flex-1 max-w-xl">
             {[
               {
                 id: 'el_nino_2015',
@@ -262,7 +264,7 @@ export const DashboardControlBar: React.FC<DashboardControlBarProps> = ({
                 <button
                   key={sc.id}
                   onClick={() => onSelectScenario(isSelected ? null : sc.id)}
-                  className={`px-2.5 py-1 rounded-lg border text-xs transition cursor-pointer flex items-center gap-1.5 whitespace-nowrap min-h-[32px] ${
+                  className={`w-full px-2.5 py-1.5 rounded-lg border text-xs transition cursor-pointer flex items-center justify-center gap-1.5 min-h-[34px] ${
                     isSelected
                       ? `${sc.activeBg} border-transparent shadow-xs`
                       : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-400'
@@ -290,9 +292,8 @@ export const DashboardControlBar: React.FC<DashboardControlBarProps> = ({
           
           <span
             title={t.offlineEngineTooltip}
-            className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-[10px] font-semibold text-emerald-700 dark:text-emerald-300 shrink-0"
+            className="inline-flex items-center gap-1.5 text-[10px] font-mono text-slate-500 dark:text-slate-400 shrink-0 font-medium"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <span>{t.offlineEngineBadge}</span>
           </span>
         </div>

@@ -96,7 +96,7 @@ export const CriticalAlerts: React.FC<CriticalAlertsProps> = ({
                 className="flex items-center justify-between p-2 rounded-lg border border-[#e5e5e7] dark:border-[#374151] bg-white dark:bg-[#1f2937] text-xs"
               >
                 <div className="flex items-center gap-2">
-                  <span className="w-4 h-4 rounded-full bg-[#1d1d1f] dark:bg-white text-white dark:text-[#111827] flex items-center justify-center text-[10px] font-bold shrink-0 num">
+                  <span className="w-4 h-4 rounded-md bg-[#1d1d1f] dark:bg-white text-white dark:text-[#111827] flex items-center justify-center text-[10px] font-bold shrink-0 num">
                     {idx + 1}
                   </span>
                   <div>

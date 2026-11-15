@@ -118,16 +118,16 @@ export const MitigationCharts: React.FC<MitigationChartsProps> = ({
           </div>
 
           <div className="flex items-center gap-3 text-xs">
-            <span className="flex items-center gap-1 text-[#ef4444] font-medium">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-500" />
+            <span className="flex items-center gap-1.5 text-[#ef4444] font-medium">
+              <span className="w-2.5 h-2.5 rounded-xs bg-red-500" />
               <span>FWI Risk (0-100)</span>
             </span>
-            <span className="flex items-center gap-1 text-[#3b82f6] font-medium">
-              <span className="w-2.5 h-2.5 rounded-full bg-blue-500" />
+            <span className="flex items-center gap-1.5 text-[#3b82f6] font-medium">
+              <span className="w-2.5 h-2.5 rounded-xs bg-blue-500" />
               <span>Rain (mm)</span>
             </span>
-            <span className="flex items-center gap-1 text-[#f59e0b] font-medium">
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+            <span className="flex items-center gap-1.5 text-[#f59e0b] font-medium">
+              <span className="w-2.5 h-2.5 rounded-xs bg-amber-500" />
               <span>Temp (°C)</span>
             </span>
           </div>

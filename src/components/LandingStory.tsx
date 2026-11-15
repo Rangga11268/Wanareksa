@@ -112,7 +112,6 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
             
             {/* Editorial Kicker Badge */}
             <div className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 rounded-md bg-neutral-900/90 border border-neutral-700/80 text-[10px] sm:text-[11px] font-mono tracking-wider text-sky-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse shrink-0" />
               <span className="truncate">NASA SPACE APPS 2026 &bull; SENSOR HARMONIZATION</span>
             </div>
 
@@ -292,7 +291,7 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
                       : (language === 'id' ? 'Fusi Spasial Setara Wanareksa (5.5 km)' : 'Wanareksa Equal-Area Spatial Fusion (5.5 km)')}
                   </h3>
                 </div>
-                <span className={`self-start sm:self-auto text-xs font-mono font-bold px-2.5 py-1 rounded-full ${
+                <span className={`self-start sm:self-auto text-xs font-mono font-bold px-2.5 py-1 rounded-lg ${
                   paradoxMode === 'raw' ? 'bg-red-100 text-red-800 dark:bg-red-950/80 dark:text-red-300' : 'bg-sky-100 text-sky-800 dark:bg-sky-950/80 dark:text-sky-300'
                 }`}>
                   {paradoxMode === 'raw'
@@ -314,7 +313,7 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
                         </div>
                       ))}
                     </div>
-                    <span className="text-xs font-mono font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/60 px-3 py-1 rounded-full border border-red-200 dark:border-red-900/50">
+                    <span className="text-xs font-mono font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/60 px-3 py-1 rounded-lg border border-red-200 dark:border-red-900/50">
                       {language === 'id'
                         ? '1 Garis Api Nyata = 8 Deteksi Terpecah (Bias 300%)'
                         : '1 Real Fire Line = 8 Split Detections (300% Bias)'}
@@ -323,7 +322,7 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
                 ) : (
                   <div className="relative z-10 flex flex-col items-center gap-3 text-center">
                     <div className="w-40 sm:w-44 h-40 sm:h-44 rounded-xl sm:rounded-2xl bg-sky-500/10 border-2 border-sky-500 flex flex-col items-center justify-center p-4 shadow-md">
-                      <div className="w-20 h-20 rounded-full bg-sky-600 text-white flex flex-col items-center justify-center font-bold text-xs shadow-md">
+                      <div className="w-20 h-20 rounded-2xl bg-sky-600 text-white flex flex-col items-center justify-center font-bold text-xs shadow-md">
                         <span className="text-sm">{language === 'id' ? '1 Klaster' : '1 Cluster'}</span>
                         <span className="text-[9px] font-mono opacity-90">420 MW</span>
                       </div>
@@ -331,7 +330,7 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
                         {language === 'id' ? 'Grid 5.5 km Equal-Area' : '5.5 km Equal-Area Grid'}
                       </span>
                     </div>
-                    <span className="text-xs font-mono font-bold text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-950/60 px-3 py-1 rounded-full border border-sky-200 dark:border-sky-900/50">
+                    <span className="text-xs font-mono font-bold text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-950/60 px-3 py-1 rounded-lg border border-sky-200 dark:border-sky-900/50">
                       {language === 'id'
                         ? '8 Titik Terpecah Disatukan Menjadi 1 Peristiwa'
                         : '8 Split Detections Unified into 1 Event'}
@@ -359,7 +358,6 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
                 <span className="text-xs font-bold text-neutral-500 uppercase tracking-wider">
                   {language === 'id' ? 'Hidrologi Gambut BRGM' : 'BRGM Peat Hydrology'}
                 </span>
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
               </div>
 
               <div>

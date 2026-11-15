@@ -53,7 +53,7 @@ const CustomChartTooltip = ({ active, payload, label, unit = '' }: any) => {
         {payload.map((entry: any, index: number) => (
           <div key={`item-${index}`} className="flex items-center justify-between gap-4">
             <span className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
-              <span className="w-2.5 h-2.5 rounded-full inline-block" style={{ backgroundColor: entry.color }} />
+              <span className="w-2.5 h-2.5 rounded-xs inline-block" style={{ backgroundColor: entry.color }} />
               {entry.name}:
             </span>
             <span className="font-bold text-slate-900 dark:text-white font-mono">

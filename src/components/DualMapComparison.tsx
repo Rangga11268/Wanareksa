@@ -330,7 +330,6 @@ export const DualMapComparison: React.FC<DualMapComparisonProps> = ({
               }`}
               title={language === 'id' ? 'NASA GIBS TrueColor (Citra Satelit MODIS per Tahun)' : 'NASA Global Imagery Browse Services (MODIS TrueColor per Year)'}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-sky-300 inline-block" />
               <span>NASA True</span>
             </button>
             <button
@@ -343,7 +342,6 @@ export const DualMapComparison: React.FC<DualMapComparisonProps> = ({
               }`}
               title={language === 'id' ? 'NASA GIBS FalseColor Bands 7-2-1 (Menembus Asap & Bekas Kebakaran)' : 'NASA GIBS FalseColor Bands 7-2-1 (Smoke Cutter & Burn Scars)'}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-300 inline-block" />
               <span>7-2-1</span>
             </button>
           </div>

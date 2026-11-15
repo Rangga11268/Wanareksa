@@ -517,11 +517,10 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
       {/* 0. LIVE PEAT EMERGENCY ALERT TICKER & QUICK DISPATCH BAR */}
       <div className="rounded-xl p-4 bg-slate-900/95 border border-rose-500/35 shadow-xs text-white flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <IconBadge icon={AlertTriangle} variant="rose" size="lg" ping />
+          <IconBadge icon={AlertTriangle} variant="rose" size="lg" />
           <div>
             <div className="flex items-center gap-2 font-mono text-[11px]">
               <span className="font-bold text-rose-400 uppercase tracking-wider flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
                 {isIndo ? 'STATUS SIAGA DARURAT' : 'ACTIVE PEAT ALERT'}
               </span>
               <span className="text-slate-500">//</span>
@@ -537,11 +536,11 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
           </div>
         </div>
 
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="w-full sm:w-auto flex items-center gap-2 shrink-0">
           {onOpenAlertModal && (
             <button
               onClick={onOpenAlertModal}
-              className="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs flex items-center gap-1.5 transition shadow-2xs cursor-pointer"
+              className="w-full sm:w-auto px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-2xs cursor-pointer"
             >
               <Bell className="w-3.5 h-3.5" />
               <span>{isIndo ? 'Pusat Siaga (3 Titik)' : 'View 3 Alerts'}</span>
@@ -559,7 +558,6 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
               <span className="text-xs font-mono font-bold tracking-wider text-emerald-600 dark:text-emerald-400 uppercase">
                 {isIndo ? 'MODE WARGA // AKSI CEPAT' : 'CITIZEN ACTION // RAPID RESPONSE'}
               </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             </div>
             <h1 className="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               {isIndo ? 'Pantau Keamanan Asap & Laporkan Titik Api' : 'Smoke Safety & Peat Fire Dispatch'}
@@ -809,7 +807,6 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
           {/* Map Top Bar Overlay */}
           <div className="p-4 bg-white/90 dark:bg-[#0E1626]/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 flex items-center justify-between z-10">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
               <span className="text-xs font-bold text-slate-900 dark:text-white">
                 {isIndo ? 'Peta Pantau Satelit NASA FIRMS' : 'NASA FIRMS Satellite Observation'}
               </span>
@@ -834,11 +831,11 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
                 {isIndo ? 'LEGENDA TITIK API' : 'HOTSPOT SYMBOLOGY'}
               </div>
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+                <span className="w-2.5 h-2.5 rounded-xs bg-rose-500" />
                 <span>{isIndo ? 'Bara Kritis (≥ 40 MW)' : 'Critical Smoldering (≥ 40 MW)'}</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+                <span className="w-2.5 h-2.5 rounded-xs bg-amber-500" />
                 <span>{isIndo ? 'Titik Panas Gambut' : 'Peat Hotspot'}</span>
               </div>
             </div>
@@ -850,7 +847,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <IconBadge icon={PhoneCall} variant="rose" size="sm" ping />
+            <IconBadge icon={PhoneCall} variant="rose" size="sm" />
             <h2 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider font-mono">
               {isIndo ? 'Hub Kontak Darurat 1-Tap Call' : 'Emergency 1-Tap Speed-Dial Hub'}
             </h2>
@@ -1079,7 +1076,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
                         {item.time}
                       </span>
                       <span
-                        className={`text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 ${
+                        className={`text-[10px] font-mono font-bold uppercase tracking-wider ${
                           isDanger
                             ? 'text-rose-600 dark:text-rose-400'
                             : isModerate
@@ -1087,9 +1084,6 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
                             : 'text-amber-600 dark:text-amber-400'
                         }`}
                       >
-                        <span className={`w-1.5 h-1.5 rounded-full ${
-                          isDanger ? 'bg-rose-500' : isModerate ? 'bg-emerald-500' : 'bg-amber-500'
-                        }`} />
                         {isDanger
                           ? (isIndo ? 'BAHAYA INVERSI' : 'PEAK INVERSION')
                           : isModerate
@@ -1255,7 +1249,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
 
         <button
           onClick={onSwitchToScience}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition shadow-xs cursor-pointer shrink-0"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition shadow-xs cursor-pointer w-full sm:w-auto shrink-0"
         >
           <span>{isIndo ? 'Buka Mode Riset & Satgas' : 'Launch Science & Satgas Mode'}</span>
           <ArrowRight className="w-4 h-4" />

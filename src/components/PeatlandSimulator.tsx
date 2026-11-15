@@ -146,9 +146,8 @@ export const PeatlandSimulator: React.FC<PeatlandSimulatorProps> = ({
               {t.simTitle}
             </span>
             {liveWeather?.isLive && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 text-[10px] font-mono font-bold">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span>OPEN-METEO LIVE</span>
+              <span className="text-[10px] font-mono font-semibold text-slate-500 dark:text-slate-400">
+                OPEN-METEO LIVE
               </span>
             )}
           </div>
@@ -540,10 +539,10 @@ export const PeatlandSimulator: React.FC<PeatlandSimulatorProps> = ({
                 </span>
               </div>
 
-              <span className={`px-2.5 py-1 rounded-full text-[10.5px] font-mono font-bold border ${
+              <span className={`text-[11px] font-mono font-bold uppercase tracking-wider ${
                 simResults.isCritical
-                  ? 'bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20'
-                  : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
+                  ? 'text-red-600 dark:text-red-400'
+                  : 'text-emerald-600 dark:text-emerald-400'
               }`}>
                 {simResults.isCritical
                   ? (language === 'id' ? 'KUBUS RAWAN BARA (KRITIS)' : 'HIGH SMOLDERING RISK')
@@ -678,15 +677,15 @@ export const PeatlandSimulator: React.FC<PeatlandSimulatorProps> = ({
                   {/* Diagram Legend / Metadata */}
                   <div className="flex flex-wrap items-center justify-between text-[10px] text-slate-400 pt-1.5 border-t border-slate-800 px-1 font-mono">
                     <span className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
+                      <span className="w-2 h-2 rounded-xs bg-red-500 inline-block" />
                       <span>
                         {isIndo
-                          ? `Zona Smoldering Karbon (${simResults.co2eTonsPerHa} t CO₂e/ha)`
+                           ? `Zona Smoldering Karbon (${simResults.co2eTonsPerHa} t CO₂e/ha)`
                           : `Carbon Smoldering Zone (${simResults.co2eTonsPerHa} t CO₂e/ha)`}
                       </span>
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-sky-400 inline-block" />
+                      <span className="w-2 h-2 rounded-xs bg-sky-400 inline-block" />
                       <span>
                         {isIndo
                           ? `Akifer Air Jenuh (${simResults.effectiveTmag} cm)`
@@ -694,7 +693,7 @@ export const PeatlandSimulator: React.FC<PeatlandSimulatorProps> = ({
                       </span>
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" />
+                      <span className="w-2 h-2 rounded-xs bg-emerald-400 inline-block" />
                       <span>
                         {isIndo
                           ? `Sekat Retensi (+${simResults.canalBoost} cm)`

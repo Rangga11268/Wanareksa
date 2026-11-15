@@ -257,17 +257,17 @@ export const Footer: React.FC<FooterProps> = ({ language, onSelectTab }) => {
           {/* Header Bar inside Orbital Stage */}
           <div className="relative z-10 px-5 sm:px-8 pt-5 pb-3 flex flex-wrap items-center justify-between gap-3 border-b border-[#e5e5e7]/60 dark:border-[#1f2937]/60 backdrop-blur-md">
             <div className="flex items-center gap-2.5 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 dark:bg-[#151d2f]/90 backdrop-blur-md border border-[#e5e5e7] dark:border-[#1f2937] text-xs font-bold text-[#1d1d1f] dark:text-white shadow-2xs">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white/90 dark:bg-[#151d2f]/90 backdrop-blur-md border border-[#e5e5e7] dark:border-[#1f2937] text-xs font-bold text-[#1d1d1f] dark:text-white shadow-2xs">
                 <Orbit className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 animate-spin" style={{ animationDuration: '24s' }} />
                 <span>NASA Earth Observing System (EOS) &bull; Planetary Flight Deck</span>
               </span>
 
               {/* Satellite Spacecraft Mode Selector */}
-              <div className="inline-flex rounded-full bg-[#e5e5ea] dark:bg-[#1f2937] p-0.5 text-xs font-semibold">
+              <div className="inline-flex rounded-xl bg-[#e5e5ea] dark:bg-[#1f2937] p-0.5 text-xs font-semibold">
                 <button
                   type="button"
                   onClick={() => setSelectedSat('terra')}
-                  className={`px-3 py-1 rounded-full transition-all cursor-pointer ${
+                  className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
                     selectedSat === 'terra'
                       ? 'bg-white dark:bg-[#374151] text-[#1d1d1f] dark:text-white shadow-xs font-bold'
                       : 'text-[#6e6e73] dark:text-[#9ca3af] hover:text-[#1d1d1f] dark:hover:text-white'
@@ -278,7 +278,7 @@ export const Footer: React.FC<FooterProps> = ({ language, onSelectTab }) => {
                 <button
                   type="button"
                   onClick={() => setSelectedSat('viirs')}
-                  className={`px-3 py-1 rounded-full transition-all cursor-pointer ${
+                  className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
                     selectedSat === 'viirs'
                       ? 'bg-white dark:bg-[#374151] text-[#1d1d1f] dark:text-white shadow-xs font-bold'
                       : 'text-[#6e6e73] dark:text-[#9ca3af] hover:text-[#1d1d1f] dark:hover:text-white'
@@ -290,9 +290,8 @@ export const Footer: React.FC<FooterProps> = ({ language, onSelectTab }) => {
             </div>
 
             <div className="flex items-center gap-3 text-xs font-mono text-[#6e6e73] dark:text-[#9ca3af]">
-              <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 font-bold">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>ACTIVE SCANNING</span>
+              <span className="text-[11px] font-mono font-semibold text-slate-500 dark:text-slate-400">
+                ACTIVE SCANNING
               </span>
               <span className="flex items-center gap-1">
                 <Clock className="w-3.5 h-3.5 text-[#0071e3] dark:text-[#38bdf8]" />
@@ -783,9 +782,8 @@ export const Footer: React.FC<FooterProps> = ({ language, onSelectTab }) => {
           </div>
 
           <div className="flex items-center gap-4 text-[11px]">
-            <span className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400 font-medium">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>NASA Space Network: Nominal</span>
+            <span className="text-slate-600 dark:text-slate-400 font-mono text-[11px]">
+              NASA Space Network: Nominal
             </span>
             <span>Jakarta, Indonesia 2026</span>
           </div>

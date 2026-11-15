@@ -106,27 +106,22 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Right Controls: Alert Hub, Theme, Language, Tour & Mobile Toggle */}
           <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-            {/* Early Warning Alert Center Trigger */}
+            {/* Early Warning Alert Center Trigger (Clean Editorial Button, No Pulsing Dot, No Pill) */}
             {onOpenAlertModal && (
               <button
                 onClick={onOpenAlertModal}
-                className="relative flex items-center gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-lg border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 font-mono text-xs font-bold transition-all shadow-2xs cursor-pointer group"
-                title={language === 'id' ? '3 Siaga: Pusat Peringatan Dini Gambut (3 Aktif)' : '3 Alerts: Early Warning Alert Hub (3 Active)'}
-                aria-label={language === 'id' ? '3 Siaga: Pusat Peringatan Dini' : '3 Alerts: Early Warning Alert Hub'}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs font-semibold transition-all shadow-2xs cursor-pointer group min-h-[34px]"
+                title={language === 'id' ? 'Pusat Peringatan Dini Gambut' : 'Early Warning Alert Hub'}
+                aria-label={language === 'id' ? 'Pusat Peringatan Dini' : 'Early Warning Alert Hub'}
               >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
-                </span>
-                <Bell className="w-3.5 h-3.5 text-rose-500 transition-transform group-hover:scale-110" />
-                <span className="hidden md:inline font-semibold">{language === 'id' ? '3 Siaga' : '3 Alerts'}</span>
+                <Bell className="w-3.5 h-3.5 text-slate-500 group-hover:text-rose-500 transition-colors" />
+                <span className="font-semibold">{language === 'id' ? 'Siaga' : 'Alerts'}</span>
               </button>
             )}
 
-            {/* Live Indicator */}
+            {/* Live Indicator (Unboxed Monospace Text, No Colored Capsule, No Dot) */}
             {isLiveSync && (
-              <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-mono font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 px-2.5 py-1 rounded-md">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" />
+              <span className="hidden sm:inline-flex items-center text-[11px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-1">
                 NASA FIRMS Live
               </span>
             )}

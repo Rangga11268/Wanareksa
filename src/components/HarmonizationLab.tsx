@@ -51,7 +51,7 @@ export const HarmonizationLab: React.FC<HarmonizationLabProps> = ({ language }) 
           <span className="text-xs font-semibold uppercase tracking-wider text-[#86868b] dark:text-[#9ca3af]">
             {language === 'id' ? 'Metodologi & Fisika Satelit' : 'Methodology & Sensor Physics'}
           </span>
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20 text-[10px] font-mono font-bold">
+          <span className="text-[10px] font-mono font-semibold text-slate-500 dark:text-slate-400">
             NASA EOS / JPSS
           </span>
         </div>
@@ -325,7 +325,7 @@ export const HarmonizationLab: React.FC<HarmonizationLabProps> = ({ language }) 
                     {language === 'id' ? 'Simulasi 1 kebakaran yang sama dipindai oleh 2 sensor berbeda' : 'Simulating one physical wildfire observed by two different sensor resolutions'}
                   </p>
                 </div>
-                <div className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-300 font-mono text-xs font-bold">
+                <div className="text-xs font-mono font-bold text-amber-600 dark:text-amber-400">
                   Bias: {rawRatio}x
                 </div>
               </div>
@@ -389,7 +389,7 @@ export const HarmonizationLab: React.FC<HarmonizationLabProps> = ({ language }) 
                 {/* Legend Overlay at Bottom */}
                 <div className="absolute bottom-2 left-3 right-3 flex flex-wrap items-center justify-between gap-2 text-[10px] text-slate-300 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-700/50 backdrop-blur-sm">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
+                    <span className="w-2.5 h-2.5 rounded-xs bg-red-500" />
                     <span>{language === 'id' ? `Front Api Riil (${fireGroundArea.toFixed(1)} km²)` : `True Fire Extent (${fireGroundArea.toFixed(1)} km²)`}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
@@ -702,12 +702,12 @@ export const HarmonizationLab: React.FC<HarmonizationLabProps> = ({ language }) 
                   <h2 className="font-bold text-sm text-slate-900 dark:text-white">
                     {language === 'id' ? 'Proyeksi Dampak Penurunan Titik Api' : 'Projected Fire Reduction Outcome'}
                   </h2>
-                  <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${
+                  <span className={`text-[10px] font-mono font-bold uppercase tracking-wider ${
                     fireReductionPct >= 70
-                      ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'
+                      ? 'text-emerald-600 dark:text-emerald-400'
                       : fireReductionPct >= 40
-                      ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300'
-                      : 'bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300'
+                      ? 'text-amber-600 dark:text-amber-400'
+                      : 'text-red-600 dark:text-red-400'
                   }`}>
                     {fireReductionPct >= 70 ? 'OPTIMAL POLICY' : fireReductionPct >= 40 ? 'MODERATE RISK' : 'HIGH CRITICAL HAZARD'}
                   </span>
