@@ -63,11 +63,16 @@ export const Navbar: React.FC<NavbarProps> = ({
     <>
       <header className="print:hidden sticky top-0 z-[1000] bg-white/95 dark:bg-[#070c18]/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 transition-all w-full">
         {/* ROW 1: PRIMARY BRANDING & GLOBAL CONTROLS */}
-        <div className="w-full px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-4">
+        <div className="w-full px-3 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-2 sm:gap-4">
           
           {/* Brand Logo */}
           <div className="flex items-center cursor-pointer shrink-0" onClick={() => onSelectTab('overview')}>
-            <Logo size="md" />
+            <div className="block sm:hidden">
+              <Logo size="sm" showSubtitle={false} />
+            </div>
+            <div className="hidden sm:block">
+              <Logo size="md" />
+            </div>
           </div>
 
           {/* Central Mode Switcher: Mode Warga vs Mode Riset & Satgas */}
@@ -100,12 +105,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Right Controls: Alert Hub, Theme, Language, Tour & Mobile Toggle */}
-          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
             {/* Early Warning Alert Center Trigger */}
             {onOpenAlertModal && (
               <button
                 onClick={onOpenAlertModal}
-                className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 font-mono text-xs font-bold transition-all shadow-2xs cursor-pointer group"
+                className="relative flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 font-mono text-xs font-bold transition-all shadow-2xs cursor-pointer group"
                 title={language === 'id' ? '3 Siaga: Pusat Peringatan Dini Gambut (3 Aktif)' : '3 Alerts: Early Warning Alert Hub (3 Active)'}
                 aria-label={language === 'id' ? '3 Siaga: Pusat Peringatan Dini' : '3 Alerts: Early Warning Alert Hub'}
               >
@@ -114,7 +119,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
                 </span>
                 <Bell className="w-3.5 h-3.5 text-rose-500 transition-transform group-hover:scale-110" />
-                <span className="hidden sm:inline font-semibold">{language === 'id' ? '3 Siaga' : '3 Alerts'}</span>
+                <span className="hidden md:inline font-semibold">{language === 'id' ? '3 Siaga' : '3 Alerts'}</span>
               </button>
             )}
 
@@ -131,7 +136,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={handleToggleAudio}
               aria-label={isMuted ? (language === 'id' ? 'Aktifkan Suara Telemetri' : 'Enable Telemetry Audio') : (language === 'id' ? 'Bisukan Suara' : 'Mute Audio')}
               title={isMuted ? (language === 'id' ? 'Suara Telemetri: Nonaktif' : 'Telemetry Sound: Muted') : (language === 'id' ? 'Suara Telemetri: Aktif' : 'Telemetry Sound: Active')}
-              className="p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800 flex items-center justify-center min-w-[36px] min-h-[36px] cursor-pointer group"
+              className="p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800 flex items-center justify-center min-w-[34px] min-h-[34px] sm:min-w-[36px] sm:min-h-[36px] cursor-pointer group"
             >
               {isMuted ? (
                 <VolumeX className="w-4 h-4 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 transition-colors" />
@@ -140,13 +145,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </button>
 
-            {/* Direct Dark / Light Theme Toggle Button */}
+            {/* Direct Dark / Light Theme Toggle Button (Desktop & Tablet) */}
             {onToggleTheme && (
               <button
                 onClick={onToggleTheme}
                 aria-label={themeLabel}
                 title={themeLabel}
-                className="p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800 flex items-center justify-center min-w-[36px] min-h-[36px] cursor-pointer group"
+                className="hidden sm:flex p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800 items-center justify-center min-w-[36px] min-h-[36px] cursor-pointer group"
               >
                 {theme === 'dark' ? (
                   <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform" />
@@ -157,10 +162,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
 
             {/* Language Switch */}
-            <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-xl p-1 text-[11px] font-mono font-bold border border-slate-200 dark:border-slate-700">
+            <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-xl p-0.5 sm:p-1 text-[10px] sm:text-[11px] font-mono font-bold border border-slate-200 dark:border-slate-700">
               <button
                 onClick={() => onToggleLanguage('en')}
-                className={`px-2 py-0.5 rounded-lg transition-all cursor-pointer ${
+                className={`px-1.5 sm:px-2 py-0.5 rounded-lg transition-all cursor-pointer ${
                   language === 'en'
                     ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-2xs'
                     : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -170,7 +175,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
               <button
                 onClick={() => onToggleLanguage('id')}
-                className={`px-2 py-0.5 rounded-lg transition-all cursor-pointer ${
+                className={`px-1.5 sm:px-2 py-0.5 rounded-lg transition-all cursor-pointer ${
                   language === 'id'
                     ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-2xs'
                     : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
