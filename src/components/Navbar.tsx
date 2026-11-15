@@ -75,31 +75,31 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </div>
 
-          {/* Central Mode Switcher: Mode Warga vs Mode Riset & Satgas */}
-          <div className="hidden md:flex items-center bg-slate-100 dark:bg-slate-900/90 p-1 rounded-xl border border-slate-200 dark:border-slate-800 text-xs shadow-2xs">
+          {/* Central Mode Switcher: Mode Warga vs Mode Riset & Satgas (Refined Architectural Segmented Bar) */}
+          <div className="hidden md:inline-flex items-center bg-slate-100/90 dark:bg-slate-900/90 p-0.5 rounded-lg border border-slate-200 dark:border-slate-800 text-xs shadow-2xs">
             <button
               onClick={() => onToggleAppMode('citizen')}
-              className={`px-3.5 py-1.5 rounded-lg transition-all cursor-pointer font-bold flex items-center gap-2 ${
+              className={`px-3 py-1.5 rounded-md transition-all cursor-pointer font-bold flex items-center gap-1.5 ${
                 appMode === 'citizen'
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  ? 'bg-emerald-600 text-white shadow-2xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/40'
               }`}
               title={t.modeCitizenDesc}
             >
-              <ShieldAlert className="w-4 h-4 shrink-0" />
+              <ShieldAlert className="w-3.5 h-3.5 shrink-0" />
               <span>{t.modeCitizen}</span>
             </button>
 
             <button
               onClick={() => onToggleAppMode('science')}
-              className={`px-3.5 py-1.5 rounded-lg transition-all cursor-pointer font-bold flex items-center gap-2 ${
+              className={`px-3 py-1.5 rounded-md transition-all cursor-pointer font-bold flex items-center gap-1.5 ${
                 appMode === 'science'
-                  ? 'bg-sky-600 text-white shadow-xs'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  ? 'bg-sky-600 text-white shadow-2xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/40'
               }`}
               title={t.modeScienceDesc}
             >
-              <Globe2 className="w-4 h-4 shrink-0" />
+              <Globe2 className="w-3.5 h-3.5 shrink-0" />
               <span>{t.modeScience}</span>
             </button>
           </div>
@@ -110,7 +110,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {onOpenAlertModal && (
               <button
                 onClick={onOpenAlertModal}
-                className="relative flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-xl border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 font-mono text-xs font-bold transition-all shadow-2xs cursor-pointer group"
+                className="relative flex items-center gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-lg border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 font-mono text-xs font-bold transition-all shadow-2xs cursor-pointer group"
                 title={language === 'id' ? '3 Siaga: Pusat Peringatan Dini Gambut (3 Aktif)' : '3 Alerts: Early Warning Alert Hub (3 Active)'}
                 aria-label={language === 'id' ? '3 Siaga: Pusat Peringatan Dini' : '3 Alerts: Early Warning Alert Hub'}
               >
@@ -125,7 +125,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Live Indicator */}
             {isLiveSync && (
-              <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-mono font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 px-2.5 py-1 rounded-lg">
+              <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-mono font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 px-2.5 py-1 rounded-md">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" />
                 NASA FIRMS Live
               </span>
@@ -136,7 +136,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={handleToggleAudio}
               aria-label={isMuted ? (language === 'id' ? 'Aktifkan Suara Telemetri' : 'Enable Telemetry Audio') : (language === 'id' ? 'Bisukan Suara' : 'Mute Audio')}
               title={isMuted ? (language === 'id' ? 'Suara Telemetri: Nonaktif' : 'Telemetry Sound: Muted') : (language === 'id' ? 'Suara Telemetri: Aktif' : 'Telemetry Sound: Active')}
-              className="hidden min-[380px]:flex p-1.5 sm:p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800 items-center justify-center min-w-[32px] min-h-[32px] sm:min-w-[36px] sm:min-h-[36px] cursor-pointer group"
+              className="hidden min-[380px]:flex p-1.5 sm:p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800 items-center justify-center min-w-[32px] min-h-[32px] sm:min-w-[34px] sm:min-h-[34px] cursor-pointer group"
             >
               {isMuted ? (
                 <VolumeX className="w-4 h-4 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 transition-colors" />
@@ -151,7 +151,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={onToggleTheme}
                 aria-label={themeLabel}
                 title={themeLabel}
-                className="hidden sm:flex p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800 items-center justify-center min-w-[36px] min-h-[36px] cursor-pointer group"
+                className="hidden sm:flex p-1.5 sm:p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800 items-center justify-center min-w-[32px] min-h-[32px] sm:min-w-[34px] sm:min-h-[34px] cursor-pointer group"
               >
                 {theme === 'dark' ? (
                   <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform" />
@@ -162,10 +162,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
 
             {/* Language Switch */}
-            <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg sm:rounded-xl p-0.5 text-[10px] sm:text-[11px] font-mono font-bold border border-slate-200 dark:border-slate-700">
+            <div className="flex items-center bg-slate-100 dark:bg-slate-800/90 rounded-lg p-0.5 text-[10px] sm:text-[11px] font-mono font-bold border border-slate-200 dark:border-slate-700">
               <button
                 onClick={() => onToggleLanguage('en')}
-                className={`px-1.5 sm:px-2 py-0.5 rounded transition-all cursor-pointer ${
+                className={`px-1.5 sm:px-2 py-0.5 rounded-md transition-all cursor-pointer ${
                   language === 'en'
                     ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-2xs'
                     : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -175,7 +175,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
               <button
                 onClick={() => onToggleLanguage('id')}
-                className={`px-1.5 sm:px-2 py-0.5 rounded transition-all cursor-pointer ${
+                className={`px-1.5 sm:px-2 py-0.5 rounded-md transition-all cursor-pointer ${
                   language === 'id'
                     ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-2xs'
                     : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -189,7 +189,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {onOpenTour && (
               <button
                 onClick={onOpenTour}
-                className="hidden xl:inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl border border-sky-300 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 hover:bg-sky-100 dark:hover:bg-sky-900 transition-all cursor-pointer shadow-2xs"
+                className="hidden xl:inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-sky-300 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 hover:bg-sky-100 dark:hover:bg-sky-900 transition-all cursor-pointer shadow-2xs"
                 title={language === 'id' ? 'Buka Ringkasan Ilmiah 30 Detik (Pintasan: ?)' : 'Open 30-Second Science Briefing (Shortcut: ?)'}
               >
                 <Compass className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
@@ -203,7 +203,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-1.5 text-slate-900 dark:text-white min-h-[38px] min-w-[38px] flex items-center justify-center cursor-pointer rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="md:hidden p-1.5 text-slate-900 dark:text-white min-h-[36px] min-w-[36px] flex items-center justify-center cursor-pointer rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent"
               aria-label="Menu"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -261,16 +261,16 @@ export const Navbar: React.FC<NavbarProps> = ({
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-[1001] md:hidden bg-black/40 backdrop-blur-xs pt-14 flex flex-col">
           <div className="bg-white dark:bg-[#111827] border-b border-[#e5e5e7] dark:border-[#1f2937] p-4 space-y-3 shadow-xl animate-in slide-in-from-top-2 duration-150">
-            {/* Mobile Mode Switcher */}
-            <div className="grid grid-cols-2 bg-slate-100 dark:bg-slate-900 p-1 rounded-xl border border-slate-200 dark:border-slate-800 text-xs shadow-2xs gap-1">
+            {/* Mobile Mode Switcher (Clean Segmented) */}
+            <div className="grid grid-cols-2 bg-slate-100 dark:bg-slate-900 p-0.5 rounded-lg border border-slate-200 dark:border-slate-800 text-xs shadow-2xs gap-0.5">
               <button
                 onClick={() => {
                   onToggleAppMode('citizen');
                   setIsMobileMenuOpen(false);
                 }}
-                className={`py-2 rounded-lg transition-all cursor-pointer font-bold flex items-center justify-center gap-1.5 ${
+                className={`py-2 rounded-md transition-all cursor-pointer font-bold flex items-center justify-center gap-1.5 ${
                   appMode === 'citizen'
-                    ? 'bg-emerald-600 text-white shadow-xs'
+                    ? 'bg-emerald-600 text-white shadow-2xs'
                     : 'text-slate-600 dark:text-slate-400'
                 }`}
               >
@@ -283,9 +283,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onToggleAppMode('science');
                   setIsMobileMenuOpen(false);
                 }}
-                className={`py-2 rounded-lg transition-all cursor-pointer font-bold flex items-center justify-center gap-1.5 ${
+                className={`py-2 rounded-md transition-all cursor-pointer font-bold flex items-center justify-center gap-1.5 ${
                   appMode === 'science'
-                    ? 'bg-sky-600 text-white shadow-xs'
+                    ? 'bg-sky-600 text-white shadow-2xs'
                     : 'text-slate-600 dark:text-slate-400'
                 }`}
               >
@@ -301,7 +301,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onOpenTour();
                   setIsMobileMenuOpen(false);
                 }}
-                className="w-full text-left px-3.5 py-2.5 rounded-xl text-sm font-semibold transition min-h-[40px] cursor-pointer bg-sky-50 dark:bg-sky-950/60 border border-sky-200 dark:border-sky-800 text-sky-700 dark:text-sky-300 flex items-center justify-between"
+                className="w-full text-left px-3.5 py-2.5 rounded-lg text-sm font-semibold transition min-h-[40px] cursor-pointer bg-sky-50 dark:bg-sky-950/60 border border-sky-200 dark:border-sky-800 text-sky-700 dark:text-sky-300 flex items-center justify-between"
               >
                 <div className="flex items-center gap-2">
                   <Compass className="w-4 h-4 text-sky-600 dark:text-sky-400" />

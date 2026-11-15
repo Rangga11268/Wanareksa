@@ -26,7 +26,12 @@ import {
   ShieldCheck,
   Radio,
   FileText,
-  Bell
+  Bell,
+  PhoneCall,
+  Clock,
+  CheckSquare,
+  Square,
+  Gauge
 } from 'lucide-react';
 import { IconBadge } from './IconBadge';
 
@@ -214,6 +219,201 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
       isMounted = false;
     };
   }, [selectedAOI]);
+
+  // Peat Dryness & FDRS Fire Danger Barometer
+  const peatDrynessData = useMemo(() => {
+    const temp = liveWeather?.temperature ?? 33.2;
+    const humidity = liveWeather?.relativeHumidity ?? 52;
+    const rain = liveWeather?.precipitation ?? 0;
+    const dryDays = liveWeather?.dryDaysCount ?? (selectedAOI.id === 'riau' ? 14 : selectedAOI.id === 'kalteng' ? 11 : 9);
+    
+    // Peat Dryness Score (0 - 100%)
+    const drynessScore = Math.min(100, Math.max(25, Math.round((100 - humidity) * 1.1 + (temp - 26) * 2.2 - rain * 4)));
+    
+    // Canal water deficit based on region (PP 71/2014 threshold is -40cm)
+    let canalDeficitCm = -48;
+    if (selectedAOI.id === 'kalteng') canalDeficitCm = -43;
+    if (selectedAOI.id === 'sumsel') canalDeficitCm = -46;
+    if (selectedAOI.id === 'indonesia') canalDeficitCm = -45;
+
+    const isBelowStatutoryThreshold = canalDeficitCm < -40;
+
+    return {
+      drynessScore,
+      canalDeficitCm,
+      isBelowStatutoryThreshold,
+      consecutiveDryDays: dryDays,
+      riskLevel: drynessScore >= 70 ? 'extreme' : drynessScore >= 50 ? 'high' : 'moderate',
+    };
+  }, [liveWeather, selectedAOI.id]);
+
+  // Regional Manggala Agni Brigade Hotlines
+  const regionalHotline = useMemo(() => {
+    switch (selectedAOI.id) {
+      case 'riau':
+        return {
+          name: isIndo ? 'Manggala Agni Daops Riau' : 'Manggala Agni Riau Peat Brigade',
+          phone: '0761-855667',
+          tel: '0761855667',
+          station: 'Pekanbaru / Dumai',
+        };
+      case 'kalteng':
+        return {
+          name: isIndo ? 'Manggala Agni Daops Palangka Raya' : 'Manggala Agni Central Kalimantan',
+          phone: '0536-322132',
+          tel: '0536322132',
+          station: 'Palangka Raya / Pulang Pisau',
+        };
+      case 'sumsel':
+        return {
+          name: isIndo ? 'Manggala Agni Daops OKI & Banyuasin' : 'Manggala Agni South Sumatra',
+          phone: '0711-353789',
+          tel: '0711353789',
+          station: 'Ogan Komering Ilir',
+        };
+      default:
+        return {
+          name: isIndo ? 'Posko Siaga Karhutla KLHK Pusat' : 'National Peat Fire Command Centre',
+          phone: '021-5730144',
+          tel: '0215730144',
+          station: 'Jakarta / Hotline 117',
+        };
+    }
+  }, [selectedAOI.id, isIndo]);
+
+  // Citizen 4-Stage Action Checklist State
+  const [activeStage, setActiveStage] = useState<'normal' | 'asap' | 'api' | 'evakuasi'>('asap');
+  const [checkedTasks, setCheckedTasks] = useState<Record<string, boolean>>({
+    'normal-1': true,
+    'asap-1': true,
+    'asap-2': true,
+  });
+
+  const toggleTask = (taskId: string) => {
+    setCheckedTasks((prev) => ({
+      ...prev,
+      [taskId]: !prev[taskId],
+    }));
+  };
+
+  const checklistStages = [
+    {
+      id: 'normal' as const,
+      badge: isIndo ? 'Tahap 1' : 'Stage 1',
+      title: isIndo ? 'Siaga Kemarau' : 'Dry Season Baseline',
+      desc: isIndo ? 'Tindakan preventif sebelum api menyala' : 'Preventative measures before active hotspots ignite',
+      tasks: [
+        {
+          id: 'normal-1',
+          text: isIndo ? 'Stok Masker N95 / KN95 untuk seluruh anggota keluarga' : 'Stock certified N95/KN95 respirators for all household members',
+        },
+        {
+          id: 'normal-2',
+          text: isIndo ? 'Bersihkan semak & serasah kering radius 10m dari rumah' : 'Clear dry brush, leaf litter & combustible timber within 10m buffer',
+        },
+        {
+          id: 'normal-3',
+          text: isIndo ? 'Penuhi drum penampungan air & cek selang pompa' : 'Top up water cisterns/drums & verify household pump hoses',
+        },
+      ],
+    },
+    {
+      id: 'asap' as const,
+      badge: isIndo ? 'Tahap 2' : 'Stage 2',
+      title: isIndo ? 'Asap Masuk Desa' : 'Smoke Ingress & Inversion',
+      desc: isIndo ? 'Bau sangit tercium tajam & jarak pandang < 1 km' : 'Acrid haze detected and visibility dropping below 1 km',
+      tasks: [
+        {
+          id: 'asap-1',
+          text: isIndo ? 'Tutup ventilasi rumah & celah pintu dengan kain/handuk basah' : 'Seal exterior vents, jalousies & door undercuts with wet towels',
+        },
+        {
+          id: 'asap-2',
+          text: isIndo ? 'Kelompok rentan (anak, ibu hamil & lansia) tetap di dalam' : 'Keep children, expectant mothers & seniors strictly indoors',
+        },
+        {
+          id: 'asap-3',
+          text: isIndo ? 'Tempatkan 2-3 ember air terbuka di kamar tidur untuk mengikat abu' : 'Place shallow open water basins in bedrooms to trap fine ashfall',
+        },
+      ],
+    },
+    {
+      id: 'api' as const,
+      badge: isIndo ? 'Tahap 3' : 'Stage 3',
+      title: isIndo ? 'Api Gambut Mendekat (< 5 km)' : 'Peat Fire Proximity (< 5 km)',
+      desc: isIndo ? 'Bara merayap dan arah angin mengarah ke pemukiman' : 'Active smoldering front creeping upwind toward settlement',
+      tasks: [
+        {
+          id: 'api-1',
+          text: isIndo ? 'Siapkan Tas Siaga: surat berharga, obat asma/ISPA, senter & uang tunai' : 'Pack Go-Bag: identity deeds, vital respiratory medicines, torch & cash',
+        },
+        {
+          id: 'api-2',
+          text: isIndo ? 'Basahi pekarangan & atap rumah agar bara api tidak hinggap' : 'Douse roof shingles, eaves & peripheral peat soil with water',
+        },
+        {
+          id: 'api-3',
+          text: isIndo ? 'Pantau arah angin live Wanareksa & siaga instruksi posko' : 'Monitor live wind telemetry on Wanareksa & standby for village alert',
+        },
+      ],
+    },
+    {
+      id: 'evakuasi' as const,
+      badge: isIndo ? 'Tahap 4' : 'Stage 4',
+      title: isIndo ? 'Perintah Evakuasi Resmi' : 'Mandatory Evacuation Order',
+      desc: isIndo ? 'Instruksi darurat dari Satgas Karhutla / BPBD' : 'Official order to relocate to designated clean-air shelters',
+      tasks: [
+        {
+          id: 'evakuasi-1',
+          text: isIndo ? 'Kenakan masker N95 rapat dan kacamata pelindung (goggle)' : 'Don tightly fitted N95 respirator & goggles before leaving shelter',
+        },
+        {
+          id: 'evakuasi-2',
+          text: isIndo ? 'Cabut regulator tabung gas LPJ & matikan saklar listrik utama' : 'Unplug LPG gas regulators & switch off main household circuit breaker',
+        },
+        {
+          id: 'evakuasi-3',
+          text: isIndo ? 'Bergerak tertib menuju Posko Pengungsian / Puskesmas terdekat' : 'Proceed via upwind evacuation routes to designated medical/safe haven',
+        },
+      ],
+    },
+  ];
+
+  // Haze Inversion Window Schedule
+  const inversionSchedule = [
+    {
+      time: '05:00 - 09:00 WIB',
+      status: 'danger' as const,
+      title: isIndo ? 'Bahaya Inversi Pagi' : 'Morning Inversion Peak',
+      desc: isIndo
+        ? 'Udara dingin menahan asap pekat dekat tanah. PM2.5 di puncak tertinggi. Hindari keluar rumah.'
+        : 'Cool ground layer traps dense PM2.5 near ground. Peak toxicity. Strictly avoid outdoor exposure.',
+    },
+    {
+      time: '10:00 - 15:00 WIB',
+      status: 'moderate' as const,
+      title: isIndo ? 'Dispersi Konvektif' : 'Convective Mixing',
+      desc: isIndo
+        ? 'Matahari mengangkat asap ke atas. Waktu terbaik jika mendesak belanja kebutuhan pokok.'
+        : 'Solar heating triggers upward convective mixing, thinning ground haze. Safest chore window.',
+    },
+    {
+      time: '16:00 - 18:30 WIB',
+      status: 'warning' as const,
+      title: isIndo ? 'Transisi Petang' : 'Evening Wind Shift',
+      desc: isIndo
+        ? 'Angin mereda dan suhu turun. Basahi kembali kain ventilasi sebelum malam tiba.'
+        : 'Wind decays as air cools. Re-dampen door towels and close windows before dusk.',
+    },
+    {
+      time: '19:00 - 05:00 WIB',
+      status: 'danger' as const,
+      title: isIndo ? 'Inversi Malam' : 'Night Peat Pooling',
+      desc: isIndo
+        ? 'Lapisan inversi kembali terbentuk. Asap bara bawah tanah mengendap ke desa.'
+        : 'Radiation inversion reforms. Smoldering peat emissions pool in low-lying hollows.',
+    },
+  ];
 
   // Leaflet Map Ref
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -434,34 +634,82 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
             </div>
           </div>
 
-          {/* Quick Metrics Bar (AQI & Wind) */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80">
-              <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                {isIndo ? 'Prediksi Kualitas Udara' : 'Air Quality Index'}
+          {/* Quick Telemetry & Peat Dryness Barometer (4-Grid Coupling FDRS + Weather) */}
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+            {/* Metric 1: Air Quality */}
+            <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
+              <div>
+                <div className="text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                  {isIndo ? 'Kualitas Udara' : 'Air Quality Index'}
+                </div>
+                <div className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white mt-1">
+                  {threatTier.aqi}
+                </div>
               </div>
-              <div className="text-base font-extrabold text-slate-900 dark:text-white mt-1">
-                {threatTier.aqi}
-              </div>
-              <div className="text-[11px] text-slate-600 dark:text-slate-300 mt-0.5 font-medium">
+              <div className="text-[10px] sm:text-[11px] text-slate-600 dark:text-slate-300 mt-1 font-medium">
                 {threatTier.maskNeeded
                   ? (isIndo ? '⚠️ Wajib Masker N95' : '⚠️ N95 Mask Required')
-                  : (isIndo ? '✅ Masker tidak mendesak' : '✅ Mask optional')}
+                  : (isIndo ? '✅ Masker opsional' : '✅ Mask optional')}
               </div>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80">
-              <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                {isIndo ? 'Arah & Kecepatan Angin' : 'Wind & Smoke Drift'}
+            {/* Metric 2: Wind & Smoke Drift */}
+            <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
+              <div>
+                <div className="text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                  {isIndo ? 'Arah & Laju Angin' : 'Wind & Smoke Drift'}
+                </div>
+                <div className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white mt-1 flex items-center gap-1.5">
+                  <IconBadge icon={Wind} variant="sky" size="sm" />
+                  <span>{liveWeather ? `${liveWeather.windSpeedKmH} km/h` : '12.4 km/h'}</span>
+                </div>
               </div>
-              <div className="text-base font-extrabold text-slate-900 dark:text-white mt-1 flex items-center gap-2">
-                <IconBadge icon={Wind} variant="sky" size="sm" />
-                <span>{liveWeather ? `${liveWeather.windSpeedKmH} km/h` : '12.4 km/h'}</span>
-              </div>
-              <div className="text-[11px] text-slate-600 dark:text-slate-300 mt-0.5 font-mono">
+              <div className="text-[10px] sm:text-[11px] text-slate-600 dark:text-slate-300 mt-1 font-mono">
                 {liveWeather?.windDirectionDeg 
                   ? (isIndo ? `Arah ${liveWeather.windDirectionDeg}°` : `Heading ${liveWeather.windDirectionDeg}°`) 
-                  : (isIndo ? 'Arah Tenggara (120°)' : 'SE Wind (120°)')}
+                  : (isIndo ? 'Arah Tenggara' : 'SE Wind')}
+              </div>
+            </div>
+
+            {/* Metric 3: Peat Dryness Barometer (FDRS Coupling) */}
+            <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
+              <div>
+                <div className="text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center justify-between">
+                  <span>{isIndo ? 'Kekeringan Gambut' : 'Peat Dryness'}</span>
+                  <span className={`text-[9px] px-1.5 py-0.2 rounded font-bold uppercase font-mono ${
+                    peatDrynessData.riskLevel === 'extreme'
+                      ? 'bg-rose-500/20 text-rose-600 dark:text-rose-400'
+                      : 'bg-amber-500/20 text-amber-600 dark:text-amber-400'
+                  }`}>
+                    {peatDrynessData.riskLevel === 'extreme' ? (isIndo ? 'Kritis' : 'Extreme') : (isIndo ? 'Tinggi' : 'High')}
+                  </span>
+                </div>
+                <div className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white mt-1 flex items-center gap-1.5">
+                  <IconBadge icon={Gauge} variant={peatDrynessData.riskLevel === 'extreme' ? 'rose' : 'amber'} size="sm" />
+                  <span>{peatDrynessData.drynessScore}%</span>
+                </div>
+              </div>
+              <div className="text-[10px] sm:text-[11px] text-slate-600 dark:text-slate-300 mt-1 font-mono">
+                {peatDrynessData.consecutiveDryDays} {isIndo ? 'hari tanpa hujan lebat' : 'consecutive dry days'}
+              </div>
+            </div>
+
+            {/* Metric 4: Statutory Canal Water Deficit (PP 71/2014) */}
+            <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
+              <div>
+                <div className="text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center justify-between">
+                  <span>{isIndo ? 'Muka Air Tanah' : 'Water Table'}</span>
+                  <span className="text-[9px] px-1.5 py-0.2 rounded font-bold font-mono bg-rose-500/20 text-rose-600 dark:text-rose-400 uppercase">
+                    PP 71
+                  </span>
+                </div>
+                <div className="text-sm sm:text-base font-extrabold text-rose-600 dark:text-rose-400 mt-1 flex items-center gap-1.5 font-mono">
+                  <IconBadge icon={Droplets} variant="rose" size="sm" />
+                  <span>{peatDrynessData.canalDeficitCm} cm</span>
+                </div>
+              </div>
+              <div className="text-[10px] sm:text-[11px] text-rose-600 dark:text-rose-400 mt-1 font-mono">
+                {isIndo ? 'Surut > -40 cm (Bara rentan)' : 'Receded > -40 cm (Deep fire)'}
               </div>
             </div>
           </div>
@@ -591,6 +839,274 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
                 <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
                 <span>{isIndo ? 'Titik Panas Gambut' : 'Peat Hotspot'}</span>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 2.5 EMERGENCY SPEED-DIAL HUB (1-TAP DIRECT ACCESS TO FIRST RESPONDERS) */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <IconBadge icon={PhoneCall} variant="rose" size="sm" ping />
+            <h2 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider font-mono">
+              {isIndo ? 'Hub Kontak Darurat 1-Tap Call' : 'Emergency 1-Tap Speed-Dial Hub'}
+            </h2>
+          </div>
+          <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 hidden sm:inline">
+            {isIndo ? 'Dapat dihubungi tanpa kuota internet saat sinyal seluler lemah' : 'Voice-dial works in fringe 2G coverage when data drops'}
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {/* 117 BNPB */}
+          <a
+            href="tel:117"
+            className="p-3.5 rounded-xl bg-white dark:bg-[#0E1626] border border-rose-500/30 hover:border-rose-500 transition-all shadow-xs flex items-center justify-between group cursor-pointer"
+          >
+            <div className="flex items-center gap-3">
+              <IconBadge icon={ShieldAlert} variant="rose" size="md" />
+              <div>
+                <div className="text-[10px] font-mono text-rose-600 dark:text-rose-400 font-bold uppercase">
+                  {isIndo ? 'BNPB Karhutla' : 'BNPB Disaster HQ'}
+                </div>
+                <div className="text-base font-extrabold text-slate-900 dark:text-white font-mono group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+                  117
+                </div>
+                <div className="text-[10px] text-slate-500 dark:text-slate-400">
+                  {isIndo ? 'Bebas Pulsa Nasional' : 'Toll-Free National'}
+                </div>
+              </div>
+            </div>
+            <PhoneCall className="w-4 h-4 text-rose-500 group-hover:scale-110 transition-transform shrink-0" />
+          </a>
+
+          {/* 112 Pemda / Damkar */}
+          <a
+            href="tel:112"
+            className="p-3.5 rounded-xl bg-white dark:bg-[#0E1626] border border-amber-500/30 hover:border-amber-500 transition-all shadow-xs flex items-center justify-between group cursor-pointer"
+          >
+            <div className="flex items-center gap-3">
+              <IconBadge icon={Flame} variant="amber" size="md" />
+              <div>
+                <div className="text-[10px] font-mono text-amber-600 dark:text-amber-400 font-bold uppercase">
+                  {isIndo ? 'Darurat Pemda / Damkar' : 'Local 911 / Fire'}
+                </div>
+                <div className="text-base font-extrabold text-slate-900 dark:text-white font-mono group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                  112
+                </div>
+                <div className="text-[10px] text-slate-500 dark:text-slate-400">
+                  {isIndo ? 'Regu Pemadam Terdekat' : 'Nearest Municipal Brigade'}
+                </div>
+              </div>
+            </div>
+            <PhoneCall className="w-4 h-4 text-amber-500 group-hover:scale-110 transition-transform shrink-0" />
+          </a>
+
+          {/* 119 Medis ISPA */}
+          <a
+            href="tel:119"
+            className="p-3.5 rounded-xl bg-white dark:bg-[#0E1626] border border-sky-500/30 hover:border-sky-500 transition-all shadow-xs flex items-center justify-between group cursor-pointer"
+          >
+            <div className="flex items-center gap-3">
+              <IconBadge icon={Activity} variant="sky" size="md" />
+              <div>
+                <div className="text-[10px] font-mono text-sky-600 dark:text-sky-400 font-bold uppercase">
+                  {isIndo ? 'Layanan Medis & ISPA' : 'Medical & Respiratory'}
+                </div>
+                <div className="text-base font-extrabold text-slate-900 dark:text-white font-mono group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
+                  119
+                </div>
+                <div className="text-[10px] text-slate-500 dark:text-slate-400">
+                  {isIndo ? 'Ambulans & Puskesmas' : 'Emergency Ambulance'}
+                </div>
+              </div>
+            </div>
+            <PhoneCall className="w-4 h-4 text-sky-500 group-hover:scale-110 transition-transform shrink-0" />
+          </a>
+
+          {/* Posko Manggala Agni Regional */}
+          <a
+            href={`tel:${regionalHotline.tel}`}
+            className="p-3.5 rounded-xl bg-white dark:bg-[#0E1626] border border-emerald-500/30 hover:border-emerald-500 transition-all shadow-xs flex items-center justify-between group cursor-pointer"
+          >
+            <div className="flex items-center gap-3">
+              <IconBadge icon={ShieldCheck} variant="emerald" size="md" />
+              <div className="min-w-0">
+                <div className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold uppercase truncate">
+                  {regionalHotline.station}
+                </div>
+                <div className="text-base font-extrabold text-slate-900 dark:text-white font-mono group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors truncate">
+                  {regionalHotline.phone}
+                </div>
+                <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate">
+                  {regionalHotline.name}
+                </div>
+              </div>
+            </div>
+            <PhoneCall className="w-4 h-4 text-emerald-500 group-hover:scale-110 transition-transform shrink-0" />
+          </a>
+        </div>
+      </div>
+
+      {/* 2.6 CITIZEN 4-STAGE ACTION CHECKLIST & HAZE INVERSION WINDOW */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        
+        {/* LEFT COLUMN: CITIZEN 4-STAGE ACTION CHECKLIST (7 COLS) */}
+        <div className="lg:col-span-7 p-5 sm:p-6 rounded-2xl bg-white dark:bg-[#0E1626] border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4">
+          <div className="space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+              <div className="flex items-center gap-2.5">
+                <IconBadge icon={CheckSquare} variant="emerald" size="md" />
+                <div>
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                    {isIndo ? 'Kesiapsiagaan Mandiri 4 Tahap' : '4-Stage Citizen Preparedness'}
+                  </h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    {isIndo ? 'Langkah praktis perlindungan keluarga sesuai tingkat ancaman' : 'Actionable household safeguards scaled by hazard level'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Progress Count */}
+              {(() => {
+                const currentStageObj = checklistStages.find((s) => s.id === activeStage);
+                const stageTasks = currentStageObj?.tasks || [];
+                const completedCount = stageTasks.filter((t) => checkedTasks[t.id]).length;
+                return (
+                  <div className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 self-start sm:self-auto">
+                    {completedCount}/{stageTasks.length} {isIndo ? 'Selesai' : 'Completed'}
+                  </div>
+                );
+              })()}
+            </div>
+
+            {/* Stage Selector Tabs */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              {checklistStages.map((stage) => {
+                const isActive = activeStage === stage.id;
+                return (
+                  <button
+                    key={stage.id}
+                    onClick={() => setActiveStage(stage.id)}
+                    className={`py-2 px-2.5 rounded-lg text-xs font-semibold transition-all cursor-pointer text-center ${
+                      isActive
+                        ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-2xs font-bold'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    <div className="text-[10px] font-mono uppercase tracking-wider opacity-75">{stage.badge}</div>
+                    <div className="truncate text-xs mt-0.5">{stage.title}</div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Active Stage Details & Checkboxes */}
+            {(() => {
+              const currentStage = checklistStages.find((s) => s.id === activeStage)!;
+              return (
+                <div className="space-y-2.5 pt-1">
+                  <div className="text-xs text-slate-600 dark:text-slate-300 font-medium">
+                    📌 {currentStage.desc}
+                  </div>
+
+                  <div className="space-y-2">
+                    {currentStage.tasks.map((task) => {
+                      const isChecked = !!checkedTasks[task.id];
+                      return (
+                        <div
+                          key={task.id}
+                          onClick={() => toggleTask(task.id)}
+                          className={`p-3 rounded-xl border transition-all cursor-pointer flex items-start gap-3 ${
+                            isChecked
+                              ? 'bg-emerald-50/60 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-800/80 text-slate-900 dark:text-white'
+                              : 'bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300'
+                          }`}
+                        >
+                          <button
+                            type="button"
+                            aria-label={isChecked ? 'Selesai' : 'Belum selesai'}
+                            className="mt-0.5 shrink-0"
+                          >
+                            {isChecked ? (
+                              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                            ) : (
+                              <Square className="w-4 h-4 text-slate-400 dark:text-slate-500" />
+                            )}
+                          </button>
+                          <span className={`text-xs leading-relaxed ${isChecked ? 'line-through text-slate-500 dark:text-slate-400' : 'font-medium'}`}>
+                            {task.text}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+        </div>
+
+        {/* RIGHT COLUMN: HAZE INVERSION SAFE WINDOW (5 COLS) */}
+        <div className="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-white dark:bg-[#0E1626] border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4">
+          <div className="space-y-3">
+            <div className="flex items-center gap-2.5 border-b border-slate-100 dark:border-slate-800 pb-3">
+              <IconBadge icon={Clock} variant="sky" size="md" />
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                  {isIndo ? 'Waktu Aman Aktivitas Luar Ruang' : 'Haze Inversion Safe Window'}
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  {isIndo ? 'Panduan jam harian berdasarkan dinamika lapisan udara batas' : 'Atmospheric boundary layer guidance for outdoor safety'}
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-2.5">
+              {inversionSchedule.map((item, idx) => {
+                const isDanger = item.status === 'danger';
+                const isModerate = item.status === 'moderate';
+                return (
+                  <div
+                    key={idx}
+                    className={`p-3 rounded-xl border text-xs space-y-1 transition-all ${
+                      isDanger
+                        ? 'bg-rose-50/50 dark:bg-rose-950/20 border-rose-200 dark:border-rose-900/50'
+                        : isModerate
+                        ? 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-900/50'
+                        : 'bg-amber-50/50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-900/50'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono font-bold text-slate-900 dark:text-white">
+                        {item.time}
+                      </span>
+                      <span
+                        className={`text-[9px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-full ${
+                          isDanger
+                            ? 'bg-rose-500 text-white'
+                            : isModerate
+                            ? 'bg-emerald-600 text-white'
+                            : 'bg-amber-500 text-slate-950'
+                        }`}
+                      >
+                        {isDanger
+                          ? (isIndo ? 'Bahaya Inversi' : 'Peak Inversion')
+                          : isModerate
+                          ? (isIndo ? 'Relatif Aman' : 'Best Window')
+                          : (isIndo ? 'Waspada' : 'Advisory')}
+                      </span>
+                    </div>
+                    <div className="font-bold text-slate-900 dark:text-white">
+                      {item.title}
+                    </div>
+                    <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
