@@ -176,7 +176,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
     });
 
     if (isIndo) {
-      return `*🚨 LAPORAN SITUASI DARURAT GAMBUT (WANAREKSA)*
+      return `*[LAPORAN SITUASI DARURAT GAMBUT (WANAREKSA)]*
 *Waktu:* ${timestamp} WIB
 *Wilayah Pantauan:* ${selectedAOI.name}
 *Jenis Kejadian:* ${reportLabel}
@@ -186,7 +186,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
 _Dilaporkan via Portal Warga Wanareksa (NASA Space Apps 2026)_`;
     }
 
-    return `*🚨 PEAT FIRE CITIZEN SITREP (WANAREKSA)*
+    return `*[PEAT FIRE CITIZEN SITREP (WANAREKSA)]*
 *Timestamp:* ${timestamp} WIB
 *Observation Zone:* ${selectedAOI.name}
 *Incident Type:* ${reportLabel}
@@ -487,11 +487,11 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
       const localTime = getIndonesianLocalTime(h.date, h.time, h.lon);
 
       const titlePopup = isSevere
-        ? (language === 'id' ? '🔥 BARA GAMBUT KRITIS' : '🔥 CRITICAL PEAT FIRE')
-        : (language === 'id' ? '⚠️ TITIK PANAS TERDETEKSI' : '⚠️ DETECTED HOTSPOT');
+        ? (language === 'id' ? 'BARA GAMBUT KRITIS' : 'CRITICAL PEAT FIRE')
+        : (language === 'id' ? 'TITIK PANAS TERDETEKSI' : 'DETECTED HOTSPOT');
       const labelLocation = language === 'id' ? 'Lokasi' : 'Location';
       const labelTime = language === 'id' ? 'Waktu' : 'Time';
-      const gmapsText = language === 'id' ? '📍 Buka di Google Maps &rarr;' : '📍 Open in Google Maps &rarr;';
+      const gmapsText = language === 'id' ? 'Buka di Google Maps &rarr;' : 'Open in Google Maps &rarr;';
 
       circle.bindPopup(`
         <div style="font-family: system-ui, sans-serif; font-size: 12px; line-height: 1.4; color: #0F172A; min-width: 200px;">
@@ -515,19 +515,21 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
     <div className="w-full max-w-7xl mx-auto space-y-6 pb-16">
       
       {/* 0. LIVE PEAT EMERGENCY ALERT TICKER & QUICK DISPATCH BAR */}
-      <div className="rounded-2xl p-4 bg-gradient-to-r from-rose-950/80 via-slate-900 to-slate-900 border border-rose-500/40 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-3 animate-in fade-in">
+      <div className="rounded-xl p-4 bg-slate-900/95 border border-rose-500/35 shadow-xs text-white flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <IconBadge icon={AlertTriangle} variant="rose" size="lg" ping />
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] font-mono font-bold tracking-widest px-2 py-0.5 rounded-full bg-rose-500/30 text-rose-300 border border-rose-500/40 uppercase">
-                {isIndo ? 'Status Siaga Darurat' : 'Active Peat Alert'}
+            <div className="flex items-center gap-2 font-mono text-[11px]">
+              <span className="font-bold text-rose-400 uppercase tracking-wider flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+                {isIndo ? 'STATUS SIAGA DARURAT' : 'ACTIVE PEAT ALERT'}
               </span>
-              <span className="text-xs font-mono text-slate-400">
+              <span className="text-slate-500">//</span>
+              <span className="text-slate-400 font-medium">
                 {isIndo ? '3 Wilayah Kubah Gambut Siaga 1' : '3 Critical Dome Zones Monitored'}
               </span>
             </div>
-            <p className="text-xs sm:text-sm font-semibold text-white mt-0.5">
+            <p className="text-xs sm:text-sm font-semibold text-slate-200 mt-0.5">
               {isIndo
                 ? 'Peringatan Dini: Penurunan Muka Air Tanah < -40 cm (PP 71/2014) di KHG Riau & Titik Panas Termal Aktif.'
                 : 'Early Warning: Groundwater < -40 cm statutory deficit in Riau Peat Dome with active FIRMS thermal anomalies.'}
@@ -539,10 +541,10 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
           {onOpenAlertModal && (
             <button
               onClick={onOpenAlertModal}
-              className="px-3.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs flex items-center gap-1.5 transition shadow-xs cursor-pointer"
+              className="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs flex items-center gap-1.5 transition shadow-2xs cursor-pointer"
             >
               <Bell className="w-3.5 h-3.5" />
-              <span>{isIndo ? 'Buka Pusat Siaga (3 Titik)' : 'View 3 Active Alerts'}</span>
+              <span>{isIndo ? 'Pusat Siaga (3 Titik)' : 'View 3 Alerts'}</span>
             </button>
           )}
         </div>
@@ -555,7 +557,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold tracking-wider text-emerald-600 dark:text-emerald-400 uppercase">
-                {isIndo ? 'MODE WARGA • AKSI CEPAT' : 'CITIZEN ACTION HUD'}
+                {isIndo ? 'MODE WARGA // AKSI CEPAT' : 'CITIZEN ACTION // RAPID RESPONSE'}
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             </div>
@@ -565,8 +567,8 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
           </div>
         </div>
 
-        {/* Region Pills */}
-        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-x-auto">
+        {/* Region Selector (Refined Architectural Segmented Control) */}
+        <div className="flex items-center gap-1 p-0.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-x-auto">
           {[
             { id: 'riau', name: 'Riau' },
             { id: 'kalteng', name: 'Kalteng' },
@@ -579,7 +581,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
               <button
                 key={item.id}
                 onClick={() => aoiObj && onSelectAOI(aoiObj)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
+                className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
                   isSelected
                     ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xs'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -648,8 +650,8 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
               </div>
               <div className="text-[10px] sm:text-[11px] text-slate-600 dark:text-slate-300 mt-1 font-medium">
                 {threatTier.maskNeeded
-                  ? (isIndo ? '⚠️ Wajib Masker N95' : '⚠️ N95 Mask Required')
-                  : (isIndo ? '✅ Masker opsional' : '✅ Mask optional')}
+                  ? (isIndo ? 'Wajib Masker N95' : 'N95 Mask Required')
+                  : (isIndo ? 'Masker Opsional' : 'Mask Optional')}
               </div>
             </div>
 
@@ -676,10 +678,10 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
               <div>
                 <div className="text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center justify-between">
                   <span>{isIndo ? 'Kekeringan Gambut' : 'Peat Dryness'}</span>
-                  <span className={`text-[9px] px-1.5 py-0.2 rounded font-bold uppercase font-mono ${
+                  <span className={`text-[10px] font-mono font-bold uppercase tracking-wider ${
                     peatDrynessData.riskLevel === 'extreme'
-                      ? 'bg-rose-500/20 text-rose-600 dark:text-rose-400'
-                      : 'bg-amber-500/20 text-amber-600 dark:text-amber-400'
+                      ? 'text-rose-600 dark:text-rose-400'
+                      : 'text-amber-600 dark:text-amber-400'
                   }`}>
                     {peatDrynessData.riskLevel === 'extreme' ? (isIndo ? 'Kritis' : 'Extreme') : (isIndo ? 'Tinggi' : 'High')}
                   </span>
@@ -699,8 +701,8 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
               <div>
                 <div className="text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center justify-between">
                   <span>{isIndo ? 'Muka Air Tanah' : 'Water Table'}</span>
-                  <span className="text-[9px] px-1.5 py-0.2 rounded font-bold font-mono bg-rose-500/20 text-rose-600 dark:text-rose-400 uppercase">
-                    PP 71
+                  <span className="text-[10px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase">
+                    PP 71/2014
                   </span>
                 </div>
                 <div className="text-sm sm:text-base font-extrabold text-rose-600 dark:text-rose-400 mt-1 flex items-center gap-1.5 font-mono">
@@ -732,8 +734,8 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
 
             {coords ? (
               <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-700 dark:text-emerald-300 flex items-center justify-between">
-                <span>📍 {coords.lat.toFixed(5)}, {coords.lng.toFixed(5)}</span>
-                <span className="text-[10px] bg-emerald-500 text-white px-2 py-0.5 rounded font-bold">TERKUNCI</span>
+                <span>GPS: {coords.lat.toFixed(5)}, {coords.lng.toFixed(5)}</span>
+                <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold tracking-wider uppercase">LOCKED</span>
               </div>
             ) : (
               <input
@@ -771,7 +773,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
                   >
                     <IconBadge
                       icon={Icon}
-                      variant={item.id === 'bara' ? 'rose' : item.id === 'asap' ? 'amber' : 'sky'}
+                      variant={isSelected ? 'emerald' : 'slate'}
                       size="sm"
                     />
                     <span className="text-xs">{item.label}</span>
@@ -862,12 +864,12 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
           {/* 117 BNPB */}
           <a
             href="tel:117"
-            className="p-3.5 rounded-xl bg-white dark:bg-[#0E1626] border border-rose-500/30 hover:border-rose-500 transition-all shadow-xs flex items-center justify-between group cursor-pointer"
+            className="p-3.5 rounded-xl bg-white dark:bg-[#0E1626] border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all shadow-2xs flex items-center justify-between group cursor-pointer"
           >
             <div className="flex items-center gap-3">
               <IconBadge icon={ShieldAlert} variant="rose" size="md" />
               <div>
-                <div className="text-[10px] font-mono text-rose-600 dark:text-rose-400 font-bold uppercase">
+                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
                   {isIndo ? 'BNPB Karhutla' : 'BNPB Disaster HQ'}
                 </div>
                 <div className="text-base font-extrabold text-slate-900 dark:text-white font-mono group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
@@ -878,21 +880,21 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
                 </div>
               </div>
             </div>
-            <PhoneCall className="w-4 h-4 text-rose-500 group-hover:scale-110 transition-transform shrink-0" />
+            <PhoneCall className="w-4 h-4 text-slate-400 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors shrink-0" />
           </a>
 
           {/* 112 Pemda / Damkar */}
           <a
             href="tel:112"
-            className="p-3.5 rounded-xl bg-white dark:bg-[#0E1626] border border-amber-500/30 hover:border-amber-500 transition-all shadow-xs flex items-center justify-between group cursor-pointer"
+            className="p-3.5 rounded-xl bg-white dark:bg-[#0E1626] border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all shadow-2xs flex items-center justify-between group cursor-pointer"
           >
             <div className="flex items-center gap-3">
-              <IconBadge icon={Flame} variant="amber" size="md" />
+              <IconBadge icon={Flame} variant="rose" size="md" />
               <div>
-                <div className="text-[10px] font-mono text-amber-600 dark:text-amber-400 font-bold uppercase">
+                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
                   {isIndo ? 'Darurat Pemda / Damkar' : 'Local 911 / Fire'}
                 </div>
-                <div className="text-base font-extrabold text-slate-900 dark:text-white font-mono group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                <div className="text-base font-extrabold text-slate-900 dark:text-white font-mono group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
                   112
                 </div>
                 <div className="text-[10px] text-slate-500 dark:text-slate-400">
@@ -900,18 +902,18 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
                 </div>
               </div>
             </div>
-            <PhoneCall className="w-4 h-4 text-amber-500 group-hover:scale-110 transition-transform shrink-0" />
+            <PhoneCall className="w-4 h-4 text-slate-400 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors shrink-0" />
           </a>
 
           {/* 119 Medis ISPA */}
           <a
             href="tel:119"
-            className="p-3.5 rounded-xl bg-white dark:bg-[#0E1626] border border-sky-500/30 hover:border-sky-500 transition-all shadow-xs flex items-center justify-between group cursor-pointer"
+            className="p-3.5 rounded-xl bg-white dark:bg-[#0E1626] border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all shadow-2xs flex items-center justify-between group cursor-pointer"
           >
             <div className="flex items-center gap-3">
               <IconBadge icon={Activity} variant="sky" size="md" />
               <div>
-                <div className="text-[10px] font-mono text-sky-600 dark:text-sky-400 font-bold uppercase">
+                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
                   {isIndo ? 'Layanan Medis & ISPA' : 'Medical & Respiratory'}
                 </div>
                 <div className="text-base font-extrabold text-slate-900 dark:text-white font-mono group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
@@ -922,18 +924,18 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
                 </div>
               </div>
             </div>
-            <PhoneCall className="w-4 h-4 text-sky-500 group-hover:scale-110 transition-transform shrink-0" />
+            <PhoneCall className="w-4 h-4 text-slate-400 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors shrink-0" />
           </a>
 
           {/* Posko Manggala Agni Regional */}
           <a
             href={`tel:${regionalHotline.tel}`}
-            className="p-3.5 rounded-xl bg-white dark:bg-[#0E1626] border border-emerald-500/30 hover:border-emerald-500 transition-all shadow-xs flex items-center justify-between group cursor-pointer"
+            className="p-3.5 rounded-xl bg-white dark:bg-[#0E1626] border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all shadow-2xs flex items-center justify-between group cursor-pointer"
           >
             <div className="flex items-center gap-3">
               <IconBadge icon={ShieldCheck} variant="emerald" size="md" />
               <div className="min-w-0">
-                <div className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold uppercase truncate">
+                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider truncate">
                   {regionalHotline.station}
                 </div>
                 <div className="text-base font-extrabold text-slate-900 dark:text-white font-mono group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors truncate">
@@ -944,7 +946,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
                 </div>
               </div>
             </div>
-            <PhoneCall className="w-4 h-4 text-emerald-500 group-hover:scale-110 transition-transform shrink-0" />
+            <PhoneCall className="w-4 h-4 text-slate-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors shrink-0" />
           </a>
         </div>
       </div>
@@ -974,7 +976,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
                 const stageTasks = currentStageObj?.tasks || [];
                 const completedCount = stageTasks.filter((t) => checkedTasks[t.id]).length;
                 return (
-                  <div className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 self-start sm:self-auto">
+                  <div className="text-xs font-mono font-bold px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 self-start sm:self-auto">
                     {completedCount}/{stageTasks.length} {isIndo ? 'Selesai' : 'Completed'}
                   </div>
                 );
@@ -982,14 +984,14 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
             </div>
 
             {/* Stage Selector Tabs */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 p-0.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
               {checklistStages.map((stage) => {
                 const isActive = activeStage === stage.id;
                 return (
                   <button
                     key={stage.id}
                     onClick={() => setActiveStage(stage.id)}
-                    className={`py-2 px-2.5 rounded-lg text-xs font-semibold transition-all cursor-pointer text-center ${
+                    className={`py-2 px-2 rounded-md text-xs font-semibold transition-all cursor-pointer text-center ${
                       isActive
                         ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-2xs font-bold'
                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -1008,7 +1010,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
               return (
                 <div className="space-y-2.5 pt-1">
                   <div className="text-xs text-slate-600 dark:text-slate-300 font-medium">
-                    📌 {currentStage.desc}
+                    {currentStage.desc}
                   </div>
 
                   <div className="space-y-2">
@@ -1020,7 +1022,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
                           onClick={() => toggleTask(task.id)}
                           className={`p-3 rounded-xl border transition-all cursor-pointer flex items-start gap-3 ${
                             isChecked
-                              ? 'bg-emerald-50/60 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-800/80 text-slate-900 dark:text-white'
+                              ? 'bg-emerald-50/40 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-800/60 text-slate-900 dark:text-white'
                               : 'bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300'
                           }`}
                         >
@@ -1070,32 +1072,29 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
                 return (
                   <div
                     key={idx}
-                    className={`p-3 rounded-xl border text-xs space-y-1 transition-all ${
-                      isDanger
-                        ? 'bg-rose-50/50 dark:bg-rose-950/20 border-rose-200 dark:border-rose-900/50'
-                        : isModerate
-                        ? 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-900/50'
-                        : 'bg-amber-50/50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-900/50'
-                    }`}
+                    className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200/80 dark:border-slate-800/80 text-xs space-y-1 transition-all"
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-mono font-bold text-slate-900 dark:text-white">
                         {item.time}
                       </span>
                       <span
-                        className={`text-[9px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-full ${
+                        className={`text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 ${
                           isDanger
-                            ? 'bg-rose-500 text-white'
+                            ? 'text-rose-600 dark:text-rose-400'
                             : isModerate
-                            ? 'bg-emerald-600 text-white'
-                            : 'bg-amber-500 text-slate-950'
+                            ? 'text-emerald-600 dark:text-emerald-400'
+                            : 'text-amber-600 dark:text-amber-400'
                         }`}
                       >
+                        <span className={`w-1.5 h-1.5 rounded-full ${
+                          isDanger ? 'bg-rose-500' : isModerate ? 'bg-emerald-500' : 'bg-amber-500'
+                        }`} />
                         {isDanger
-                          ? (isIndo ? 'Bahaya Inversi' : 'Peak Inversion')
+                          ? (isIndo ? 'BAHAYA INVERSI' : 'PEAK INVERSION')
                           : isModerate
-                          ? (isIndo ? 'Relatif Aman' : 'Best Window')
-                          : (isIndo ? 'Waspada' : 'Advisory')}
+                          ? (isIndo ? 'RELATIF AMAN' : 'BEST WINDOW')
+                          : (isIndo ? 'WASPADA' : 'ADVISORY')}
                       </span>
                     </div>
                     <div className="font-bold text-slate-900 dark:text-white">
