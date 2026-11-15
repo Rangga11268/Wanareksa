@@ -15,6 +15,7 @@ import {
   Database,
   FileCheck
 } from 'lucide-react';
+import { IconBadge } from './IconBadge';
 import { AOIRegion, HarmonizedWeekData } from '../engine/harmonizer';
 import { Language, translations } from '../data/translations';
 import { scientificReferences, ScientificReference } from '../data/scientificReferences';
@@ -167,9 +168,7 @@ export const DataHub: React.FC<DataHubProps> = ({
       {/* NASA Open Science & FAIR Data Principles Compliance Certificate */}
       <div className="p-4 sm:p-5 rounded-2xl border border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 text-slate-900 dark:text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 mt-0.5">
-            <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-          </div>
+          <IconBadge icon={ShieldCheck} variant="emerald" size="lg" className="mt-0.5" />
           <div className="space-y-1">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="font-bold text-sm text-emerald-900 dark:text-emerald-300">
@@ -320,8 +319,8 @@ export const DataHub: React.FC<DataHubProps> = ({
       <div className="bg-white dark:bg-[#0c121e] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 sm:p-6 shadow-sm space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
           <div>
-            <div className="flex items-center gap-2">
-              <BookOpen className="w-4 h-4 text-sky-600 dark:text-sky-400" />
+            <div className="flex items-center gap-2.5">
+              <IconBadge icon={BookOpen} variant="sky" size="md" />
               <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
                 {t.scienceRegistry}
               </h2>
@@ -432,8 +431,8 @@ export const DataHub: React.FC<DataHubProps> = ({
 
       {/* NASA Earthdata Primary Dataset DOI Provenance Registry */}
       <div className="bg-white dark:bg-[#0c121e] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 sm:p-6 shadow-sm space-y-4">
-        <div className="flex items-center gap-2 pb-3 border-b border-slate-200 dark:border-slate-800">
-          <Database className="w-5 h-5 text-sky-600 dark:text-sky-400" />
+        <div className="flex items-center gap-3 pb-3 border-b border-slate-200 dark:border-slate-800">
+          <IconBadge icon={Database} variant="sky" size="md" />
           <div>
             <h2 className="text-base font-bold text-slate-900 dark:text-white">
               {language === 'id' ? 'Registri DOI Provenansi NASA Earthdata' : 'NASA Earthdata Primary Dataset DOI Registry'}

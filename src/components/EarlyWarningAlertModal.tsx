@@ -17,6 +17,7 @@ import {
   Droplets,
   ExternalLink
 } from 'lucide-react';
+import { IconBadge } from './IconBadge';
 import { Language } from '../data/translations';
 
 interface EarlyWarningAlertModalProps {
@@ -216,13 +217,7 @@ Mohon konfirmasi kesiapan posko MPA!`;
         {/* TOP STATUS HEADER */}
         <div className="p-5 sm:p-6 bg-gradient-to-r from-rose-950/60 via-slate-900 to-slate-900 border-b border-rose-900/30 text-white flex items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
-            <div className="relative p-2.5 rounded-2xl bg-rose-600/20 border border-rose-500/40 text-rose-400">
-              <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
-              </span>
-              <ShieldAlert className="w-6 h-6 text-rose-400" />
-            </div>
+            <IconBadge icon={ShieldAlert} variant="rose" size="xl" ping />
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-[10px] font-mono font-bold tracking-widest px-2 py-0.5 rounded-full bg-rose-500/30 text-rose-300 border border-rose-500/40 uppercase">
@@ -317,6 +312,7 @@ Mohon konfirmasi kesiapan posko MPA!`;
                   {/* Alert Header */}
                   <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200/80 dark:border-slate-800">
                     <div className="flex items-center gap-2.5">
+                      <IconBadge icon={isCritical ? AlertTriangle : ShieldAlert} variant={isCritical ? 'rose' : 'amber'} size="sm" ping={isCritical} />
                       <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold tracking-wider uppercase flex items-center gap-1.5 ${
                         isCritical
                           ? 'bg-rose-600 text-white'

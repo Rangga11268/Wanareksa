@@ -1,6 +1,8 @@
 import React from 'react';
+import { Flame, ShieldCheck } from 'lucide-react';
 import { AOIRegion } from '../engine/harmonizer';
 import { Language, translations } from '../data/translations';
+import { IconBadge } from './IconBadge';
 
 interface ComparisonMetricsProps {
   language: Language;
@@ -40,8 +42,11 @@ export const ComparisonMetrics: React.FC<ComparisonMetricsProps> = ({
         {/* 2015 El Niño: raw vs harmonized comparison in clean neutral cards */}
         <div className="mt-3.5 grid grid-cols-2 gap-2.5">
           <div className="p-3.5 border border-[#e5e5e7] dark:border-[#374151] rounded-xl bg-[#fbfbfd] dark:bg-[#1f2937]">
-            <div className="text-[11px] text-[#86868b] dark:text-[#9ca3af] font-medium uppercase tracking-wider mb-1">
-              {t.rawDetectionsCard}
+            <div className="flex items-center gap-1.5 mb-1.5">
+              <IconBadge icon={Flame} variant="amber" size="sm" />
+              <div className="text-[11px] text-[#86868b] dark:text-[#9ca3af] font-medium uppercase tracking-wider">
+                {t.rawDetectionsCard}
+              </div>
             </div>
             <div className="text-2xl font-bold text-[#1d1d1f] dark:text-white num">
               {y2015.raw.toLocaleString()}
@@ -50,8 +55,11 @@ export const ComparisonMetrics: React.FC<ComparisonMetricsProps> = ({
           </div>
 
           <div className="p-3.5 border border-[#1d1d1f]/15 dark:border-white/20 rounded-xl bg-white dark:bg-[#1e293b] shadow-xs">
-            <div className="text-[11px] text-[#1d1d1f] dark:text-white font-semibold uppercase tracking-wider mb-1">
-              {t.calibratedClustersCard}
+            <div className="flex items-center gap-1.5 mb-1.5">
+              <IconBadge icon={ShieldCheck} variant="emerald" size="sm" />
+              <div className="text-[11px] text-[#1d1d1f] dark:text-white font-semibold uppercase tracking-wider">
+                {t.calibratedClustersCard}
+              </div>
             </div>
             <div className="text-2xl font-bold text-[#1d1d1f] dark:text-white num">
               {y2015.harmonized.toLocaleString()}

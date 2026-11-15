@@ -16,6 +16,7 @@ import {
   Layers,
   ArrowUpRight
 } from 'lucide-react';
+import { IconBadge } from './IconBadge';
 import { LiveWeatherData } from '../services/weatherApi';
 
 interface PeatlandSimulatorProps {
@@ -481,8 +482,8 @@ export const PeatlandSimulator: React.FC<PeatlandSimulatorProps> = ({
           <div className="grid grid-cols-2 gap-3">
             
             <div className="p-4 rounded-2xl border border-[#e5e5e7] dark:border-[#1f2937] bg-white dark:bg-[#151d2f] shadow-2xs space-y-1">
-              <div className="flex items-center gap-1.5 text-xs text-[#86868b] dark:text-[#9ca3af] uppercase tracking-wider font-semibold">
-                <Flame className="w-3.5 h-3.5 text-red-500" />
+              <div className="flex items-center gap-2 text-xs text-[#86868b] dark:text-[#9ca3af] uppercase tracking-wider font-semibold">
+                <IconBadge icon={Flame} variant="rose" size="sm" ping={simResults.burnDepthCm > 20} />
                 <span>{t.burnDepthLabel}</span>
               </div>
               <div className="text-2xl font-black text-[#1d1d1f] dark:text-white num">
@@ -492,8 +493,8 @@ export const PeatlandSimulator: React.FC<PeatlandSimulatorProps> = ({
             </div>
 
             <div className="p-4 rounded-2xl border border-[#e5e5e7] dark:border-[#1f2937] bg-white dark:bg-[#151d2f] shadow-2xs space-y-1">
-              <div className="flex items-center gap-1.5 text-xs text-[#86868b] dark:text-[#9ca3af] uppercase tracking-wider font-semibold">
-                <Droplets className="w-3.5 h-3.5 text-[#0071e3] dark:text-[#38bdf8]" />
+              <div className="flex items-center gap-2 text-xs text-[#86868b] dark:text-[#9ca3af] uppercase tracking-wider font-semibold">
+                <IconBadge icon={Droplets} variant="sky" size="sm" />
                 <span>{t.moistureLabel}</span>
               </div>
               <div className={`text-2xl font-black num ${simResults.moisturePct < 100 ? 'text-red-600 dark:text-red-400' : 'text-[#0071e3] dark:text-[#38bdf8]'}`}>
@@ -503,8 +504,8 @@ export const PeatlandSimulator: React.FC<PeatlandSimulatorProps> = ({
             </div>
 
             <div className="p-4 rounded-2xl border border-[#e5e5e7] dark:border-[#1f2937] bg-white dark:bg-[#151d2f] shadow-2xs space-y-1">
-              <div className="flex items-center gap-1.5 text-xs text-[#86868b] dark:text-[#9ca3af] uppercase tracking-wider font-semibold">
-                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              <div className="flex items-center gap-2 text-xs text-[#86868b] dark:text-[#9ca3af] uppercase tracking-wider font-semibold">
+                <IconBadge icon={Sparkles} variant="amber" size="sm" />
                 <span>{t.co2eLabel}</span>
               </div>
               <div className="text-2xl font-black text-[#1d1d1f] dark:text-white num">
@@ -514,8 +515,8 @@ export const PeatlandSimulator: React.FC<PeatlandSimulatorProps> = ({
             </div>
 
             <div className="p-4 rounded-2xl border border-[#e5e5e7] dark:border-[#1f2937] bg-white dark:bg-[#151d2f] shadow-2xs space-y-1">
-              <div className="flex items-center gap-1.5 text-xs text-[#86868b] dark:text-[#9ca3af] uppercase tracking-wider font-semibold">
-                <ShieldAlert className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <div className="flex items-center gap-2 text-xs text-[#86868b] dark:text-[#9ca3af] uppercase tracking-wider font-semibold">
+                <IconBadge icon={ShieldAlert} variant="emerald" size="sm" />
                 <span>{t.waterNeededLabel}</span>
               </div>
               <div className="text-2xl font-black text-[#1d1d1f] dark:text-white num">

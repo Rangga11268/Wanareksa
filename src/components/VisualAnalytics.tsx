@@ -29,6 +29,7 @@ import {
   Waves,
   Activity
 } from 'lucide-react';
+import { IconBadge } from './IconBadge';
 
 interface VisualAnalyticsProps {
   language: Language;
@@ -408,9 +409,9 @@ export const VisualAnalytics: React.FC<VisualAnalyticsProps> = ({
 
           {/* Oceanographic Proof Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-            <div className="p-4 rounded-xl border border-red-200 dark:border-red-900/50 bg-red-50/50 dark:bg-red-950/20 space-y-1.5">
-              <div className="font-bold text-red-700 dark:text-red-400 flex items-center gap-1.5 text-sm">
-                <Activity className="w-4 h-4" />
+            <div className="p-4 rounded-xl border border-red-200 dark:border-red-900/50 bg-red-50/50 dark:bg-red-950/20 space-y-2">
+              <div className="font-bold text-red-700 dark:text-red-400 flex items-center gap-2.5 text-sm">
+                <IconBadge icon={Activity} variant="rose" size="sm" ping />
                 <span>Super El Niño 2015 (+2.6°C)</span>
               </div>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
@@ -420,9 +421,9 @@ export const VisualAnalytics: React.FC<VisualAnalyticsProps> = ({
               </p>
             </div>
 
-            <div className="p-4 rounded-xl border border-amber-200 dark:border-amber-900/50 bg-amber-50/50 dark:bg-amber-950/20 space-y-1.5">
-              <div className="font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5 text-sm">
-                <Waves className="w-4 h-4" />
+            <div className="p-4 rounded-xl border border-amber-200 dark:border-amber-900/50 bg-amber-50/50 dark:bg-amber-950/20 space-y-2">
+              <div className="font-bold text-amber-700 dark:text-amber-400 flex items-center gap-2.5 text-sm">
+                <IconBadge icon={Waves} variant="amber" size="sm" />
                 <span>Extreme Positive IOD 2019 (+1.2°C)</span>
               </div>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
@@ -432,9 +433,9 @@ export const VisualAnalytics: React.FC<VisualAnalyticsProps> = ({
               </p>
             </div>
 
-            <div className="p-4 rounded-xl border border-sky-200 dark:border-sky-900/50 bg-sky-50/50 dark:bg-sky-950/20 space-y-1.5">
-              <div className="font-bold text-sky-700 dark:text-sky-400 flex items-center gap-1.5 text-sm">
-                <TrendingUp className="w-4 h-4" />
+            <div className="p-4 rounded-xl border border-sky-200 dark:border-sky-900/50 bg-sky-50/50 dark:bg-sky-950/20 space-y-2">
+              <div className="font-bold text-sky-700 dark:text-sky-400 flex items-center gap-2.5 text-sm">
+                <IconBadge icon={TrendingUp} variant="sky" size="sm" />
                 <span>La Niña Suppression (2010, 2021–2022)</span>
               </div>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed">

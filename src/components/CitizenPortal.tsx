@@ -28,6 +28,7 @@ import {
   FileText,
   Bell
 } from 'lucide-react';
+import { IconBadge } from './IconBadge';
 
 interface CitizenPortalProps {
   language: Language;
@@ -316,13 +317,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
       {/* 0. LIVE PEAT EMERGENCY ALERT TICKER & QUICK DISPATCH BAR */}
       <div className="rounded-2xl p-4 bg-gradient-to-r from-rose-950/80 via-slate-900 to-slate-900 border border-rose-500/40 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-3 animate-in fade-in">
         <div className="flex items-center gap-3">
-          <div className="relative p-2 rounded-xl bg-rose-600/20 border border-rose-500/50 text-rose-400 shrink-0">
-            <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
-            </span>
-            <AlertTriangle className="w-5 h-5 text-rose-400" />
-          </div>
+          <IconBadge icon={AlertTriangle} variant="rose" size="lg" ping />
           <div>
             <div className="flex items-center gap-2">
               <span className="text-[10px] font-mono font-bold tracking-widest px-2 py-0.5 rounded-full bg-rose-500/30 text-rose-300 border border-rose-500/40 uppercase">
@@ -356,9 +351,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
       {/* 1. TOP CONTROL & CONTEXT DOCK */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#0E1626] border border-slate-200 dark:border-slate-800 shadow-xs">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
-            <ShieldCheck className="w-5 h-5" />
-          </div>
+          <IconBadge icon={ShieldCheck} variant="emerald" size="lg" />
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold tracking-wider text-emerald-600 dark:text-emerald-400 uppercase">
@@ -413,12 +406,11 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
               borderColor: `${threatTier.themeColor}35`,
             }}
           >
-            <div
-              className="w-3 h-3 rounded-full shrink-0 mt-1"
-              style={{
-                backgroundColor: threatTier.themeColor,
-                boxShadow: `0 0 10px ${threatTier.themeColor}`,
-              }}
+            <IconBadge
+              icon={threatTier.level === 'safe' ? ShieldCheck : threatTier.level === 'danger' ? ShieldAlert : Flame}
+              variant={threatTier.level === 'danger' ? 'rose' : threatTier.level === 'safe' ? 'emerald' : 'amber'}
+              size="lg"
+              ping={threatTier.level === 'danger'}
             />
             <div className="space-y-1">
               <div className="flex items-center gap-2">
@@ -462,8 +454,8 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
               <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 {isIndo ? 'Arah & Kecepatan Angin' : 'Wind & Smoke Drift'}
               </div>
-              <div className="text-base font-extrabold text-slate-900 dark:text-white mt-1 flex items-center gap-1.5">
-                <Wind className="w-4 h-4 text-sky-500" />
+              <div className="text-base font-extrabold text-slate-900 dark:text-white mt-1 flex items-center gap-2">
+                <IconBadge icon={Wind} variant="sky" size="sm" />
                 <span>{liveWeather ? `${liveWeather.windSpeedKmH} km/h` : '12.4 km/h'}</span>
               </div>
               <div className="text-[11px] text-slate-600 dark:text-slate-300 mt-0.5 font-mono">
@@ -529,7 +521,11 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
                         : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-300'
                     }`}
                   >
-                    <Icon className="w-4 h-4" />
+                    <IconBadge
+                      icon={Icon}
+                      variant={item.id === 'bara' ? 'rose' : item.id === 'asap' ? 'amber' : 'sky'}
+                      size="sm"
+                    />
                     <span className="text-xs">{item.label}</span>
                   </button>
                 );

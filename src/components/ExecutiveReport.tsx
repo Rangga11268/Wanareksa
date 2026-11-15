@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AOIRegion, HarmonizedWeekData, RawHotspot, PRESET_AOIS } from '../engine/harmonizer';
 import { Language } from '../data/translations';
 import { Printer, FileText, Download, Loader2, MapPin, ChevronDown, CheckCircle2, ShieldAlert } from 'lucide-react';
+import { IconBadge } from './IconBadge';
 import { LiveWeatherData } from '../services/weatherApi';
 import { resolveHotspotLocation } from '../utils/locationResolver';
 import { getRegionalPeatProfile, calculateFireTriage } from '../data/regionalPeatProfiles';
@@ -261,9 +262,7 @@ export const ExecutiveReport: React.FC<ExecutiveReportProps> = ({
       {/* Action Toolbar (Hidden during Print) */}
       <div className="print:hidden px-6 py-4 bg-[#fbfbfd] dark:bg-[#0f172a] border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-white dark:bg-[#1e293b] rounded-xl border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white shadow-2xs">
-            <FileText className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-          </div>
+          <IconBadge icon={FileText} variant="emerald" size="lg" />
           <div>
             <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {language === 'id' ? 'Dokumen Resmi Intelijen Kebakaran Hutan & Lahan' : 'Official A4 Wildfire Situation Report (SitRep)'}

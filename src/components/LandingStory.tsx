@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { NavTab } from './Navbar';
 import { HeroSignatureTelemetry } from './HeroSignatureTelemetry';
+import { IconBadge } from './IconBadge';
 
 interface LandingStoryProps {
   language: Language;
@@ -415,9 +416,7 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
           
           <ObsidianSpotlightCard spotlightColor="rgba(2, 132, 199, 0.12)">
             <div className="space-y-2.5">
-              <div className="w-9 h-9 rounded-xl bg-sky-50 dark:bg-sky-950/60 border border-sky-200 dark:border-sky-800 text-sky-600 dark:text-sky-400 flex items-center justify-center shadow-xs">
-                <Database className="w-4 h-4" />
-              </div>
+              <IconBadge icon={Database} variant="sky" size="lg" />
               <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white">
                 {language === 'id' ? '1. Grid Spasial Equal-Area 5.5 km' : '1. 5.5 km Equal-Area Spatial Grid'}
               </h3>
@@ -434,9 +433,7 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
 
           <ObsidianSpotlightCard spotlightColor="rgba(245, 158, 11, 0.12)">
             <div className="space-y-2.5">
-              <div className="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 text-amber-600 dark:text-amber-400 flex items-center justify-center shadow-xs">
-                <Flame className="w-4 h-4" />
-              </div>
+              <IconBadge icon={Flame} variant="amber" size="lg" />
               <h3 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white">
                 {language === 'id' ? '2. Kalibrasi Radiatif FRP' : '2. FRP Radiative Calibration'}
               </h3>
@@ -453,9 +450,7 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
 
           <ObsidianSpotlightCard spotlightColor="rgba(220, 38, 38, 0.12)">
             <div className="space-y-2.5">
-              <div className="w-9 h-9 rounded-xl bg-red-50 dark:bg-red-950/60 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 flex items-center justify-center shadow-xs">
-                <ShieldCheck className="w-4 h-4" />
-              </div>
+              <IconBadge icon={ShieldCheck} variant="rose" size="lg" ping />
               <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white">
                 {language === 'id' ? '3. Integrasi Batas Kritis Gambut' : '3. Peat Critical Threshold Integration'}
               </h3>

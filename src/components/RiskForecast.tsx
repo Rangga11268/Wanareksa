@@ -17,6 +17,7 @@ import {
   CloudFog,
   Leaf
 } from 'lucide-react';
+import { IconBadge } from './IconBadge';
 import { fetchLiveWeather, LiveWeatherData } from '../services/weatherApi';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip } from 'recharts';
 import { calculatePeatCarbonEmissions } from '../data/carbonEmissionModel';
@@ -137,42 +138,34 @@ export const RiskForecast: React.FC<RiskForecastProps> = ({
 
         {/* Live Weather Telemetry Strip */}
         <div className="grid grid-cols-4 gap-2 bg-[#f8fafc] dark:bg-[#151d2f] border border-[#e5e5e7] dark:border-[#1f2937] rounded-xl p-2.5 text-center text-xs">
-          <div className="space-y-0.5">
-            <div className="flex items-center justify-center gap-1 text-[#86868b] dark:text-[#9ca3af] text-[10px]">
-              <Thermometer className="w-3 h-3 text-red-500" />
-              <span>{language === 'id' ? 'Suhu' : 'Temp'}</span>
-            </div>
-            <div className="font-bold text-[#1d1d1f] dark:text-white num">
+          <div className="flex flex-col items-center space-y-1">
+            <IconBadge icon={Thermometer} variant="rose" size="sm" />
+            <span className="text-[#86868b] dark:text-[#9ca3af] text-[10px] font-medium">{language === 'id' ? 'Suhu' : 'Temp'}</span>
+            <div className="font-bold text-[#1d1d1f] dark:text-white num text-xs">
               {isLoadingWeather ? '...' : `${weatherData?.temperature ?? 31.5}°C`}
             </div>
           </div>
 
-          <div className="space-y-0.5 border-l border-[#e5e5e7] dark:border-[#1f2937]">
-            <div className="flex items-center justify-center gap-1 text-[#86868b] dark:text-[#9ca3af] text-[10px]">
-              <Droplets className="w-3 h-3 text-blue-500" />
-              <span>{language === 'id' ? 'Lembap' : 'RH'}</span>
-            </div>
-            <div className="font-bold text-[#1d1d1f] dark:text-white num">
+          <div className="flex flex-col items-center space-y-1 border-l border-[#e5e5e7] dark:border-[#1f2937]">
+            <IconBadge icon={Droplets} variant="sky" size="sm" />
+            <span className="text-[#86868b] dark:text-[#9ca3af] text-[10px] font-medium">{language === 'id' ? 'Lembap' : 'RH'}</span>
+            <div className="font-bold text-[#1d1d1f] dark:text-white num text-xs">
               {isLoadingWeather ? '...' : `${weatherData?.relativeHumidity ?? 65}%`}
             </div>
           </div>
 
-          <div className="space-y-0.5 border-l border-[#e5e5e7] dark:border-[#1f2937]">
-            <div className="flex items-center justify-center gap-1 text-[#86868b] dark:text-[#9ca3af] text-[10px]">
-              <Wind className="w-3 h-3 text-emerald-500" />
-              <span>{language === 'id' ? 'Angin' : 'Wind'}</span>
-            </div>
-            <div className="font-bold text-[#1d1d1f] dark:text-white num">
+          <div className="flex flex-col items-center space-y-1 border-l border-[#e5e5e7] dark:border-[#1f2937]">
+            <IconBadge icon={Wind} variant="emerald" size="sm" />
+            <span className="text-[#86868b] dark:text-[#9ca3af] text-[10px] font-medium">{language === 'id' ? 'Angin' : 'Wind'}</span>
+            <div className="font-bold text-[#1d1d1f] dark:text-white num text-xs">
               {isLoadingWeather ? '...' : `${weatherData?.windSpeedKmH ?? 11} km/h`}
             </div>
           </div>
 
-          <div className="space-y-0.5 border-l border-[#e5e5e7] dark:border-[#1f2937]">
-            <div className="flex items-center justify-center gap-1 text-[#86868b] dark:text-[#9ca3af] text-[10px]">
-              <CloudRain className="w-3 h-3 text-cyan-500" />
-              <span>{language === 'id' ? 'Hujan' : 'Rain'}</span>
-            </div>
-            <div className="font-bold text-[#1d1d1f] dark:text-white num">
+          <div className="flex flex-col items-center space-y-1 border-l border-[#e5e5e7] dark:border-[#1f2937]">
+            <IconBadge icon={CloudRain} variant="sky" size="sm" />
+            <span className="text-[#86868b] dark:text-[#9ca3af] text-[10px] font-medium">{language === 'id' ? 'Hujan' : 'Rain'}</span>
+            <div className="font-bold text-[#1d1d1f] dark:text-white num text-xs">
               {isLoadingWeather ? '...' : `${weatherData?.precipitation ?? 0} mm`}
             </div>
           </div>
@@ -199,15 +192,15 @@ export const RiskForecast: React.FC<RiskForecastProps> = ({
           </div>
 
           <div className="mt-2.5 grid grid-cols-2 gap-2 text-[11px]">
-            <div className="flex items-center gap-1.5 text-[#515154] dark:text-[#d1d5db]">
-              <Droplets className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+            <div className="flex items-center gap-2 text-[#515154] dark:text-[#d1d5db]">
+              <IconBadge icon={Droplets} variant="sky" size="sm" />
               <span>{language === 'id' ? 'TMA Gambut:' : 'Peat Water Table:'}</span>
               <strong className={`font-mono ${currentTmat <= -40 ? 'text-rose-600 dark:text-rose-400 font-bold' : 'text-[#1d1d1f] dark:text-white'}`}>
                 {currentTmat} cm
               </strong>
             </div>
-            <div className="flex items-center gap-1.5 text-[#515154] dark:text-[#d1d5db]">
-              <Flame className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400 shrink-0" />
+            <div className="flex items-center gap-2 text-[#515154] dark:text-[#d1d5db]">
+              <IconBadge icon={Flame} variant="rose" size="sm" ping={isLiveSync && liveHotspotCount > 0} />
               <span>{language === 'id' ? 'Titik Api Aktif:' : 'Active Hotspots:'}</span>
               <strong className="font-mono text-[#1d1d1f] dark:text-white">
                 {isLiveSync ? `${liveHotspotCount} titik` : `${Math.round(baseline.mean)} titik/mgg`}

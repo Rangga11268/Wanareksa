@@ -26,6 +26,7 @@ import {
   TreePine,
   Sparkles,
 } from 'lucide-react';
+import { IconBadge } from './IconBadge';
 
 interface FullMapModalProps {
   language: Language;
@@ -811,7 +812,7 @@ export const FullMapModal: React.FC<FullMapModalProps> = ({
             
             <div className="px-3.5 py-2.5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Activity className="w-4 h-4 text-sky-600 dark:text-sky-400" />
+                <IconBadge icon={Activity} variant="sky" size="sm" />
                 <span className="font-bold text-xs tracking-tight text-slate-900 dark:text-white">
                   {isRadiusToolActive && bufferCenter
                     ? `Buffer Radius (${bufferRadiusKm} km)`
@@ -859,10 +860,10 @@ export const FullMapModal: React.FC<FullMapModalProps> = ({
                 </div>
 
                 {/* Fire Energy & Peat Carbon Emissions */}
-                <div className="space-y-1.5 border-t border-slate-100 dark:border-slate-800 pt-2 text-[11px]">
+                <div className="space-y-2 border-t border-slate-100 dark:border-slate-800 pt-2 text-[11px]">
                   <div className="flex items-center justify-between text-slate-700 dark:text-slate-300">
-                    <span className="flex items-center gap-1.5">
-                      <Flame className="w-3.5 h-3.5 text-red-500 dark:text-red-400" />
+                    <span className="flex items-center gap-2">
+                      <IconBadge icon={Flame} variant="rose" size="sm" ping />
                       <span>Total FRP:</span>
                     </span>
                     <span className="font-semibold text-slate-900 dark:text-white num font-mono">
@@ -871,8 +872,8 @@ export const FullMapModal: React.FC<FullMapModalProps> = ({
                   </div>
 
                   <div className="flex items-center justify-between text-slate-700 dark:text-slate-300">
-                    <span className="flex items-center gap-1.5">
-                      <Wind className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
+                    <span className="flex items-center gap-2">
+                      <IconBadge icon={Wind} variant="amber" size="sm" />
                       <span>{language === 'id' ? 'Emisi Gambut:' : 'Peat Emissions:'}</span>
                     </span>
                     <span className="font-semibold text-amber-600 dark:text-amber-300 num font-mono">
@@ -881,8 +882,8 @@ export const FullMapModal: React.FC<FullMapModalProps> = ({
                   </div>
 
                   <div className="flex items-center justify-between text-slate-700 dark:text-slate-300">
-                    <span className="flex items-center gap-1.5">
-                      <ShieldAlert className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                    <span className="flex items-center gap-2">
+                      <IconBadge icon={ShieldAlert} variant="emerald" size="sm" />
                       <span>{language === 'id' ? 'Rata-rata Keyakinan:' : 'Avg Confidence:'}</span>
                     </span>
                     <span className="font-semibold text-slate-900 dark:text-white num font-mono">

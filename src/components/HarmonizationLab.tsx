@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Info, ShieldCheck, Zap, Layers, Cpu, Compass, CheckCircle2, ChevronRight, Activity } from 'lucide-react';
+import { Info, ShieldCheck, Zap, Layers, Cpu, Compass, CheckCircle2, ChevronRight, Activity, Flame } from 'lucide-react';
+import { IconBadge } from './IconBadge';
 import { Language } from '../data/translations';
 
 interface HarmonizationLabProps {
@@ -427,8 +428,8 @@ export const HarmonizationLab: React.FC<HarmonizationLabProps> = ({ language }) 
 
                 {/* Harmonized Card */}
                 <div className="p-3.5 rounded-xl bg-emerald-50/40 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/60 space-y-1.5">
-                  <div className="text-[10.5px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 flex items-center gap-1">
-                    <ShieldCheck className="w-3.5 h-3.5" />
+                  <div className="text-[10.5px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
+                    <IconBadge icon={ShieldCheck} variant="emerald" size="sm" />
                     <span>{language === 'id' ? 'Wanareksa (Terkalibrasi)' : 'Harmonized 5.5 km Grid'}</span>
                   </div>
                   <div className="flex justify-between items-baseline pt-1">
@@ -460,9 +461,7 @@ export const HarmonizationLab: React.FC<HarmonizationLabProps> = ({ language }) 
           
           {/* Step 1 */}
           <div className="p-5 rounded-2xl bg-white dark:bg-[#111827] border border-[#e5e5e7] dark:border-[#1f2937] shadow-xs space-y-3">
-            <div className="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-sm">
-              1
-            </div>
+            <IconBadge icon={Layers} variant="sky" size="lg" />
             <h3 className="font-bold text-sm text-[#1d1d1f] dark:text-white">
               {language === 'id' ? 'Spatial Binning (5.5 km)' : '5.5 km Spatial Binning'}
             </h3>
@@ -478,9 +477,7 @@ export const HarmonizationLab: React.FC<HarmonizationLabProps> = ({ language }) 
 
           {/* Step 2 */}
           <div className="p-5 rounded-2xl bg-white dark:bg-[#111827] border border-[#e5e5e7] dark:border-[#1f2937] shadow-xs space-y-3">
-            <div className="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-sm">
-              2
-            </div>
+            <IconBadge icon={Flame} variant="amber" size="lg" />
             <h3 className="font-bold text-sm text-[#1d1d1f] dark:text-white">
               {language === 'id' ? 'FRP Cross-Sensor Calibration' : 'FRP Cross-Calibration'}
             </h3>
@@ -496,9 +493,7 @@ export const HarmonizationLab: React.FC<HarmonizationLabProps> = ({ language }) 
 
           {/* Step 3 */}
           <div className="p-5 rounded-2xl bg-white dark:bg-[#111827] border border-[#e5e5e7] dark:border-[#1f2937] shadow-xs space-y-3">
-            <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm">
-              3
-            </div>
+            <IconBadge icon={ShieldCheck} variant="emerald" size="lg" />
             <h3 className="font-bold text-sm text-[#1d1d1f] dark:text-white">
               {language === 'id' ? 'Burning Activity Index (BAI)' : 'Burning Activity Index (BAI)'}
             </h3>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, Printer, ShieldCheck, Flame, Droplets, AlertTriangle, Satellite, CheckCircle2, Clock } from 'lucide-react';
+import { IconBadge } from './IconBadge';
 import { Language, translations } from '../data/translations';
 import { AOIRegion, HarmonizedWeekData, RawHotspot } from '../engine/harmonizer';
 
@@ -109,7 +110,10 @@ export const ExecutiveBriefingModal: React.FC<ExecutiveBriefingModalProps> = ({
         {/* Executive Summary Metrics */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 print:bg-slate-50 print:border-slate-300">
-            <span className="text-[10px] uppercase font-bold text-slate-500">Live Hotspots Today</span>
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] uppercase font-bold text-slate-500">Live Hotspots Today</span>
+              <IconBadge icon={Flame} variant="rose" size="sm" ping={liveCount > 0} />
+            </div>
             <div className="text-2xl font-black text-red-600 mt-1 font-mono">
               {liveCount > 0 ? liveCount : '0'}
             </div>
@@ -117,7 +121,10 @@ export const ExecutiveBriefingModal: React.FC<ExecutiveBriefingModalProps> = ({
           </div>
 
           <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 print:bg-slate-50 print:border-slate-300">
-            <span className="text-[10px] uppercase font-bold text-slate-500">2026 Cumulative FRP</span>
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] uppercase font-bold text-slate-500">2026 Cumulative FRP</span>
+              <IconBadge icon={AlertTriangle} variant="amber" size="sm" />
+            </div>
             <div className="text-2xl font-black text-amber-600 mt-1 font-mono">
               {year2026FRP.toLocaleString()} MW
             </div>
@@ -125,7 +132,10 @@ export const ExecutiveBriefingModal: React.FC<ExecutiveBriefingModalProps> = ({
           </div>
 
           <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 print:bg-slate-50 print:border-slate-300">
-            <span className="text-[10px] uppercase font-bold text-slate-500">Peat Table (TMAG)</span>
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] uppercase font-bold text-slate-500">Peat Table (TMAG)</span>
+              <IconBadge icon={Droplets} variant="sky" size="sm" />
+            </div>
             <div className="text-2xl font-black text-sky-600 mt-1 font-mono">
               -32 cm
             </div>
@@ -133,7 +143,10 @@ export const ExecutiveBriefingModal: React.FC<ExecutiveBriefingModalProps> = ({
           </div>
 
           <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 print:bg-slate-50 print:border-slate-300">
-            <span className="text-[10px] uppercase font-bold text-slate-500">Climate Threat Status</span>
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] uppercase font-bold text-slate-500">Climate Threat Status</span>
+              <IconBadge icon={ShieldCheck} variant="emerald" size="sm" />
+            </div>
             <div className="text-2xl font-black text-slate-900 dark:text-white print:text-black mt-1 font-mono">
               LOW
             </div>

@@ -23,6 +23,7 @@ import {
   Terminal,
   GitBranch
 } from 'lucide-react';
+import { IconBadge } from './IconBadge';
 
 interface TeamPageProps {
   language: Language;
@@ -718,25 +719,21 @@ export const TeamPage: React.FC<TeamPageProps> = ({ language }) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
           
           <div className="p-5 rounded-2xl bg-[#fbfbfd] dark:bg-[#151d2f] border border-[#e5e5e7] dark:border-[#1f2937] space-y-2.5 flex flex-col justify-between">
-            <div className="space-y-2">
-              <div className="p-2.5 w-fit rounded-xl bg-white dark:bg-[#111827] border border-[#e5e5e7] dark:border-[#1f2937] text-[#1d1d1f] dark:text-white">
-                <Database className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-              </div>
+            <div className="space-y-3">
+              <IconBadge icon={Database} variant="sky" size="lg" />
               <h3 className="font-bold text-[#1d1d1f] dark:text-white text-sm">{t.binningInnovationTitle}</h3>
               <p className="text-[#6e6e73] dark:text-[#9ca3af] leading-relaxed">
                 {t.binningInnovationDesc}
               </p>
             </div>
-            <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+            <span className="text-[10px] font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">
               {language === 'id' ? 'Metrik Spasial' : 'Spatial Metric'}
             </span>
           </div>
 
           <div className="p-5 rounded-2xl bg-[#fbfbfd] dark:bg-[#151d2f] border border-[#e5e5e7] dark:border-[#1f2937] space-y-2.5 flex flex-col justify-between">
-            <div className="space-y-2">
-              <div className="p-2.5 w-fit rounded-xl bg-white dark:bg-[#111827] border border-[#e5e5e7] dark:border-[#1f2937] text-[#1d1d1f] dark:text-white">
-                <Cpu className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-              </div>
+            <div className="space-y-3">
+              <IconBadge icon={Cpu} variant="purple" size="lg" />
               <h3 className="font-bold text-[#1d1d1f] dark:text-white text-sm">{t.frpInnovationTitle}</h3>
               <p className="text-[#6e6e73] dark:text-[#9ca3af] leading-relaxed">
                 {t.frpInnovationDesc}
@@ -748,25 +745,21 @@ export const TeamPage: React.FC<TeamPageProps> = ({ language }) => {
           </div>
 
           <div className="p-5 rounded-2xl bg-[#fbfbfd] dark:bg-[#151d2f] border border-[#e5e5e7] dark:border-[#1f2937] space-y-2.5 flex flex-col justify-between">
-            <div className="space-y-2">
-              <div className="p-2.5 w-fit rounded-xl bg-white dark:bg-[#111827] border border-[#e5e5e7] dark:border-[#1f2937] text-[#1d1d1f] dark:text-white">
-                <Flame className="w-5 h-5 text-red-600 dark:text-red-400" />
-              </div>
+            <div className="space-y-3">
+              <IconBadge icon={Flame} variant="rose" size="lg" ping />
               <h3 className="font-bold text-[#1d1d1f] dark:text-white text-sm">{t.peatInnovationTitle}</h3>
               <p className="text-[#6e6e73] dark:text-[#9ca3af] leading-relaxed">
                 {t.peatInnovationDesc}
               </p>
             </div>
-            <span className="text-[10px] font-bold text-red-600 dark:text-red-400 uppercase tracking-wider">
+            <span className="text-[10px] font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">
               {language === 'id' ? 'Mitigasi Lapangan' : 'Field Mitigation'}
             </span>
           </div>
 
           <div className="p-5 rounded-2xl bg-[#fbfbfd] dark:bg-[#151d2f] border border-[#e5e5e7] dark:border-[#1f2937] space-y-2.5 flex flex-col justify-between">
-            <div className="space-y-2">
-              <div className="p-2.5 w-fit rounded-xl bg-white dark:bg-[#111827] border border-[#e5e5e7] dark:border-[#1f2937] text-[#1d1d1f] dark:text-white">
-                <Globe className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-              </div>
+            <div className="space-y-3">
+              <IconBadge icon={Globe} variant="emerald" size="lg" />
               <h3 className="font-bold text-[#1d1d1f] dark:text-white text-sm">{t.firmsInnovationTitle}</h3>
               <p className="text-[#6e6e73] dark:text-[#9ca3af] leading-relaxed">
                 {t.firmsInnovationDesc}
