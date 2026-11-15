@@ -60,6 +60,13 @@ Without mathematical and spatial harmonization, raw historical archives create a
 
 Designed in compliance with the **`/diagram-design`** editorial engineering standard:
 
+<div align="center">
+  <a href="docs/wanareksa-architecture.html">
+    <img src="docs/wanareksa-architecture.svg" alt="Wanareksa End-to-End System Architecture" width="100%" />
+  </a>
+  <p><em>Click the diagram above to inspect the standalone interactive vector view at <a href="docs/wanareksa-architecture.html">docs/wanareksa-architecture.html</a>.</em></p>
+</div>
+
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
 │                                 WANAREKSA ARCHITECTURE                                 │
@@ -170,12 +177,25 @@ Tanpa harmonisasi matematis dan spasial, data historis mentah menciptakan ilusi 
 
 ---
 
+## Arsitektur Sistem
+
+Dibangun dengan mematuhi standar desain diagram editorial **`/diagram-design`**:
+
+<div align="center">
+  <a href="docs/wanareksa-architecture.html">
+    <img src="docs/wanareksa-architecture.svg" alt="Diagram Arsitektur Sistem Wanareksa" width="100%" />
+  </a>
+  <p><em>Klik diagram untuk melihat versi interaktif standalone beresolusi tinggi pada <a href="docs/wanareksa-architecture.html">docs/wanareksa-architecture.html</a>.</em></p>
+</div>
+
+---
+
 ## Berkas & Tautan Resmi
 
 - **Aplikasi Web Live**: [https://wanareksa.vercel.app](https://wanareksa.vercel.app)
 - **Slide Pitch Deck Resmi (PDF)**: [`submission_assets/Wanareksa_NASA_Space_Apps_2026_Pitch_Deck.pdf`](submission_assets/Wanareksa_NASA_Space_Apps_2026_Pitch_Deck.pdf)
 - **Slide Pitch Deck (PPTX)**: [`submission_assets/Wanareksa_NASA_Space_Apps_2026_Pitch_Deck.pptx`](submission_assets/Wanareksa_NASA_Space_Apps_2026_Pitch_Deck.pptx)
-- **Diagram Arsitektur Sistem (`/diagram-design`)**: [`docs/wanareksa-architecture.html`](docs/wanareksa-architecture.html)
+- **Diagram Arsitektur Sistem (`/diagram-design`)**: [`docs/wanareksa-architecture.html`](docs/wanareksa-architecture.html) | [Versi Vektor SVG](docs/wanareksa-architecture.svg)
 
 ---
 
