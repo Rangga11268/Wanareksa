@@ -36,7 +36,9 @@ interface AlertItem {
   frpMw: number;
   leadTimeHours: number;
   nearestCanal: string;
+  nearestCanalEn?: string;
   actionRequired: string;
+  actionRequiredEn?: string;
   mpaContactName: string;
   mpaPhone: string;
 }
@@ -53,7 +55,9 @@ const ACTIVE_ALERTS: AlertItem[] = [
     frpMw: 324,
     leadTimeHours: 36,
     nearestCanal: 'Kanal Sekunder Blok 32 (420m)',
+    nearestCanalEn: 'Secondary Canal Block 32 (420m)',
     actionRequired: 'Injeksi nozzle tombak gambut ke kedalaman 1.5m dan segera tutup pintu sekat kanal timur.',
+    actionRequiredEn: 'Inject subsurface lance nozzle to 1.5m depth and immediately seal eastern canal gates.',
     mpaContactName: 'Pak Budi (Posko MPA Teluk Meranti)',
     mpaPhone: '6281234567890',
   },
@@ -68,7 +72,9 @@ const ACTIVE_ALERTS: AlertItem[] = [
     frpMw: 112,
     leadTimeHours: 64,
     nearestCanal: 'Pintu Air Kanal Primer Sebangau (680m)',
+    nearestCanalEn: 'Sebangau Primary Canal Sluice Gate (680m)',
     actionRequired: 'Patroli preventif ground-check dan pembasahan zona transisi tepi kubah gambut.',
+    actionRequiredEn: 'Conduct proactive ground patrol check and re-saturate dome margin transition zone.',
     mpaContactName: 'Pak Yanto (Posko MPA Pulang Pisau)',
     mpaPhone: '6281298765432',
   },
@@ -83,7 +89,9 @@ const ACTIVE_ALERTS: AlertItem[] = [
     frpMw: 88,
     leadTimeHours: 72,
     nearestCanal: 'Sekat Kanal Parit 4 (310m)',
+    nearestCanalEn: 'Canal Block Ditch 4 (310m)',
     actionRequired: 'Pemeriksaan rembesan tanggul sekat kanal dan aktivasi pompa apung desa.',
+    actionRequiredEn: 'Inspect canal embankment for seepage and activate community floating pumps.',
     mpaContactName: 'Pak Agus (Posko MPA Kubu Raya)',
     mpaPhone: '6281311223344',
   },
@@ -177,8 +185,8 @@ Status: ${alert.level === 'CRITICAL' ? 'CRITICAL ALERT (RED)' : 'WARNING (YELLOW
 Peat Water Table: ${alert.groundwaterCm} cm (Gov Reg 71/2014 Limit: -40 cm)
 Satellite Detections: ${alert.firmsCount} FIRMS Hotspots (${alert.frpMw} MW)
 Estimated Time to Pyrolysis: ${alert.leadTimeHours} Hours
-Nearest Water Supply: ${alert.nearestCanal}
-Field Mandate: ${alert.actionRequired}
+Nearest Water Supply: ${alert.nearestCanalEn || alert.nearestCanal}
+Field Mandate: ${alert.actionRequiredEn || alert.actionRequired}
 Command Post: ${alert.mpaContactName}
 
 Wanareksa Peat Early Warning System — https://wanareksa.vercel.app`;
@@ -362,7 +370,7 @@ Mohon konfirmasi kesiapan posko MPA!`;
                         {language === 'id' ? 'Akses Air / Sekat Kanal' : 'Canal Water Access'}
                       </span>
                       <strong className="text-xs font-semibold text-slate-900 dark:text-slate-200 block truncate mt-0.5">
-                        {alert.nearestCanal}
+                        {language === 'id' ? alert.nearestCanal : (alert.nearestCanalEn || alert.nearestCanal)}
                       </strong>
                       <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono">
                         {language === 'id' ? 'Tersedia Sumber Air' : 'Water Supply Ready'}
@@ -390,7 +398,7 @@ Mohon konfirmasi kesiapan posko MPA!`;
                         <strong className="font-semibold text-slate-900 dark:text-white">
                           {language === 'id' ? 'Mandat Tindakan: ' : 'Required Action: '}
                         </strong>
-                        {alert.actionRequired}
+                        {language === 'id' ? alert.actionRequired : (alert.actionRequiredEn || alert.actionRequired)}
                       </p>
                     </div>
 

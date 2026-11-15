@@ -1,0 +1,31 @@
+{
+  "$schema": "https://agenticresourcediscovery.org/spec/v0.91/schemas/ard-manifest.schema.json",
+  "entries": [
+    {
+      "identifier": "urn:air:wanareksa.vercel.app:ai-skill:peatland-sentinel",
+      "displayName": "Wanareksa Peatland Sentinel",
+      "description": "Planetary Multi-Sensor Climatology & Indonesian Tropical Peatland Intelligence Suite for NASA Space Apps Challenge 2026",
+      "type": "application/ai-skill",
+      "url": "https://wanareksa.vercel.app",
+      "tags": [
+        "nasa-space-apps",
+        "earth-observation",
+        "peatland-hydrology",
+        "modis-viirs-harmonization",
+        "fire-climatology"
+      ],
+      "capabilities": [
+        "satellite-harmonization",
+        "peatland-hydrology",
+        "incident-dispatch"
+      ],
+      "representativeQueries": [
+        "Check Indonesian peatland fire anomalies",
+        "Harmonize MODIS and VIIRS satellite active fire data",
+        "Inspect BRGM groundwater table threshold status"
+      ],
+      "version": "1.0.0",
+      "updatedAt": "2026-11-15T00:00:00Z"
+    }
+  ]
+}

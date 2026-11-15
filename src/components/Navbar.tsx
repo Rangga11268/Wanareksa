@@ -106,15 +106,15 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={onOpenAlertModal}
                 className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 font-mono text-xs font-bold transition-all shadow-2xs cursor-pointer group"
-                title={language === 'id' ? 'Pusat Siaga & Peringatan Dini Gambut (3 Aktif)' : 'Early Warning Alert Hub (3 Active)'}
-                aria-label="Pusat Peringatan Dini"
+                title={language === 'id' ? '3 Siaga: Pusat Peringatan Dini Gambut (3 Aktif)' : '3 Alerts: Early Warning Alert Hub (3 Active)'}
+                aria-label={language === 'id' ? '3 Siaga: Pusat Peringatan Dini' : '3 Alerts: Early Warning Alert Hub'}
               >
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
                 </span>
                 <Bell className="w-3.5 h-3.5 text-rose-500 transition-transform group-hover:scale-110" />
-                <span className="hidden sm:inline font-semibold">3 Siaga</span>
+                <span className="hidden sm:inline font-semibold">{language === 'id' ? '3 Siaga' : '3 Alerts'}</span>
               </button>
             )}
 

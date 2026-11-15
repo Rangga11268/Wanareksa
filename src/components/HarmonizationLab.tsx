@@ -389,15 +389,15 @@ export const HarmonizationLab: React.FC<HarmonizationLabProps> = ({ language }) 
                 <div className="absolute bottom-2 left-3 right-3 flex flex-wrap items-center justify-between gap-2 text-[10px] text-slate-300 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-700/50 backdrop-blur-sm">
                   <div className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
-                    <span>Front Api Riil ({fireGroundArea.toFixed(1)} km²)</span>
+                    <span>{language === 'id' ? `Front Api Riil (${fireGroundArea.toFixed(1)} km²)` : `True Fire Extent (${fireGroundArea.toFixed(1)} km²)`}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded border border-sky-400" />
-                    <span>MODIS: {simulatedModisRawCount} titik mentah</span>
+                    <span>MODIS: {simulatedModisRawCount} {language === 'id' ? 'titik mentah' : 'raw points'}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded border border-emerald-400" />
-                    <span>VIIRS: {simulatedViirsRawCount} titik mentah</span>
+                    <span>VIIRS: {simulatedViirsRawCount} {language === 'id' ? 'titik mentah' : 'raw points'}</span>
                   </div>
                 </div>
               </div>
@@ -412,11 +412,11 @@ export const HarmonizationLab: React.FC<HarmonizationLabProps> = ({ language }) 
                   </div>
                   <div className="flex justify-between items-baseline pt-1">
                     <span className="text-[#86868b] dark:text-[#9ca3af]">MODIS Raw:</span>
-                    <strong className="text-sm font-bold text-[#1d1d1f] dark:text-white num">{simulatedModisRawCount} titik</strong>
+                    <strong className="text-sm font-bold text-[#1d1d1f] dark:text-white num">{simulatedModisRawCount} {language === 'id' ? 'titik' : 'points'}</strong>
                   </div>
                   <div className="flex justify-between items-baseline">
                     <span className="text-[#86868b] dark:text-[#9ca3af]">VIIRS Raw:</span>
-                    <strong className="text-sm font-bold text-rose-600 dark:text-rose-400 num">{simulatedViirsRawCount} titik</strong>
+                    <strong className="text-sm font-bold text-rose-600 dark:text-rose-400 num">{simulatedViirsRawCount} {language === 'id' ? 'titik' : 'points'}</strong>
                   </div>
                   <p className="text-[10.5px] text-[#86868b] dark:text-[#9ca3af] pt-1.5 border-t border-[#e5e5e7] dark:border-[#1f2937]">
                     {language === 'id'
@@ -432,11 +432,11 @@ export const HarmonizationLab: React.FC<HarmonizationLabProps> = ({ language }) 
                     <span>{language === 'id' ? 'Wanareksa (Terkalibrasi)' : 'Harmonized 5.5 km Grid'}</span>
                   </div>
                   <div className="flex justify-between items-baseline pt-1">
-                    <span className="text-[#6e6e73] dark:text-[#9ca3af]">Klaster Terverifikasi:</span>
-                    <strong className="text-sm font-bold text-emerald-700 dark:text-emerald-300 num">{harmonizedBinCount} klaster</strong>
+                    <span className="text-[#6e6e73] dark:text-[#9ca3af]">{language === 'id' ? 'Klaster Terverifikasi:' : 'Verified Clusters:'}</span>
+                    <strong className="text-sm font-bold text-emerald-700 dark:text-emerald-300 num">{harmonizedBinCount} {language === 'id' ? 'klaster' : 'clusters'}</strong>
                   </div>
                   <div className="flex justify-between items-baseline">
-                    <span className="text-[#6e6e73] dark:text-[#9ca3af]">Energi Radiasi Kalibrasi:</span>
+                    <span className="text-[#6e6e73] dark:text-[#9ca3af]">{language === 'id' ? 'Energi Radiasi Kalibrasi:' : 'Calibrated Radiative Energy:'}</span>
                     <strong className="text-sm font-bold text-[#1d1d1f] dark:text-white num">{calibratedEnergyOutput.toLocaleString()} MW</strong>
                   </div>
                   <p className="text-[10.5px] text-emerald-800/80 dark:text-emerald-300/80 pt-1.5 border-t border-emerald-200 dark:border-emerald-900">

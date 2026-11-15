@@ -451,7 +451,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
               <div className="text-base font-extrabold text-slate-900 dark:text-white mt-1">
                 {threatTier.aqi}
               </div>
-              <div className="text-[11px] text-slate-500 mt-0.5">
+              <div className="text-[11px] text-slate-600 dark:text-slate-300 mt-0.5 font-medium">
                 {threatTier.maskNeeded
                   ? (isIndo ? '⚠️ Wajib Masker N95' : '⚠️ N95 Mask Required')
                   : (isIndo ? '✅ Masker tidak mendesak' : '✅ Mask optional')}
@@ -466,8 +466,10 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
                 <Wind className="w-4 h-4 text-sky-500" />
                 <span>{liveWeather ? `${liveWeather.windSpeedKmH} km/h` : '12.4 km/h'}</span>
               </div>
-              <div className="text-[11px] text-slate-500 mt-0.5 font-mono">
-                {liveWeather?.windDirectionDeg ? `Arah ${liveWeather.windDirectionDeg}°` : 'Arah Tenggara (120°)'}
+              <div className="text-[11px] text-slate-600 dark:text-slate-300 mt-0.5 font-mono">
+                {liveWeather?.windDirectionDeg 
+                  ? (isIndo ? `Arah ${liveWeather.windDirectionDeg}°` : `Heading ${liveWeather.windDirectionDeg}°`) 
+                  : (isIndo ? 'Arah Tenggara (120°)' : 'SE Wind (120°)')}
               </div>
             </div>
           </div>
@@ -481,7 +483,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
               <button
                 onClick={handleGetLocation}
                 disabled={isGettingLocation}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all cursor-pointer shadow-xs active:scale-95 disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition-all cursor-pointer shadow-xs active:scale-95 disabled:opacity-50"
               >
                 <Locate className={`w-3.5 h-3.5 ${isGettingLocation ? 'animate-spin' : ''}`} />
                 <span>{isGettingLocation ? (isIndo ? 'Mencari...' : 'Locating...') : (isIndo ? 'Deteksi GPS Saya' : 'Get GPS')}</span>
@@ -566,13 +568,13 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
                 {isIndo ? 'Peta Pantau Satelit NASA FIRMS' : 'NASA FIRMS Satellite Observation'}
               </span>
               <span className="text-xs text-slate-400">&bull;</span>
-              <span className="text-xs font-mono text-slate-500">
+              <span className="text-xs font-mono text-slate-600 dark:text-slate-300 font-medium">
                 {activeCount} {isIndo ? 'Titik Terpantau' : 'Points'}
               </span>
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
-              <span>Resolusi: 375m VIIRS</span>
+            <div className="flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-300 font-medium">
+              <span>{isIndo ? 'Resolusi: 375m VIIRS' : 'Resolution: 375m VIIRS'}</span>
             </div>
           </div>
 
@@ -618,7 +620,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
                 activeInfoTab === 'health'
                   ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-2xs'
-                  : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               {isIndo ? 'Kesehatan Asap PM2.5' : 'Smoke Health'}
@@ -628,7 +630,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
                 activeInfoTab === 'stewardship'
                   ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-2xs'
-                  : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               {isIndo ? 'Jaga Gambut Basah (PP 71)' : 'Wet Peat (PP 71)'}
@@ -742,7 +744,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
 
         <button
           onClick={onSwitchToScience}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-xs cursor-pointer shrink-0"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition shadow-xs cursor-pointer shrink-0"
         >
           <span>{isIndo ? 'Buka Mode Riset & Satgas' : 'Launch Science & Satgas Mode'}</span>
           <ArrowRight className="w-4 h-4" />

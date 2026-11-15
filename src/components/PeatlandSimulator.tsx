@@ -608,13 +608,15 @@ export const PeatlandSimulator: React.FC<PeatlandSimulatorProps> = ({
                       <line x1="225" y1="35" x2="237" y2="35" stroke="#fbbf24" strokeWidth="1.5" />
                       <line x1="225" y1="45" x2="237" y2="45" stroke="#fbbf24" strokeWidth="1.5" />
                       <text x="231" y="24" fill="#fbbf24" fontSize="8" fontWeight="bold" textAnchor="middle">
-                        SEKAT KANAL
+                        {isIndo ? 'SEKAT KANAL' : 'CANAL DAM'}
                       </text>
                     </g>
 
                     {/* Peat Surface Ground Line (y: 50) */}
                     <line x1="0" y1="50" x2="540" y2="50" stroke="#78350f" strokeWidth="2" />
-                    <text x="8" y="46" fill="#a8a29e" fontSize="9" fontFamily="monospace">Permukaan Lahan (0 cm)</text>
+                    <text x="8" y="46" fill="#a8a29e" fontSize="9" fontFamily="monospace">
+                      {isIndo ? 'Permukaan Lahan (0 cm)' : 'Peat Surface (0 cm)'}
+                    </text>
 
                     {/* Deep Peat Layer Base (y: 50 to 190) */}
                     <rect x="0" y="50" width="540" height="140" fill="url(#peatLayerGrad)" />
