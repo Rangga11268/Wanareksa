@@ -76,46 +76,46 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Central Mode Switcher: Mode Warga vs Mode Riset & Satgas (Refined Architectural Segmented Bar) */}
-          <div className="hidden md:inline-flex items-center bg-slate-100/90 dark:bg-slate-900/90 p-0.5 rounded-lg border border-slate-200 dark:border-slate-800 text-xs shadow-2xs">
+          <div className="hidden md:inline-flex items-center bg-slate-100/90 dark:bg-slate-900/90 p-0.5 rounded-lg border border-slate-200 dark:border-slate-800 text-xs shadow-2xs h-9">
             <button
               onClick={() => onToggleAppMode('citizen')}
-              className={`px-3 py-1.5 rounded-md transition-all cursor-pointer font-bold flex items-center gap-1.5 ${
+              className={`h-8 px-3 rounded-md transition-all cursor-pointer font-bold flex items-center gap-1.5 ${
                 appMode === 'citizen'
-                  ? 'bg-emerald-600 text-white shadow-2xs'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/40'
+                  ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs border border-slate-200/80 dark:border-slate-700'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
               title={t.modeCitizenDesc}
             >
-              <ShieldAlert className="w-3.5 h-3.5 shrink-0" />
+              <ShieldAlert className="w-3.5 h-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" />
               <span>{t.modeCitizen}</span>
             </button>
 
             <button
               onClick={() => onToggleAppMode('science')}
-              className={`px-3 py-1.5 rounded-md transition-all cursor-pointer font-bold flex items-center gap-1.5 ${
+              className={`h-8 px-3 rounded-md transition-all cursor-pointer font-bold flex items-center gap-1.5 ${
                 appMode === 'science'
-                  ? 'bg-sky-600 text-white shadow-2xs'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/40'
+                  ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs border border-slate-200/80 dark:border-slate-700'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
               title={t.modeScienceDesc}
             >
-              <Globe2 className="w-3.5 h-3.5 shrink-0" />
+              <Globe2 className="w-3.5 h-3.5 shrink-0 text-sky-600 dark:text-sky-400" />
               <span>{t.modeScience}</span>
             </button>
           </div>
 
           {/* Right Controls: Alert Hub, Theme, Language, Tour & Mobile Toggle */}
-          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-            {/* Early Warning Alert Center Trigger (Clean Editorial Button, No Pulsing Dot, No Pill) */}
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            {/* Early Warning Alert Center Trigger (Clean Editorial Button, No Pulsing Dot, No Capsule) */}
             {onOpenAlertModal && (
               <button
                 onClick={onOpenAlertModal}
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs font-semibold transition-all shadow-2xs cursor-pointer group min-h-[34px]"
+                className="flex items-center gap-1.5 px-3 h-9 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs font-semibold transition-all shadow-2xs cursor-pointer group"
                 title={language === 'id' ? 'Pusat Peringatan Dini Gambut' : 'Early Warning Alert Hub'}
                 aria-label={language === 'id' ? 'Pusat Peringatan Dini' : 'Early Warning Alert Hub'}
               >
-                <Bell className="w-3.5 h-3.5 text-slate-500 group-hover:text-rose-500 transition-colors" />
-                <span className="font-semibold">{language === 'id' ? 'Siaga' : 'Alerts'}</span>
+                <Bell className="w-3.5 h-3.5 text-rose-500 shrink-0" />
+                <span>{language === 'id' ? '3 Siaga' : '3 Alerts'}</span>
               </button>
             )}
 
@@ -126,43 +126,43 @@ export const Navbar: React.FC<NavbarProps> = ({
               </span>
             )}
 
-            {/* Audio Feedback Toggle Button (Available on 380px+ and in mobile menu) */}
+            {/* Audio Feedback Toggle Button */}
             <button
               onClick={handleToggleAudio}
               aria-label={isMuted ? (language === 'id' ? 'Aktifkan Suara Telemetri' : 'Enable Telemetry Audio') : (language === 'id' ? 'Bisukan Suara' : 'Mute Audio')}
               title={isMuted ? (language === 'id' ? 'Suara Telemetri: Nonaktif' : 'Telemetry Sound: Muted') : (language === 'id' ? 'Suara Telemetri: Aktif' : 'Telemetry Sound: Active')}
-              className="hidden min-[380px]:flex p-1.5 sm:p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800 items-center justify-center min-w-[32px] min-h-[32px] sm:min-w-[34px] sm:min-h-[34px] cursor-pointer group"
+              className="hidden min-[380px]:flex h-9 w-9 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-50/80 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800 items-center justify-center cursor-pointer shadow-2xs"
             >
               {isMuted ? (
-                <VolumeX className="w-4 h-4 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 transition-colors" />
+                <VolumeX className="w-4 h-4 text-slate-400" />
               ) : (
-                <Volume2 className="w-4 h-4 text-sky-500 animate-pulse" />
+                <Volume2 className="w-4 h-4 text-sky-600 dark:text-sky-400" />
               )}
             </button>
 
-            {/* Direct Dark / Light Theme Toggle Button (Desktop & Tablet) */}
+            {/* Direct Dark / Light Theme Toggle Button */}
             {onToggleTheme && (
               <button
                 onClick={onToggleTheme}
                 aria-label={themeLabel}
                 title={themeLabel}
-                className="hidden sm:flex p-1.5 sm:p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800 items-center justify-center min-w-[32px] min-h-[32px] sm:min-w-[34px] sm:min-h-[34px] cursor-pointer group"
+                className="hidden sm:flex h-9 w-9 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-50/80 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800 items-center justify-center cursor-pointer shadow-2xs"
               >
                 {theme === 'dark' ? (
-                  <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform" />
+                  <Sun className="w-4 h-4 text-amber-400" />
                 ) : (
-                  <Moon className="w-4 h-4 text-slate-600 group-hover:-rotate-12 transition-transform" />
+                  <Moon className="w-4 h-4 text-slate-600" />
                 )}
               </button>
             )}
 
             {/* Language Switch */}
-            <div className="flex items-center bg-slate-100 dark:bg-slate-800/90 rounded-lg p-0.5 text-[10px] sm:text-[11px] font-mono font-bold border border-slate-200 dark:border-slate-700">
+            <div className="flex items-center bg-slate-100/90 dark:bg-slate-900/90 rounded-lg p-0.5 text-xs font-mono font-bold border border-slate-200 dark:border-slate-800 h-9 shadow-2xs">
               <button
                 onClick={() => onToggleLanguage('en')}
-                className={`px-1.5 sm:px-2 py-0.5 rounded-md transition-all cursor-pointer ${
+                className={`h-8 px-2.5 rounded-md transition-all cursor-pointer ${
                   language === 'en'
-                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-2xs'
+                    ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs border border-slate-200/80 dark:border-slate-700'
                     : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
@@ -170,9 +170,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
               <button
                 onClick={() => onToggleLanguage('id')}
-                className={`px-1.5 sm:px-2 py-0.5 rounded-md transition-all cursor-pointer ${
+                className={`h-8 px-2.5 rounded-md transition-all cursor-pointer ${
                   language === 'id'
-                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-2xs'
+                    ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs border border-slate-200/80 dark:border-slate-700'
                     : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
@@ -184,12 +184,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             {onOpenTour && (
               <button
                 onClick={onOpenTour}
-                className="hidden xl:inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-sky-300 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 hover:bg-sky-100 dark:hover:bg-sky-900 transition-all cursor-pointer shadow-2xs"
+                className="hidden xl:inline-flex items-center gap-2 text-xs font-semibold px-3 h-9 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer shadow-2xs"
                 title={language === 'id' ? 'Buka Ringkasan Ilmiah 30 Detik (Pintasan: ?)' : 'Open 30-Second Science Briefing (Shortcut: ?)'}
               >
-                <Compass className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
+                <Compass className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400 shrink-0" />
                 <span>{t.scienceTourBtn}</span>
-                <kbd className="text-[10px] font-mono px-1 rounded bg-white dark:bg-slate-900 border border-sky-200 dark:border-sky-800 text-sky-800 dark:text-sky-300">
+                <kbd className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-200/70 dark:bg-slate-800 border border-slate-300/80 dark:border-slate-700 text-slate-600 dark:text-slate-400">
                   ?
                 </kbd>
               </button>
@@ -198,7 +198,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-1.5 text-slate-900 dark:text-white min-h-[36px] min-w-[36px] flex items-center justify-center cursor-pointer rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent"
+              className="md:hidden h-9 w-9 text-slate-900 dark:text-white flex items-center justify-center cursor-pointer rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/80"
               aria-label="Menu"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
