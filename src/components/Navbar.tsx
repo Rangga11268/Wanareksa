@@ -63,7 +63,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     <>
       <header className="print:hidden sticky top-0 z-[1000] bg-white/95 dark:bg-[#070c18]/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 transition-all w-full">
         {/* ROW 1: PRIMARY BRANDING & GLOBAL CONTROLS */}
-        <div className="w-full px-3 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-2 sm:gap-4">
+        <div className="w-full px-2.5 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-1 sm:gap-4">
           
           {/* Brand Logo */}
           <div className="flex items-center cursor-pointer shrink-0" onClick={() => onSelectTab('overview')}>
@@ -105,12 +105,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Right Controls: Alert Hub, Theme, Language, Tour & Mobile Toggle */}
-          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             {/* Early Warning Alert Center Trigger */}
             {onOpenAlertModal && (
               <button
                 onClick={onOpenAlertModal}
-                className="relative flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 font-mono text-xs font-bold transition-all shadow-2xs cursor-pointer group"
+                className="relative flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-xl border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 font-mono text-xs font-bold transition-all shadow-2xs cursor-pointer group"
                 title={language === 'id' ? '3 Siaga: Pusat Peringatan Dini Gambut (3 Aktif)' : '3 Alerts: Early Warning Alert Hub (3 Active)'}
                 aria-label={language === 'id' ? '3 Siaga: Pusat Peringatan Dini' : '3 Alerts: Early Warning Alert Hub'}
               >
@@ -131,12 +131,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               </span>
             )}
 
-            {/* Audio Feedback Toggle Button */}
+            {/* Audio Feedback Toggle Button (Available on 380px+ and in mobile menu) */}
             <button
               onClick={handleToggleAudio}
               aria-label={isMuted ? (language === 'id' ? 'Aktifkan Suara Telemetri' : 'Enable Telemetry Audio') : (language === 'id' ? 'Bisukan Suara' : 'Mute Audio')}
               title={isMuted ? (language === 'id' ? 'Suara Telemetri: Nonaktif' : 'Telemetry Sound: Muted') : (language === 'id' ? 'Suara Telemetri: Aktif' : 'Telemetry Sound: Active')}
-              className="p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800 flex items-center justify-center min-w-[34px] min-h-[34px] sm:min-w-[36px] sm:min-h-[36px] cursor-pointer group"
+              className="hidden min-[380px]:flex p-1.5 sm:p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800 items-center justify-center min-w-[32px] min-h-[32px] sm:min-w-[36px] sm:min-h-[36px] cursor-pointer group"
             >
               {isMuted ? (
                 <VolumeX className="w-4 h-4 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 transition-colors" />
@@ -162,10 +162,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
 
             {/* Language Switch */}
-            <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-xl p-0.5 sm:p-1 text-[10px] sm:text-[11px] font-mono font-bold border border-slate-200 dark:border-slate-700">
+            <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg sm:rounded-xl p-0.5 text-[10px] sm:text-[11px] font-mono font-bold border border-slate-200 dark:border-slate-700">
               <button
                 onClick={() => onToggleLanguage('en')}
-                className={`px-1.5 sm:px-2 py-0.5 rounded-lg transition-all cursor-pointer ${
+                className={`px-1.5 sm:px-2 py-0.5 rounded transition-all cursor-pointer ${
                   language === 'en'
                     ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-2xs'
                     : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -175,7 +175,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
               <button
                 onClick={() => onToggleLanguage('id')}
-                className={`px-1.5 sm:px-2 py-0.5 rounded-lg transition-all cursor-pointer ${
+                className={`px-1.5 sm:px-2 py-0.5 rounded transition-all cursor-pointer ${
                   language === 'id'
                     ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-2xs'
                     : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -203,7 +203,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-slate-900 dark:text-white min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="md:hidden p-1.5 text-slate-900 dark:text-white min-h-[38px] min-w-[38px] flex items-center justify-center cursor-pointer rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800"
               aria-label="Menu"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

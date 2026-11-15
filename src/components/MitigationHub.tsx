@@ -6,6 +6,7 @@ import {
   Radio,
   RefreshCw,
   ShieldAlert,
+  AlertTriangle,
   Droplets,
   Flame,
   MapPin,
@@ -33,6 +34,7 @@ import {
 import { PRESET_AOIS, AOIRegion, HarmonizedWeekData, RawHotspot } from '../engine/harmonizer';
 import { Language, translations } from '../data/translations';
 import { PeatlandSimulator } from './PeatlandSimulator';
+import { IconBadge } from './IconBadge';
 import { ExecutiveReport } from './ExecutiveReport';
 import { MitigationCharts } from './MitigationCharts';
 import { LiveSyncResult } from '../services/nasaFirmsApi';
@@ -394,9 +396,12 @@ ${language === 'id' ? 'Sumber Data: NASA FIRMS (MODIS 1km / VIIRS 375m) & Open-M
         <div className="mt-4 pt-4 border-t border-[#e5e5e7] dark:border-[#1f2937] grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs">
           
           <div className="p-3 rounded-xl bg-[#f8fafc] dark:bg-[#151d2f] border border-[#e5e5e7] dark:border-[#1f2937]">
-            <span className="text-[10px] text-[#86868b] dark:text-[#9ca3af] uppercase font-bold tracking-wider block">
-              {language === 'id' ? 'Titik Panas Terpantau' : 'Observed Hotspots'}
-            </span>
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] text-[#86868b] dark:text-[#9ca3af] uppercase font-bold tracking-wider block">
+                {language === 'id' ? 'Titik Panas' : 'Hotspots'}
+              </span>
+              <IconBadge icon={Flame} variant="rose" size="sm" ping={activeSpotCount > 0} />
+            </div>
             <div className="flex items-baseline gap-1.5 mt-1">
               <strong className="text-lg font-bold text-[#1d1d1f] dark:text-white num">
                 {activeSpotCount.toLocaleString()}
@@ -408,9 +413,12 @@ ${language === 'id' ? 'Sumber Data: NASA FIRMS (MODIS 1km / VIIRS 375m) & Open-M
           </div>
 
           <div className="p-3 rounded-xl bg-[#f8fafc] dark:bg-[#151d2f] border border-[#e5e5e7] dark:border-[#1f2937]">
-            <span className="text-[10px] text-[#86868b] dark:text-[#9ca3af] uppercase font-bold tracking-wider block">
-              {language === 'id' ? 'TMA Gambut' : 'Peat Water Table'}
-            </span>
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] text-[#86868b] dark:text-[#9ca3af] uppercase font-bold tracking-wider block">
+                {language === 'id' ? 'TMA Gambut' : 'Peat Table'}
+              </span>
+              <IconBadge icon={Droplets} variant={currentRegionRisk.tmag <= -40 ? 'rose' : 'emerald'} size="sm" />
+            </div>
             <div className="flex items-baseline gap-1.5 mt-1">
               <strong className={`text-lg font-bold num ${currentRegionRisk.tmag <= -40 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
                 {currentRegionRisk.tmag} cm
@@ -422,9 +430,12 @@ ${language === 'id' ? 'Sumber Data: NASA FIRMS (MODIS 1km / VIIRS 375m) & Open-M
           </div>
 
           <div className="p-3 rounded-xl bg-[#f8fafc] dark:bg-[#151d2f] border border-[#e5e5e7] dark:border-[#1f2937]">
-            <span className="text-[10px] text-[#86868b] dark:text-[#9ca3af] uppercase font-bold tracking-wider block">
-              {language === 'id' ? 'Suhu & Lembap Udara' : 'Temp & Humidity'}
-            </span>
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] text-[#86868b] dark:text-[#9ca3af] uppercase font-bold tracking-wider block">
+                {language === 'id' ? 'Suhu & Cuaca' : 'Temperature'}
+              </span>
+              <IconBadge icon={Wind} variant="sky" size="sm" />
+            </div>
             <div className="flex items-baseline gap-1.5 mt-1">
               <strong className="text-lg font-bold text-[#1d1d1f] dark:text-white num">
                 {isLoadingWeather ? '...' : `${liveWeather?.temperature ?? 32}°C`}
@@ -436,9 +447,12 @@ ${language === 'id' ? 'Sumber Data: NASA FIRMS (MODIS 1km / VIIRS 375m) & Open-M
           </div>
 
           <div className="p-3 rounded-xl bg-[#f8fafc] dark:bg-[#151d2f] border border-[#e5e5e7] dark:border-[#1f2937]">
-            <span className="text-[10px] text-[#86868b] dark:text-[#9ca3af] uppercase font-bold tracking-wider block">
-              {language === 'id' ? 'Indeks Bahaya Api (FWI)' : 'Fire Weather Index (FWI)'}
-            </span>
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] text-[#86868b] dark:text-[#9ca3af] uppercase font-bold tracking-wider block">
+                {language === 'id' ? 'Indeks FWI' : 'FWI Risk'}
+              </span>
+              <IconBadge icon={AlertTriangle} variant="amber" size="sm" />
+            </div>
             <div className="flex items-baseline gap-1.5 mt-1">
               <strong className="text-lg font-bold text-amber-600 dark:text-amber-400 num">
                 {effectiveFwi}
@@ -450,9 +464,12 @@ ${language === 'id' ? 'Sumber Data: NASA FIRMS (MODIS 1km / VIIRS 375m) & Open-M
           </div>
 
           <div className="p-3 rounded-xl bg-[#f8fafc] dark:bg-[#151d2f] border border-[#e5e5e7] dark:border-[#1f2937]">
-            <span className="text-[10px] text-[#86868b] dark:text-[#9ca3af] uppercase font-bold tracking-wider block">
-              {language === 'id' ? 'Sekat Kanal Pantau (BRGM)' : 'Monitored Canal Dams'}
-            </span>
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] text-[#86868b] dark:text-[#9ca3af] uppercase font-bold tracking-wider block">
+                {language === 'id' ? 'Sekat Kanal' : 'Canal Dams'}
+              </span>
+              <IconBadge icon={CheckCircle2} variant="emerald" size="sm" />
+            </div>
             <div className="flex items-baseline gap-1.5 mt-1">
               <strong className="text-lg font-bold text-[#1d1d1f] dark:text-white num">
                 {currentRegionRisk.canalBlocks}

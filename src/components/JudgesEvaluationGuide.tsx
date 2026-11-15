@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Compass,
   CheckCircle2,
+  ShieldCheck,
   Layers,
   Flame,
   Globe,
@@ -17,6 +18,7 @@ import {
 } from 'lucide-react';
 import { Language, translations } from '../data/translations';
 import { AOIRegion, PRESET_AOIS } from '../engine/harmonizer';
+import { IconBadge } from './IconBadge';
 
 interface JudgesEvaluationGuideProps {
   language: Language;
@@ -49,6 +51,8 @@ export const JudgesEvaluationGuide: React.FC<JudgesEvaluationGuideProps> = ({
       num: 1,
       id: 'paradox',
       phase: 'PHASE 01',
+      icon: Layers,
+      variant: 'sky' as const,
       title: language === 'id' ? 'Paradoks Sensor (Raw vs Harmonisasi)' : 'Sensor Paradox (Raw vs Harmonized)',
       status: rawMode ? (language === 'id' ? 'MODE MENTAH' : 'RAW MODE') : (language === 'id' ? 'TERKALIBRASI' : 'HARMONIZED'),
       desc: language === 'id'
@@ -68,6 +72,8 @@ export const JudgesEvaluationGuide: React.FC<JudgesEvaluationGuideProps> = ({
       num: 2,
       id: 'scenarios',
       phase: 'PHASE 02',
+      icon: Flame,
+      variant: 'amber' as const,
       title: language === 'id' ? 'Simulasi 3 Skenario Karhutla Nyata' : 'Simulate 3 Historic Fire Crises',
       status: activeScenario ? (language === 'id' ? 'KASUS AKTIF' : 'ACTIVE CASE') : (language === 'id' ? 'PILIH KASUS' : 'SELECT CASE'),
       desc: language === 'id'
@@ -82,6 +88,8 @@ export const JudgesEvaluationGuide: React.FC<JudgesEvaluationGuideProps> = ({
       num: 3,
       id: 'lab',
       phase: 'PHASE 03',
+      icon: Sliders,
+      variant: 'purple' as const,
       title: language === 'id' ? 'Uji Rumus Fisika & Monte Carlo' : 'Test Physics Engine & Monte Carlo',
       status: language === 'id' ? 'LAB ILMIAH' : 'SCIENCE LAB',
       desc: language === 'id'
@@ -96,6 +104,8 @@ export const JudgesEvaluationGuide: React.FC<JudgesEvaluationGuideProps> = ({
       num: 4,
       id: 'mitigation',
       phase: 'PHASE 04',
+      icon: ShieldCheck,
+      variant: 'emerald' as const,
       title: language === 'id' ? 'Disposisi WhatsApp & Ekspor GIS' : 'WhatsApp SitRep & GIS Export',
       status: language === 'id' ? 'AKSI LAPANGAN' : 'FIELD ACTION',
       desc: language === 'id'
@@ -155,10 +165,13 @@ export const JudgesEvaluationGuide: React.FC<JudgesEvaluationGuideProps> = ({
               onClick={() => setActiveStep(step.num)}
             >
               <div>
-                <div className="flex items-center justify-between gap-2 mb-1.5 font-mono text-[10px]">
-                  <span className="font-bold text-sky-600 dark:text-sky-400 tracking-wider">
-                    {step.phase}
-                  </span>
+                <div className="flex items-center justify-between gap-2 mb-2 font-mono text-[10px]">
+                  <div className="flex items-center gap-1.5">
+                    <IconBadge icon={step.icon} variant={step.variant} size="sm" />
+                    <span className="font-bold text-sky-600 dark:text-sky-400 tracking-wider">
+                      {step.phase}
+                    </span>
+                  </div>
                   <span className="text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                     {step.status}
                   </span>
