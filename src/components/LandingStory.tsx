@@ -98,25 +98,25 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
     <div className="w-full space-y-10 sm:space-y-14 animate-in fade-in duration-200 max-w-full overflow-hidden">
       
       {/* 1. HERO SECTION (Editorial 2-Column Split Layout with Signature Telemetry Stage) */}
-      <section className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-neutral-800 bg-[#070A10] text-white p-6 sm:p-10 lg:p-12 shadow-2xl">
+      <section className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-neutral-800 bg-[#070A10] text-white p-4 sm:p-8 lg:p-12 shadow-2xl">
         
         {/* Subtle Ambient Background Mesh */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-center">
           
           {/* Left Column: Concise Editorial Content & Actions */}
-          <div className="lg:col-span-7 space-y-5 text-left">
+          <div className="lg:col-span-7 space-y-4 sm:space-y-5 text-left">
             
             {/* Editorial Kicker Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-neutral-900/90 border border-neutral-700/80 text-[11px] font-mono tracking-wider text-sky-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
-              <span>NASA SPACE APPS 2026 &bull; SENSOR HARMONIZATION</span>
+            <div className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 rounded-md bg-neutral-900/90 border border-neutral-700/80 text-[10px] sm:text-[11px] font-mono tracking-wider text-sky-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse shrink-0" />
+              <span className="truncate">NASA SPACE APPS 2026 &bull; SENSOR HARMONIZATION</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-[-0.035em] text-white leading-[1.08]">
+            <h1 className="text-2xl sm:text-4xl lg:text-6xl font-black tracking-[-0.035em] text-white leading-tight sm:leading-[1.08]">
               {language === 'id' ? (
                 <>
                   Harmonisasi <span className="text-sky-400">26 Tahun Titik Api</span> Satelit NASA di Indonesia
@@ -129,14 +129,14 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
             </h1>
 
             {/* Punchy, Clean Description */}
-            <p className="text-sm sm:text-base text-neutral-300 leading-relaxed font-normal max-w-xl">
+            <p className="text-xs sm:text-sm lg:text-base text-neutral-300 leading-relaxed font-normal max-w-xl">
               {language === 'id'
                 ? 'Mengoreksi bias sensorik 300% transisi MODIS ke VIIRS, merekonstruksi data iklim 2000–2026 secara homogen, dan memantau risiko kebakaran bawah tanah pada 13.4 juta hektar lahan gambut Indonesia.'
                 : 'Correcting the 300% sensor transition bias between MODIS and VIIRS, reconstructing 2000–2026 fire climatology, and monitoring peatland hydrology across 13.4 million hectares.'}
             </p>
 
             {/* Action CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 pt-1 sm:pt-2">
               <button
                 onClick={() => onSelectTab('overview')}
                 className="w-full sm:w-auto h-12 min-h-[48px] px-6 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
@@ -164,26 +164,26 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
             </div>
 
             {/* Compact Key Stats Pills */}
-            <div className="grid grid-cols-3 gap-2.5 pt-4 border-t border-neutral-800/80 max-w-lg">
-              <div className="p-2.5 rounded-lg bg-neutral-900/60 border border-neutral-800/80">
-                <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">
+            <div className="grid grid-cols-3 gap-1.5 sm:gap-2.5 pt-3 sm:pt-4 border-t border-neutral-800/80 max-w-lg">
+              <div className="p-2 sm:p-2.5 rounded-lg bg-neutral-900/60 border border-neutral-800/80">
+                <span className="text-[9px] sm:text-[10px] font-bold text-neutral-400 uppercase tracking-wider block truncate">
                   {language === 'id' ? 'Rentang Data' : 'Data Span'}
                 </span>
-                <strong className="text-sm sm:text-base font-bold text-white block mt-0.5">
+                <strong className="text-xs sm:text-base font-bold text-white block mt-0.5 truncate">
                   {language === 'id' ? '26 Tahun' : '26 Years'}
                 </strong>
               </div>
-              <div className="p-2.5 rounded-lg bg-neutral-900/60 border border-neutral-800/80">
-                <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">
+              <div className="p-2 sm:p-2.5 rounded-lg bg-neutral-900/60 border border-neutral-800/80">
+                <span className="text-[9px] sm:text-[10px] font-bold text-neutral-400 uppercase tracking-wider block truncate">
                   {language === 'id' ? 'Grid Equal-Area' : 'Equal-Area Grid'}
                 </span>
-                <strong className="text-sm sm:text-base font-bold text-sky-400 block mt-0.5">5.5 km</strong>
+                <strong className="text-xs sm:text-base font-bold text-sky-400 block mt-0.5 truncate">5.5 km</strong>
               </div>
-              <div className="p-2.5 rounded-lg bg-neutral-900/60 border border-neutral-800/80">
-                <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">
+              <div className="p-2 sm:p-2.5 rounded-lg bg-neutral-900/60 border border-neutral-800/80">
+                <span className="text-[9px] sm:text-[10px] font-bold text-neutral-400 uppercase tracking-wider block truncate">
                   {language === 'id' ? 'Gambut BRGM' : 'BRGM Peat GWL'}
                 </span>
-                <strong className="text-sm sm:text-base font-bold text-amber-400 block mt-0.5">&lt; -40 cm</strong>
+                <strong className="text-xs sm:text-base font-bold text-amber-400 block mt-0.5 truncate">&lt; -40 cm</strong>
               </div>
             </div>
 

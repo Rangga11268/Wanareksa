@@ -358,17 +358,17 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
   }, [activeMode]);
 
   return (
-    <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-700/80 bg-neutral-950 shadow-2xl flex flex-col aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] group">
+    <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-700/80 bg-neutral-950 shadow-2xl flex flex-col min-h-[360px] sm:min-h-0 sm:aspect-[16/10] lg:aspect-[4/3] group">
       
       {/* Top Header: Mode Selector & Telemetry Banner */}
-      <div className="relative z-30 p-3 sm:p-3.5 bg-neutral-950/90 backdrop-blur-md border-b border-neutral-800 flex items-center justify-between gap-2 text-xs">
-        <div className="flex items-center gap-1.5 p-0.5 rounded-lg bg-neutral-900 border border-neutral-800">
+      <div className="relative z-30 p-2.5 sm:p-3.5 bg-neutral-950/90 backdrop-blur-md border-b border-neutral-800 flex items-center justify-between gap-2 text-xs">
+        <div className="flex items-center gap-1 sm:gap-1.5 p-0.5 rounded-lg bg-neutral-900 border border-neutral-800">
           <button
             onClick={() => {
               telemetryAudio.playClick();
               setActiveMode('orbital');
             }}
-            className={`px-2.5 py-1 rounded-md text-[11px] font-mono font-bold transition flex items-center gap-1 cursor-pointer ${
+            className={`px-2 sm:px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-mono font-bold transition flex items-center gap-1 cursor-pointer ${
               activeMode === 'orbital'
                 ? 'bg-sky-600 text-white shadow-xs'
                 : 'text-neutral-400 hover:text-white'
@@ -383,7 +383,7 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
               telemetryAudio.playClick();
               setActiveMode('footprint');
             }}
-            className={`px-2.5 py-1 rounded-md text-[11px] font-mono font-bold transition flex items-center gap-1 cursor-pointer ${
+            className={`px-2 sm:px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-mono font-bold transition flex items-center gap-1 cursor-pointer ${
               activeMode === 'footprint'
                 ? 'bg-amber-600 text-white shadow-xs'
                 : 'text-neutral-400 hover:text-white'
@@ -394,10 +394,10 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
           </button>
         </div>
 
-        <div className="flex items-center gap-2 font-mono text-[10px] text-neutral-400">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+        <div className="flex items-center gap-1.5 sm:gap-2 font-mono text-[9px] sm:text-[10px] text-neutral-400">
+          <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-500 animate-pulse" />
           <span className="hidden sm:inline">LEO 705 KM</span>
-          <span className="text-neutral-600">&bull;</span>
+          <span className="text-neutral-600 hidden sm:inline">&bull;</span>
           <span className="text-sky-400 font-bold">TERRA &bull; NPP</span>
         </div>
       </div>
@@ -467,10 +467,10 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
             })}
 
             {/* Active Node Telemetry Card Overlay */}
-            <div className="absolute bottom-3 left-3 right-3 z-30 p-3 rounded-xl bg-neutral-950/90 backdrop-blur-md border border-neutral-700/80 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5">
-              <div className="space-y-0.5">
+            <div className="absolute bottom-2.5 left-2.5 right-2.5 z-30 p-2.5 sm:p-3 rounded-xl bg-neutral-950/90 backdrop-blur-md border border-neutral-700/80 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+              <div className="space-y-0.5 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono font-bold text-sky-400 uppercase tracking-wider">
+                  <span className="text-[10px] font-mono font-bold text-sky-400 uppercase tracking-wider truncate">
                     {isIndo ? activeNode.regionId : activeNode.regionEn}
                   </span>
                   <span className="text-neutral-500">&bull;</span>
@@ -478,12 +478,12 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
                     {activeNode.lat}, {activeNode.lng}
                   </span>
                 </div>
-                <h4 className="text-xs sm:text-sm font-bold text-white">
+                <h4 className="text-xs sm:text-sm font-bold text-white truncate">
                   {isIndo ? activeNode.nameId : activeNode.nameEn}
                 </h4>
               </div>
 
-              <div className="flex items-center gap-3 shrink-0 text-[10px] font-mono">
+              <div className="flex items-center gap-2 sm:gap-3 shrink-0 text-[10px] font-mono w-full sm:w-auto justify-between sm:justify-start">
                 <div className="p-1.5 rounded-lg bg-neutral-900 border border-neutral-800">
                   <span className="text-neutral-400 block text-[9px]">
                     {isIndo ? 'TMAG Gambut' : 'Peat GWL'}
@@ -503,7 +503,7 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
                   <span className="text-neutral-400 block text-[9px]">
                     {isIndo ? 'Lintasan Sensor' : 'Sensor Pass'}
                   </span>
-                  <strong className="text-neutral-200">
+                  <strong className="text-neutral-200 truncate block max-w-[120px] sm:max-w-none">
                     {isIndo ? activeNode.satPassId : activeNode.satPassEn}
                   </strong>
                 </div>
@@ -533,15 +533,15 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
             />
 
             {/* In-Canvas Filter Bar */}
-            <div className="absolute top-2 left-2 right-2 flex items-center justify-between pointer-events-auto">
-              <span className="text-[10px] font-mono text-neutral-400 bg-neutral-950/80 px-2 py-1 rounded border border-neutral-800">
+            <div className="absolute top-2 left-2 right-2 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pointer-events-auto">
+              <span className="text-[9px] sm:text-[10px] font-mono text-neutral-400 bg-neutral-950/80 px-2 py-0.5 rounded border border-neutral-800 self-start">
                 {isIndo ? 'Sentuh/Geser Titik Api' : 'Drag Fire Position'}
               </span>
 
-              <div className="flex items-center gap-1 bg-neutral-900/90 backdrop-blur-md p-1 rounded-lg border border-neutral-800 text-[10px] font-mono">
+              <div className="flex items-center gap-1 bg-neutral-900/90 backdrop-blur-md p-1 rounded-lg border border-neutral-800 text-[10px] font-mono overflow-x-auto max-w-full">
                 <button
                   onClick={() => setSensorFilter('all')}
-                  className={`px-2 py-0.5 rounded transition ${
+                  className={`px-2 py-0.5 rounded transition shrink-0 ${
                     sensorFilter === 'all' ? 'bg-neutral-800 text-white font-bold' : 'text-neutral-400'
                   }`}
                 >
@@ -549,23 +549,23 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
                 </button>
                 <button
                   onClick={() => setSensorFilter('modis')}
-                  className={`px-2 py-0.5 rounded transition ${
+                  className={`px-2 py-0.5 rounded transition shrink-0 ${
                     sensorFilter === 'modis' ? 'bg-orange-600 text-white font-bold' : 'text-neutral-400'
                   }`}
                 >
-                  MODIS (1km)
+                  MODIS
                 </button>
                 <button
                   onClick={() => setSensorFilter('viirs')}
-                  className={`px-2 py-0.5 rounded transition ${
+                  className={`px-2 py-0.5 rounded transition shrink-0 ${
                     sensorFilter === 'viirs' ? 'bg-red-600 text-white font-bold' : 'text-neutral-400'
                   }`}
                 >
-                  VIIRS (375m)
+                  VIIRS
                 </button>
                 <button
                   onClick={() => setSensorFilter('harmonized')}
-                  className={`px-2 py-0.5 rounded transition ${
+                  className={`px-2 py-0.5 rounded transition shrink-0 ${
                     sensorFilter === 'harmonized' ? 'bg-sky-600 text-white font-bold' : 'text-neutral-400'
                   }`}
                 >

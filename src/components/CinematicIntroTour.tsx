@@ -49,7 +49,7 @@ export const CinematicIntroTour: React.FC<CinematicIntroTourProps> = ({
 
   const content = (
     <div
-      className={`fixed inset-0 z-[100000] bg-[#070b14] text-slate-100 flex flex-col justify-between font-sans select-none overflow-y-auto transition-opacity duration-200 ${
+      className={`fixed inset-0 z-[100000] bg-[#070b14] text-slate-100 flex flex-col min-h-dvh sm:justify-between font-sans select-none overflow-y-auto transition-opacity duration-200 ${
         isExiting ? 'opacity-0' : 'opacity-100'
       }`}
     >
@@ -66,30 +66,30 @@ export const CinematicIntroTour: React.FC<CinematicIntroTourProps> = ({
       </div>
 
       {/* Top Telemetry Header */}
-      <header className="relative z-10 w-full max-w-5xl mx-auto px-6 sm:px-10 pt-8 pb-4 flex items-center justify-between border-b border-slate-800/80 backdrop-blur-xs">
+      <header className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-10 pt-4 sm:pt-8 pb-3 sm:pb-4 flex items-center justify-between border-b border-slate-800/80 backdrop-blur-xs">
         {/* Dual Brand Lockup: Wanareksa Emblem × NASA Insignia */}
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#0b1b36] border border-blue-500/40 p-1.5 flex items-center justify-center shadow-lg shadow-blue-950">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-[#0b1b36] border border-blue-500/40 p-1 sm:p-1.5 flex items-center justify-center shadow-lg shadow-blue-950 shrink-0">
             <img
               src="/wanareksa_logo.svg"
               alt="Wanareksa Emblem"
               className="w-full h-full object-contain"
             />
           </div>
-          <span className="text-slate-500 font-mono text-xs">×</span>
-          <div className="w-8 h-8 rounded-full overflow-hidden shadow-md shadow-blue-950">
+          <span className="text-slate-500 font-mono text-xs shrink-0">×</span>
+          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden shadow-md shadow-blue-950 shrink-0">
             <img
               src="/nasa_meatball.svg"
               alt="NASA"
               className="w-full h-full object-contain"
             />
           </div>
-          <div className="ml-1">
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold text-sm sm:text-base tracking-tight text-white">
+          <div className="ml-1 min-w-0">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <span className="font-extrabold text-sm sm:text-base tracking-tight text-white truncate">
                 Wanareksa
               </span>
-              <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-blue-950 text-blue-300 border border-blue-800/70">
+              <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-blue-950 text-blue-300 border border-blue-800/70 shrink-0">
                 SPACE APPS 2026
               </span>
             </div>
@@ -100,7 +100,7 @@ export const CinematicIntroTour: React.FC<CinematicIntroTourProps> = ({
         </div>
 
         {/* Language Switcher */}
-        <div className="flex items-center bg-slate-900/90 rounded-lg p-0.5 border border-slate-700 text-xs font-mono font-semibold">
+        <div className="flex items-center bg-slate-900/90 rounded-lg p-0.5 border border-slate-700 text-xs font-mono font-semibold shrink-0">
           <button
             onClick={() => onToggleLanguage('en')}
             className={`px-2.5 py-1 rounded transition cursor-pointer text-xs ${
@@ -121,18 +121,18 @@ export const CinematicIntroTour: React.FC<CinematicIntroTourProps> = ({
       </header>
 
       {/* Main Single Page Content (Editorial Mission Briefing) */}
-      <main className="relative z-10 w-full max-w-4xl mx-auto px-6 sm:px-10 py-10 my-auto flex flex-col items-center text-center space-y-7">
+      <main className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-10 py-6 sm:py-10 my-auto flex flex-col items-center text-center space-y-4 sm:space-y-6 md:space-y-7">
         
         {/* Prominent Logo Crest Badge */}
-        <div className="flex flex-col items-center space-y-3">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#0b1b36]/90 border border-blue-400/50 p-2.5 flex items-center justify-center shadow-2xl shadow-blue-950/80 backdrop-blur-md">
+        <div className="flex flex-col items-center space-y-2 sm:space-y-3">
+          <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-xl sm:rounded-2xl bg-[#0b1b36]/90 border border-blue-400/50 p-2 sm:p-2.5 flex items-center justify-center shadow-2xl shadow-blue-950/80 backdrop-blur-md">
             <img
               src="/wanareksa_logo.svg"
               alt="Wanareksa Logo"
               className="w-full h-full object-contain filter drop-shadow"
             />
           </div>
-          <div className="text-[11px] font-mono tracking-widest text-blue-400 uppercase font-bold">
+          <div className="text-[10px] sm:text-[11px] font-mono tracking-widest text-blue-400 uppercase font-bold">
             {language === 'id'
               ? 'BRIEFING MISI OBSERWASI BUMI NASIONAL'
               : 'EARTH OBSERVATION MISSION BRIEFING'}
@@ -140,68 +140,68 @@ export const CinematicIntroTour: React.FC<CinematicIntroTourProps> = ({
         </div>
 
         {/* Solid Editorial Headline */}
-        <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight max-w-3xl">
+        <h1 className="text-xl sm:text-3xl md:text-5xl font-black tracking-tight text-white leading-snug sm:leading-tight max-w-3xl">
           {language === 'id'
             ? 'Menyelaraskan 26 Tahun Sains Satelit NASA untuk Perlindungan Gambut Indonesia'
             : 'Harmonizing 26 Years of NASA Satellite Science for Indonesian Peatlands'}
         </h1>
 
         {/* Problem Statement & Solution Narrative */}
-        <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed font-normal">
+        <p className="text-xs sm:text-sm md:text-base text-slate-300 max-w-2xl leading-relaxed font-normal">
           {language === 'id'
             ? 'Peralihan sensor optik dari Terra MODIS (1 km) ke Suomi-NPP VIIRS (375 m) menyebabkan lonjakan data titik api semu hingga 300%. Wanareksa merekonsiliasi seluruh data historis 2000-2026 ke dalam grid sel 5.5 km dan daya radiasi termal Stefan-Boltzmann untuk deteksi kebakaran bawah tanah yang akurat.'
             : 'The optical sensor transition from Terra MODIS (1 km) to Suomi-NPP VIIRS (375 m) caused an artificial 300% surge in raw fire counts. Wanareksa reconciles the entire 2000-2026 archive into a 5.5 km equal-area grid and Stefan-Boltzmann thermal power calibration for accurate peat fire mitigation.'}
         </p>
 
         {/* Scientific Evidence Numbers Table */}
-        <div className="w-full max-w-2xl border-y border-slate-800/90 py-4 grid grid-cols-2 sm:grid-cols-4 gap-4 text-left backdrop-blur-xs bg-slate-950/40 rounded-xl px-4">
-          <div className="border-l-2 border-blue-500 pl-3">
-            <div className="text-lg sm:text-xl font-black text-white font-mono">2000-2026</div>
-            <div className="text-[11px] text-slate-400 mt-0.5">
-              {language === 'id' ? 'Arsip Data 26 Tahun' : '26-Year Archive'}
+        <div className="w-full max-w-2xl border-y border-slate-800/90 py-3 sm:py-4 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 text-left backdrop-blur-xs bg-slate-950/40 rounded-xl px-3 sm:px-4">
+          <div className="border-l-2 border-blue-500 pl-2.5 sm:pl-3">
+            <div className="text-base sm:text-xl font-black text-white font-mono">2000-2026</div>
+            <div className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">
+              {language === 'id' ? 'Arsip 26 Tahun' : '26-Year Archive'}
             </div>
           </div>
 
-          <div className="border-l-2 border-emerald-500 pl-3">
-            <div className="text-lg sm:text-xl font-black text-white font-mono">5.5 km</div>
-            <div className="text-[11px] text-slate-400 mt-0.5">
-              {language === 'id' ? 'Grid Sel Equal-Area' : 'Equal-Area Grid'}
+          <div className="border-l-2 border-emerald-500 pl-2.5 sm:pl-3">
+            <div className="text-base sm:text-xl font-black text-white font-mono">5.5 km</div>
+            <div className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">
+              {language === 'id' ? 'Grid Equal-Area' : 'Equal-Area Grid'}
             </div>
           </div>
 
-          <div className="border-l-2 border-amber-500 pl-3">
-            <div className="text-lg sm:text-xl font-black text-white font-mono">14.9M Ha</div>
-            <div className="text-[11px] text-slate-400 mt-0.5">
-              {language === 'id' ? 'Kubah Gambut Tropis' : 'Tropical Peat Domes'}
+          <div className="border-l-2 border-amber-500 pl-2.5 sm:pl-3">
+            <div className="text-base sm:text-xl font-black text-white font-mono">14.9M Ha</div>
+            <div className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">
+              {language === 'id' ? 'Kubah Gambut' : 'Peat Domes'}
             </div>
           </div>
 
-          <div className="border-l-2 border-red-500 pl-3">
-            <div className="text-lg sm:text-xl font-black text-white font-mono">-40 cm</div>
-            <div className="text-[11px] text-slate-400 mt-0.5">
-              {language === 'id' ? 'Ambang Kritis TMAG' : 'Critical TMAG Depth'}
+          <div className="border-l-2 border-red-500 pl-2.5 sm:pl-3">
+            <div className="text-base sm:text-xl font-black text-white font-mono">-40 cm</div>
+            <div className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">
+              {language === 'id' ? 'Ambang TMAG' : 'Critical TMAG'}
             </div>
           </div>
         </div>
 
         {/* Prominent Primary CTA Button */}
-        <div className="flex flex-col items-center space-y-2 pt-2 w-full sm:w-auto">
+        <div className="flex flex-col items-center space-y-2 pt-1 sm:pt-2 w-full sm:w-auto">
           <button
             onClick={handleEnter}
-            className="w-full sm:w-auto min-h-[50px] px-10 py-3.5 bg-[#0b3d91] hover:bg-blue-700 text-white font-bold text-sm sm:text-base rounded-xl transition-all border border-blue-400/40 shadow-xl shadow-blue-950 flex items-center justify-center gap-3 cursor-pointer active:scale-98"
+            className="w-full sm:w-auto min-h-[48px] px-8 sm:px-10 py-3 sm:py-3.5 bg-[#0b3d91] hover:bg-blue-700 text-white font-bold text-sm sm:text-base rounded-xl transition-all border border-blue-400/40 shadow-xl shadow-blue-950 flex items-center justify-center gap-2.5 cursor-pointer active:scale-98"
           >
             <span>{language === 'id' ? 'Masuk ke Platform Analisis' : 'Launch Analytics Platform'}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
-          <span className="text-[11px] font-mono text-slate-400">
-            {language === 'id' ? 'Tekan Enter atau klik untuk memulai' : 'Press Enter or click to begin'}
+          <span className="text-[10px] sm:text-[11px] font-mono text-slate-400">
+            {language === 'id' ? 'Tekan Enter atau ketuk untuk memulai' : 'Press Enter or tap to begin'}
           </span>
         </div>
 
       </main>
 
       {/* Clean Scientific Footer */}
-      <footer className="relative z-10 w-full max-w-5xl mx-auto px-6 sm:px-10 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-slate-800/80 text-[11px] font-mono text-slate-400 text-center sm:text-left backdrop-blur-xs">
+      <footer className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-10 py-3 sm:py-6 flex flex-col sm:flex-row items-center justify-between gap-1.5 sm:gap-2 border-t border-slate-800/80 text-[10px] sm:text-[11px] font-mono text-slate-400 text-center sm:text-left backdrop-blur-xs">
         <div>
           NASA GODDARD SPACE FLIGHT CENTER // EARTH SCIENCE DIVISION
         </div>
