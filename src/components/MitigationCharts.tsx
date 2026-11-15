@@ -159,10 +159,47 @@ export const MitigationCharts: React.FC<MitigationChartsProps> = ({
                   fontSize: '11px',
                 }}
               />
-              <ReferenceLine yAxisId="left" y={50} stroke="#ef4444" strokeDasharray="3 3" label={{ value: 'Ambang Siaga (FWI 50)', fill: '#ef4444', fontSize: 10, position: 'insideTopRight' }} />
-              <Area yAxisId="left" type="monotone" dataKey="fwi" name="Indeks Bahaya Api (FWI)" stroke="#ef4444" strokeWidth={2.5} fillOpacity={1} fill="url(#fwiGrad)" />
-              <Area yAxisId="left" type="monotone" dataKey="rain" name="Curah Hujan (mm)" stroke="#3b82f6" strokeWidth={1.5} fillOpacity={1} fill="url(#rainGrad)" />
-              <Line yAxisId="right" type="monotone" dataKey="temp" name="Suhu Maksimum (°C)" stroke="#f59e0b" strokeWidth={2} dot={{ r: 3 }} />
+              <ReferenceLine
+                yAxisId="left"
+                y={50}
+                stroke="#ef4444"
+                strokeDasharray="3 3"
+                label={{
+                  value: language === 'id' ? 'Ambang Siaga (FWI 50)' : 'Alert Threshold (FWI 50)',
+                  fill: '#ef4444',
+                  fontSize: 10,
+                  position: 'insideTopRight',
+                }}
+              />
+              <Area
+                yAxisId="left"
+                type="monotone"
+                dataKey="fwi"
+                name={language === 'id' ? 'Indeks Bahaya Api (FWI)' : 'Fire Weather Index (FWI)'}
+                stroke="#ef4444"
+                strokeWidth={2.5}
+                fillOpacity={1}
+                fill="url(#fwiGrad)"
+              />
+              <Area
+                yAxisId="left"
+                type="monotone"
+                dataKey="rain"
+                name={language === 'id' ? 'Curah Hujan (mm)' : 'Rainfall (mm)'}
+                stroke="#3b82f6"
+                strokeWidth={1.5}
+                fillOpacity={1}
+                fill="url(#rainGrad)"
+              />
+              <Line
+                yAxisId="right"
+                type="monotone"
+                dataKey="temp"
+                name={language === 'id' ? 'Suhu Maksimum (°C)' : 'Max Temperature (°C)'}
+                stroke="#f59e0b"
+                strokeWidth={2}
+                dot={{ r: 3 }}
+              />
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -197,10 +234,25 @@ export const MitigationCharts: React.FC<MitigationChartsProps> = ({
                     color: '#fff',
                     fontSize: '11px',
                   }}
-                  formatter={(val: any) => [`${val} cm`, 'Tinggi Muka Air']}
+                  formatter={(val: any) => [`${val} cm`, language === 'id' ? 'Tinggi Muka Air' : 'Groundwater Table']}
                 />
-                <ReferenceLine x={-40} stroke="#ef4444" strokeWidth={2} strokeDasharray="4 4" label={{ value: 'Batas BRGM -40cm', fill: '#ef4444', fontSize: 10, position: 'top' }} />
-                <Bar dataKey="tmag" name="Tinggi Muka Air (cm)" radius={[0, 8, 8, 0]}>
+                <ReferenceLine
+                  x={-40}
+                  stroke="#ef4444"
+                  strokeWidth={2}
+                  strokeDasharray="4 4"
+                  label={{
+                    value: language === 'id' ? 'Batas BRGM -40cm' : 'BRGM Threshold -40cm',
+                    fill: '#ef4444',
+                    fontSize: 10,
+                    position: 'top',
+                  }}
+                />
+                <Bar
+                  dataKey="tmag"
+                  name={language === 'id' ? 'Tinggi Muka Air (cm)' : 'Water Table (cm)'}
+                  radius={[0, 8, 8, 0]}
+                >
                   {hydrologyData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.fill} />
                   ))}

@@ -147,7 +147,9 @@ export const EarlyWarningAlertModal: React.FC<EarlyWarningAlertModalProps> = ({
       setNotifPermission(res);
       if (res === 'granted') {
         new Notification('WANAREKSA • Early Warning System', {
-          body: 'Notifikasi Siaga Kubah Gambut Aktif. Anda akan menerima peringatan jika muka air tanah < -40 cm.',
+          body: language === 'id'
+            ? 'Notifikasi Siaga Kubah Gambut Aktif. Anda akan menerima peringatan jika muka air tanah < -40 cm.'
+            : 'Peat Dome Early Warning Active. You will receive alerts when groundwater falls below -40 cm.',
           icon: '/favicon.ico',
         });
       }
@@ -157,7 +159,8 @@ export const EarlyWarningAlertModal: React.FC<EarlyWarningAlertModalProps> = ({
   };
 
   const handleCopySitrep = (alert: AlertItem) => {
-    const text = `🚨 *WANAREKSA EARLY WARNING DISPATCH [${alert.id}]*
+    const text = language === 'id'
+      ? `🚨 *WANAREKSA DISPOSISI PERINGATAN DINI [${alert.id}]*
 Zona: ${alert.khgName} (${alert.province})
 Status: ${alert.level === 'CRITICAL' ? 'SIAGA 1 MERAH' : 'WASPADA KUNING'}
 Tinggi Muka Air Tanah: ${alert.groundwaterCm} cm (Ambang batas PP 71/2014: -40 cm)
@@ -167,7 +170,18 @@ Akses Air Terdekat: ${alert.nearestCanal}
 Instruksi Lapangan: ${alert.actionRequired}
 Posko: ${alert.mpaContactName}
 
-Sistem Peringatan Dini Gambut Wanareksa — https://wanareksa.vercel.app`;
+Sistem Peringatan Dini Gambut Wanareksa — https://wanareksa.vercel.app`
+      : `🚨 *WANAREKSA EARLY WARNING DISPATCH [${alert.id}]*
+Zone: ${alert.khgName} (${alert.province})
+Status: ${alert.level === 'CRITICAL' ? 'CRITICAL ALERT (RED)' : 'WARNING (YELLOW)'}
+Peat Water Table: ${alert.groundwaterCm} cm (Gov Reg 71/2014 Limit: -40 cm)
+Satellite Detections: ${alert.firmsCount} FIRMS Hotspots (${alert.frpMw} MW)
+Estimated Time to Pyrolysis: ${alert.leadTimeHours} Hours
+Nearest Water Supply: ${alert.nearestCanal}
+Field Mandate: ${alert.actionRequired}
+Command Post: ${alert.mpaContactName}
+
+Wanareksa Peat Early Warning System — https://wanareksa.vercel.app`;
 
     navigator.clipboard.writeText(text);
     setCopiedId(alert.id);
@@ -320,7 +334,9 @@ Mohon konfirmasi kesiapan posko MPA!`;
                   {/* Telemetry Metrics Row */}
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 py-3 text-xs">
                     <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800">
-                      <span className="text-[10px] text-slate-400 font-mono block">Muka Air Tanah (PP 71)</span>
+                      <span className="text-[10px] text-slate-400 font-mono block">
+                        {language === 'id' ? 'Muka Air Tanah (PP 71)' : 'Groundwater Table (PP 71)'}
+                      </span>
                       <strong className={`text-base font-mono font-bold ${
                         isCritical ? 'text-rose-600 dark:text-rose-400' : 'text-amber-600 dark:text-amber-400'
                       }`}>
@@ -328,29 +344,35 @@ Mohon konfirmasi kesiapan posko MPA!`;
                       </strong>
                       <span className="text-[10px] text-slate-500 block">
                         {alert.thresholdDeficitCm < 0 
-                          ? `${Math.abs(alert.thresholdDeficitCm)}cm di bawah batas` 
-                          : `${alert.thresholdDeficitCm}cm sisa aman`}
+                          ? (language === 'id' ? `${Math.abs(alert.thresholdDeficitCm)}cm di bawah batas` : `${Math.abs(alert.thresholdDeficitCm)}cm below threshold`) 
+                          : (language === 'id' ? `${alert.thresholdDeficitCm}cm sisa aman` : `${alert.thresholdDeficitCm}cm safe margin`)}
                       </span>
                     </div>
 
                     <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800">
                       <span className="text-[10px] text-slate-400 font-mono block">NASA FIRMS Hotspots</span>
                       <strong className="text-base font-mono font-bold text-amber-600 dark:text-amber-400">
-                        {alert.firmsCount} Titik
+                        {alert.firmsCount} {language === 'id' ? 'Titik' : 'Hotspots'}
                       </strong>
                       <span className="text-[10px] text-slate-500 block">Total FRP: {alert.frpMw} MW</span>
                     </div>
 
                     <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800">
-                      <span className="text-[10px] text-slate-400 font-mono block">Akses Air / Sekat Kanal</span>
+                      <span className="text-[10px] text-slate-400 font-mono block">
+                        {language === 'id' ? 'Akses Air / Sekat Kanal' : 'Canal Water Access'}
+                      </span>
                       <strong className="text-xs font-semibold text-slate-900 dark:text-slate-200 block truncate mt-0.5">
                         {alert.nearestCanal}
                       </strong>
-                      <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono">Tersedia Sumber Air</span>
+                      <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono">
+                        {language === 'id' ? 'Tersedia Sumber Air' : 'Water Supply Ready'}
+                      </span>
                     </div>
 
                     <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800">
-                      <span className="text-[10px] text-slate-400 font-mono block">Posko Satgas / MPA</span>
+                      <span className="text-[10px] text-slate-400 font-mono block">
+                        {language === 'id' ? 'Posko Satgas / MPA' : 'Satgas Patrol Post'}
+                      </span>
                       <strong className="text-xs font-semibold text-slate-900 dark:text-slate-200 block truncate mt-0.5">
                         {alert.mpaContactName}
                       </strong>
@@ -365,7 +387,9 @@ Mohon konfirmasi kesiapan posko MPA!`;
                         isCritical ? 'text-rose-500' : 'text-amber-500'
                       }`} />
                       <p className="leading-relaxed">
-                        <strong className="font-semibold text-slate-900 dark:text-white">Mandat Tindakan: </strong>
+                        <strong className="font-semibold text-slate-900 dark:text-white">
+                          {language === 'id' ? 'Mandat Tindakan: ' : 'Required Action: '}
+                        </strong>
                         {alert.actionRequired}
                       </p>
                     </div>
@@ -374,17 +398,19 @@ Mohon konfirmasi kesiapan posko MPA!`;
                       <button
                         onClick={() => handleCopySitrep(alert)}
                         className="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-2xs"
-                        title="Salin Situation Report (SitRep) ke Clipboard"
+                        title={language === 'id' ? 'Salin Situation Report (SitRep) ke Clipboard' : 'Copy Situation Report (SitRep) to Clipboard'}
                       >
                         {copiedId === alert.id ? (
                           <>
                             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                            <span className="text-emerald-600 dark:text-emerald-400 font-bold">Tersalin!</span>
+                            <span className="text-emerald-600 dark:text-emerald-400 font-bold">
+                              {language === 'id' ? 'Tersalin!' : 'Copied!'}
+                            </span>
                           </>
                         ) : (
                           <>
                             <Copy className="w-3.5 h-3.5" />
-                            <span>Salin SitRep</span>
+                            <span>{language === 'id' ? 'Salin SitRep' : 'Copy SitRep'}</span>
                           </>
                         )}
                       </button>
@@ -394,10 +420,10 @@ Mohon konfirmasi kesiapan posko MPA!`;
                         target="_blank"
                         rel="noopener noreferrer"
                         className="px-3.5 py-1.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-xs flex items-center gap-1.5 transition shadow-xs cursor-pointer"
-                        title="Kirim Peringatan Langsung ke Posko MPA via WhatsApp"
+                        title={language === 'id' ? 'Kirim Peringatan Langsung ke Posko MPA via WhatsApp' : 'Dispatch Alert to Field Patrol via WhatsApp'}
                       >
                         <Send className="w-3.5 h-3.5" />
-                        <span>Kirim ke MPA</span>
+                        <span>{language === 'id' ? 'Kirim ke MPA' : 'Send to MPA'}</span>
                       </a>
                     </div>
                   </div>
@@ -411,11 +437,17 @@ Mohon konfirmasi kesiapan posko MPA!`;
         <div className="p-4 sm:p-5 bg-white dark:bg-[#0c121e] border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
           <div className="flex items-center gap-2 font-mono text-[11px]">
             <Radio className="w-3.5 h-3.5 text-emerald-500 animate-pulse" />
-            <span>Terhubung ke Feed NASA FIRMS &amp; Model Hidrologi Kubah Gambut</span>
+            <span>
+              {language === 'id'
+                ? 'Terhubung ke Feed NASA FIRMS & Model Hidrologi Kubah Gambut'
+                : 'Connected to NASA FIRMS Feed & Peat Hydrology Models'}
+            </span>
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-[11px] font-mono">Standar Statutori PP RI No. 71/2014</span>
+            <span className="text-[11px] font-mono">
+              {language === 'id' ? 'Standar Statutori PP RI No. 71/2014' : 'Statutory Standard PP RI No. 71/2014'}
+            </span>
             <button
               onClick={onClose}
               className="px-4 py-1.5 rounded-xl bg-slate-900 hover:bg-black dark:bg-slate-800 dark:hover:bg-slate-700 text-white font-bold text-xs transition cursor-pointer"

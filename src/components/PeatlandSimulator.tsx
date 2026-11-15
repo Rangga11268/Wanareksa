@@ -39,6 +39,7 @@ export const PeatlandSimulator: React.FC<PeatlandSimulatorProps> = ({
   liveWeather,
 }) => {
   const t = translations[language];
+  const isIndo = language === 'id';
 
   // Parameters
   const [tmagDepthCm, setTmagDepthCm] = useState<number>(() => REGION_TMAG[selectedAOI.id] || -50);
@@ -638,7 +639,9 @@ export const PeatlandSimulator: React.FC<PeatlandSimulatorProps> = ({
                         <path d="M 410,50 Q 405,35 418,22 T 415,8" stroke="#94a3b8" strokeWidth="1.4" opacity="0.5" fill="none" strokeDasharray="3 2" />
 
                         <text x="370" y={Math.min(95, waterY - 8)} fill="#fef08a" fontSize="9.5" fontWeight="bold" textAnchor="middle">
-                          Bara Api Bawah Tanah (Smoldering Peat &bull; Kedalaman ~{simResults.burnDepthCm} cm)
+                          {isIndo
+                            ? `Bara Api Bawah Tanah (Smoldering Peat • Kedalaman ~${simResults.burnDepthCm} cm)`
+                            : `Subsurface Smoldering Peat (Burn Depth ~${simResults.burnDepthCm} cm)`}
                         </text>
                       </g>
                     ) : (
@@ -646,7 +649,9 @@ export const PeatlandSimulator: React.FC<PeatlandSimulatorProps> = ({
                       <g>
                         <rect x="60" y="52" width="420" height={Math.max(10, waterY - 52)} fill="#059669" opacity="0.15" rx="4" />
                         <text x="270" y={Math.max(70, waterY - 8)} fill="#34d399" fontSize="10" fontWeight="bold" textAnchor="middle">
-                          Lapisan Gambut Lembab Terjaga &bull; Bara Api Bawah Tanah Padam (Rewetted)
+                          {isIndo
+                            ? 'Lapisan Gambut Lembab Terjaga • Bara Api Bawah Tanah Padam (Rewetted)'
+                            : 'Moist Peat Layer Preserved • Subsurface Embers Extinguished (Rewetted)'}
                         </text>
                       </g>
                     )}
@@ -657,13 +662,13 @@ export const PeatlandSimulator: React.FC<PeatlandSimulatorProps> = ({
                     {/* Dynamic Water Table Line */}
                     <line x1="0" y1={waterY} x2="540" y2={waterY} stroke="#38bdf8" strokeWidth="2" strokeDasharray="6 3" />
                     <text x="530" y={waterY - 4} fill="#38bdf8" fontSize="9.5" fontWeight="bold" textAnchor="end" fontFamily="monospace">
-                      MUKA AIR TANAH: {simResults.effectiveTmag} cm
+                      {isIndo ? 'MUKA AIR TANAH:' : 'PEAT WATER TABLE:'} {simResults.effectiveTmag} cm
                     </text>
 
                     {/* Statutory BRGM -40cm Critical Warning Line */}
                     <line x1="0" y1={criticalThresholdY} x2="540" y2={criticalThresholdY} stroke="#ef4444" strokeWidth="1.2" strokeDasharray="4 4" opacity="0.8" />
                     <text x="8" y={criticalThresholdY - 4} fill="#ef4444" fontSize="8.5" fontWeight="bold" fontFamily="monospace">
-                      AMBANG BATAS KRITIS BRGM / PP 57 (-40 cm)
+                      {isIndo ? 'AMBANG BATAS KRITIS BRGM / PP 57 (-40 cm)' : 'BRGM / PP 57 CRITICAL THRESHOLD (-40 cm)'}
                     </text>
                   </svg>
 
@@ -671,15 +676,27 @@ export const PeatlandSimulator: React.FC<PeatlandSimulatorProps> = ({
                   <div className="flex flex-wrap items-center justify-between text-[10px] text-slate-400 pt-1.5 border-t border-slate-800 px-1 font-mono">
                     <span className="flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
-                      <span>Zona Smoldering Karbon ({simResults.co2eTonsPerHa} t CO₂e/ha)</span>
+                      <span>
+                        {isIndo
+                          ? `Zona Smoldering Karbon (${simResults.co2eTonsPerHa} t CO₂e/ha)`
+                          : `Carbon Smoldering Zone (${simResults.co2eTonsPerHa} t CO₂e/ha)`}
+                      </span>
                     </span>
                     <span className="flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-sky-400 inline-block" />
-                      <span>Akifer Air Jenuh ({simResults.effectiveTmag} cm)</span>
+                      <span>
+                        {isIndo
+                          ? `Akifer Air Jenuh (${simResults.effectiveTmag} cm)`
+                          : `Saturated Water Aquifer (${simResults.effectiveTmag} cm)`}
+                      </span>
                     </span>
                     <span className="flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" />
-                      <span>Sekat Retensi (+{simResults.canalBoost} cm)</span>
+                      <span>
+                        {isIndo
+                          ? `Sekat Retensi (+${simResults.canalBoost} cm)`
+                          : `Canal Retention (+${simResults.canalBoost} cm)`}
+                      </span>
                     </span>
                   </div>
                 </div>

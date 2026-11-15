@@ -61,49 +61,73 @@ export const OrbitalTelemetryTicker: React.FC<OrbitalTelemetryTickerProps> = ({
       icon: Radio,
       name: 'NASA FIRMS FEED',
       sensor: 'NRT Data Stream',
-      spec: language === 'id' ? 'Latensi ~3.2 Jam' : 'Latency ~3.2 hrs',
-      status: 'VERIFIED',
+      spec: language === 'id' ? 'Latensi ~3,2 Jam' : 'Latency ~3.2 hrs',
+      status: language === 'id' ? 'TERVERIFIKASI' : 'VERIFIED',
     },
     {
       id: 'fusion',
       icon: Cpu,
-      name: 'FUSI SPASIAL WANAREKSA',
-      sensor: 'Equal-Area Grid',
-      spec: '5.5 km Resolution',
-      status: 'BIAS FIXED',
+      name: language === 'id' ? 'FUSI SPASIAL WANAREKSA' : 'WANAREKSA SPATIAL FUSION',
+      sensor: language === 'id' ? 'Grid Luas-Sama' : 'Equal-Area Grid',
+      spec: language === 'id' ? 'Resolusi 5,5 km' : '5.5 km Resolution',
+      status: language === 'id' ? 'BIAS TERATASI' : 'BIAS FIXED',
     },
     {
       id: 'peatland',
       icon: Flame,
-      name: 'AMBANG TMAG BRGM',
+      name: language === 'id' ? 'AMBANG TMAG BRGM' : 'BRGM PEAT WATER TABLE',
       sensor: 'PP 71/2014 & PP 57/2016',
-      spec: '-40 cm Water Table Limit',
-      status: 'MONITORING',
+      spec: language === 'id' ? 'Batas Muka Air -40 cm' : '-40 cm Water Table Limit',
+      status: language === 'id' ? 'PEMANTAUAN' : 'MONITORING',
     },
   ];
 
+  const getStatusBadgeStyle = (status: string) => {
+    switch (status) {
+      case 'BIAS FIXED':
+      case 'BIAS TERATASI':
+      case 'IN SYNC':
+      case 'TERFUSI':
+        return 'bg-sky-50 dark:bg-sky-950/70 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800/70';
+      case 'AKTIF':
+      case 'ACTIVE':
+      case 'VERIFIED':
+      case 'TERVERIFIKASI':
+        return 'bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/70';
+      case 'CALIBRATED':
+      case 'TERKALIBRASI':
+        return 'bg-amber-50 dark:bg-amber-950/70 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800/70';
+      case 'MONITORING':
+      case 'PEMANTAUAN':
+      default:
+        return 'bg-purple-50 dark:bg-purple-950/70 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-800/70';
+    }
+  };
+
   return (
-    <div className="w-full bg-[#070b14] border-b border-slate-800 text-slate-300 select-none overflow-hidden flex items-center h-10 transition-colors">
+    <div className="w-full bg-slate-100/90 dark:bg-[#070b14] border-b border-slate-200 dark:border-slate-800/90 text-slate-700 dark:text-slate-300 select-none overflow-hidden flex items-center h-10 transition-colors duration-200">
       
       {/* Pinned Left Mission Indicator */}
-      <div className="h-full px-3 sm:px-4 bg-slate-950/95 border-r border-slate-800 flex items-center gap-2.5 shrink-0 z-20 shadow-md">
+      <div className="h-full px-3 sm:px-4 bg-white/95 dark:bg-[#050811]/95 border-r border-slate-200 dark:border-slate-800/90 flex items-center gap-2.5 shrink-0 z-20 shadow-xs">
         <div className="flex items-center gap-1.5">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
-          <span className="text-[10px] sm:text-[11px] font-bold tracking-wider text-slate-100 font-sans uppercase hidden sm:inline">
-            {isLiveSync ? 'NASA FIRMS LIVE' : 'MISSION TELEMETRY'}
+          <span className="text-[10px] sm:text-[11px] font-bold tracking-wider text-slate-900 dark:text-slate-100 font-sans uppercase hidden sm:inline">
+            {isLiveSync
+              ? 'NASA FIRMS LIVE'
+              : (language === 'id' ? 'TELEMETRI MISI' : 'MISSION TELEMETRY')}
           </span>
         </div>
 
-        <div className="flex items-center gap-1 font-mono text-[10px] sm:text-[11px] text-slate-400 border-l border-slate-800 pl-2">
-          <Clock className="w-3 h-3 text-slate-500 shrink-0" />
-          <span className="text-slate-200 font-semibold">{utcTime || '00:00:00 UTC'}</span>
+        <div className="flex items-center gap-1.5 font-mono text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 border-l border-slate-200 dark:border-slate-800 pl-2 sm:pl-2.5">
+          <Clock className="w-3 h-3 text-slate-400 dark:text-slate-500 shrink-0" />
+          <span className="text-slate-700 dark:text-slate-200 font-semibold">{utcTime || '00:00:00 UTC'}</span>
         </div>
       </div>
 
-      {/* Infinite Scrolling Marquee Track with Edge Fade */}
+      {/* Infinite Scrolling Marquee Track with Adaptive Edge Fade */}
       <div
         className="relative flex-1 overflow-hidden h-full flex items-center"
         style={{
@@ -115,15 +139,17 @@ export const OrbitalTelemetryTicker: React.FC<OrbitalTelemetryTickerProps> = ({
           {TELEMETRY_FEED.concat(TELEMETRY_FEED).map((item, idx) => {
             const Icon = item.icon;
             return (
-              <div key={`${item.id}-${idx}`} className="flex items-center gap-2 text-[11px] font-mono shrink-0 text-slate-400 mr-8">
-                <Icon className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-                <span className="font-semibold text-slate-200 tracking-wide">{item.name}</span>
-                <span className="text-slate-600">//</span>
-                <span className="text-slate-300">{item.sensor}</span>
-                <span className="text-slate-500 hidden md:inline">({item.spec})</span>
-                <span className="text-slate-600">//</span>
-                <span className="text-emerald-400 font-semibold tracking-wider text-[10px]">{item.status}</span>
-                <span className="text-slate-800 ml-4 select-none">|</span>
+              <div key={`${item.id}-${idx}`} className="flex items-center gap-2 text-[11px] font-mono shrink-0 mr-8">
+                <Icon className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
+                <span className="font-bold text-slate-900 dark:text-slate-100 font-sans tracking-tight">{item.name}</span>
+                <span className="text-slate-300 dark:text-slate-700 font-light">//</span>
+                <span className="text-slate-600 dark:text-slate-300 font-medium">{item.sensor}</span>
+                <span className="text-slate-400 dark:text-slate-500 hidden md:inline text-[10px]">({item.spec})</span>
+                <span className="text-slate-300 dark:text-slate-700 font-light">//</span>
+                <span className={`px-1.5 py-0.5 rounded text-[9.5px] font-bold border tracking-wider uppercase font-mono ${getStatusBadgeStyle(item.status)}`}>
+                  {item.status}
+                </span>
+                <span className="text-slate-300 dark:text-slate-800 ml-4 select-none">&bull;</span>
               </div>
             );
           })}

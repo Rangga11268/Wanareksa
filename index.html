@@ -4,8 +4,75 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#070b14" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
     <title>Wanareksa — Earth Observation & Peatland Sentinel | NASA Space Apps Challenge 2026</title>
     <meta name="description" content="Wanareksa: Cross-sensor harmonization of MODIS and VIIRS satellite active fire hotspots for tropical peatland protection across Indonesia." />
+    
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wanareksa.earth/" />
+    <meta property="og:title" content="Wanareksa — Earth Observation & Peatland Sentinel" />
+    <meta property="og:description" content="Cross-sensor harmonization of 26 years of NASA MODIS & VIIRS satellite active fire records for Indonesian tropical peatland intelligence." />
+    <meta property="og:image" content="/terra_hero_satellite_earth.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Wanareksa — Earth Observation & Peatland Sentinel" />
+    <meta name="twitter:description" content="Planetary multi-sensor climatology and Indonesian tropical peatland intelligence suite for NASA Space Apps Challenge 2026." />
+    <meta name="twitter:image" content="/terra_hero_satellite_earth.jpg" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://wanareksa.earth/" />
+
+    <!-- Schema.org JSON-LD Structured Data for Awwwards & Semantic SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            "@id": "https://wanareksa.earth/#webapp",
+            "name": "Wanareksa",
+            "applicationCategory": "ScienceApplication",
+            "operatingSystem": "All modern browsers",
+            "description": "Planetary Multi-Sensor Climatology & Indonesian Tropical Peatland Intelligence Suite developed for NASA Space Apps Challenge 2026.",
+            "url": "https://wanareksa.earth/",
+            "inLanguage": ["id", "en"],
+            "license": "https://opensource.org/licenses/MIT",
+            "creator": {
+              "@type": "Organization",
+              "name": "Wanareksa Science Team",
+              "url": "https://wanareksa.earth/"
+            }
+          },
+          {
+            "@type": "Dataset",
+            "@id": "https://wanareksa.earth/#dataset",
+            "name": "Indonesian Peatland Multi-Decadal Satellite Fire Climatology (2000-2026)",
+            "description": "Harmonized equal-area 5.5 km gridded satellite fire observation dataset combining NASA TERRA/AQUA MODIS and SUOMI-NPP/NOAA-20 VIIRS records.",
+            "temporalCoverage": "2000-01-01/2026-12-31",
+            "spatialCoverage": {
+              "@type": "Place",
+              "geo": {
+                "@type": "GeoShape",
+                "box": "-11.5 94.0 6.5 141.5"
+              }
+            },
+            "variableMeasured": [
+              "Fire Radiative Power (MW)",
+              "Hotspot Cluster Density",
+              "Peat Groundwater Table Depth (TMAG, cm)",
+              "Equal-Area Grid Cluster Area (km2)"
+            ]
+          }
+        ]
+      }
+    </script>
     <!-- Fonts (Non-render-blocking high performance load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +97,7 @@
       })();
     </script>
   </head>
-  <body class="bg-[#f5f5f7] dark:bg-[#0b0f19] text-[#1d1d1f] dark:text-[#f3f4f6] antialiased">
+  <body class="bg-slate-50 dark:bg-[#070b14] text-slate-900 dark:text-slate-100 antialiased">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

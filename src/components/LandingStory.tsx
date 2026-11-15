@@ -52,7 +52,7 @@ const ObsidianSpotlightCard: React.FC<{
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`relative rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0B0F17] p-5 sm:p-6 transition-all duration-200 hover:border-neutral-300 dark:hover:border-neutral-700 shadow-sm hover:shadow-md ${className}`}
+      className={`relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c1220] p-5 sm:p-6 transition-all duration-200 hover:border-slate-300 dark:hover:border-slate-700 shadow-sm hover:shadow-md ${className}`}
     >
       {/* Ambient Spotlight Glow */}
       <div
@@ -85,13 +85,13 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
   };
 
   const MARQUEE_ITEMS = [
-    { label: 'NASA TERRA EOS AM-1', sub: 'Orbit 705 km' },
-    { label: 'SUOMI-NPP VIIRS', sub: 'Resolusi 375 m' },
-    { label: 'FUSI SPASIAL 5.5 KM', sub: 'Bebas Overcounting' },
-    { label: '13.4 JUTA HA GAMBUT', sub: 'Kubah Karbon Tropis' },
-    { label: 'AMBANG TMAG -40 CM', sub: 'Peringatan Dini BRGM' },
-    { label: 'ARSIP 26 TAHUN', sub: 'Data 2000-2026' },
-    { label: 'STANDAR RFC 7946', sub: 'Ekspor GeoJSON' },
+    { label: 'NASA TERRA EOS AM-1', sub: language === 'id' ? 'Orbit 705 km' : '705 km Orbit' },
+    { label: 'SUOMI-NPP VIIRS', sub: language === 'id' ? 'Resolusi 375 m' : '375m Resolution' },
+    { label: language === 'id' ? 'FUSI SPASIAL 5.5 KM' : '5.5 KM SPATIAL FUSION', sub: language === 'id' ? 'Bebas Overcounting' : 'Zero Overcounting' },
+    { label: language === 'id' ? '13.4 JUTA HA GAMBUT' : '13.4M HA PEATLAND', sub: language === 'id' ? 'Kubah Karbon Tropis' : 'Tropical Carbon Domes' },
+    { label: language === 'id' ? 'AMBANG TMAG -40 CM' : '-40 CM GWL THRESHOLD', sub: language === 'id' ? 'Peringatan Dini BRGM' : 'BRGM Early Warning' },
+    { label: language === 'id' ? 'ARSIP 26 TAHUN' : '26-YEAR ARCHIVE', sub: language === 'id' ? 'Data 2000-2026' : '2000-2026 Data' },
+    { label: language === 'id' ? 'STANDAR RFC 7946' : 'RFC 7946 STANDARD', sub: language === 'id' ? 'Ekspor GeoJSON' : 'GeoJSON Export' },
   ];
 
   return (
@@ -166,15 +166,23 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
             {/* Compact Key Stats Pills */}
             <div className="grid grid-cols-3 gap-2.5 pt-4 border-t border-neutral-800/80 max-w-lg">
               <div className="p-2.5 rounded-lg bg-neutral-900/60 border border-neutral-800/80">
-                <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">Rentang Data</span>
-                <strong className="text-sm sm:text-base font-bold text-white block mt-0.5">26 Tahun</strong>
+                <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">
+                  {language === 'id' ? 'Rentang Data' : 'Data Span'}
+                </span>
+                <strong className="text-sm sm:text-base font-bold text-white block mt-0.5">
+                  {language === 'id' ? '26 Tahun' : '26 Years'}
+                </strong>
               </div>
               <div className="p-2.5 rounded-lg bg-neutral-900/60 border border-neutral-800/80">
-                <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">Grid Equal-Area</span>
+                <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">
+                  {language === 'id' ? 'Grid Equal-Area' : 'Equal-Area Grid'}
+                </span>
                 <strong className="text-sm sm:text-base font-bold text-sky-400 block mt-0.5">5.5 km</strong>
               </div>
               <div className="p-2.5 rounded-lg bg-neutral-900/60 border border-neutral-800/80">
-                <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">Gambut BRGM</span>
+                <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">
+                  {language === 'id' ? 'Gambut BRGM' : 'BRGM Peat GWL'}
+                </span>
                 <strong className="text-sm sm:text-base font-bold text-amber-400 block mt-0.5">&lt; -40 cm</strong>
               </div>
             </div>
@@ -190,21 +198,38 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
 
       </section>
 
-      {/* 2. CONTINUOUS TICKER MARQUEE */}
-      <div className="w-full overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-[#070A10] py-2.5 shadow-inner">
-        <div className="flex items-center gap-6 sm:gap-8 animate-marquee whitespace-nowrap">
-          {MARQUEE_ITEMS.concat(MARQUEE_ITEMS).map((item, idx) => (
-            <div key={idx} className="flex items-center gap-2 shrink-0 px-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-sky-500" />
-              <span className="text-xs font-bold font-mono tracking-tight text-neutral-800 dark:text-neutral-200">
-                {item.label}
-              </span>
-              <span className="text-[11px] text-neutral-500 dark:text-neutral-400">
-                ({item.sub})
-              </span>
-              <span className="text-neutral-300 dark:text-neutral-700 ml-3 sm:ml-4">&bull;</span>
-            </div>
-          ))}
+      {/* 2. SENSOR ARCHITECTURE STRIP (Pilar Harmonisasi Sensorik) */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 p-2 sm:p-3 rounded-2xl bg-white dark:bg-[#0c1220] border border-slate-200 dark:border-slate-800 shadow-xs">
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-[#070b14] border border-slate-200/80 dark:border-slate-800/80">
+          <div className="w-8 h-8 rounded-lg bg-orange-100 dark:bg-orange-950/80 border border-orange-200 dark:border-orange-800 text-orange-600 dark:text-orange-400 flex items-center justify-center font-bold text-xs shrink-0">
+            1K
+          </div>
+          <div className="min-w-0">
+            <span className="text-[10px] font-mono font-bold text-orange-600 dark:text-orange-400 uppercase tracking-wider block">MODIS (TERRA/AQUA)</span>
+            <span className="text-xs font-bold text-slate-800 dark:text-slate-200 block truncate">1.0 km Nadir Footprint</span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-[#070b14] border border-slate-200/80 dark:border-slate-800/80">
+          <div className="w-8 h-8 rounded-lg bg-red-100 dark:bg-red-950/80 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 flex items-center justify-center font-bold text-xs shrink-0">
+            375
+          </div>
+          <div className="min-w-0">
+            <span className="text-[10px] font-mono font-bold text-red-600 dark:text-red-400 uppercase tracking-wider block">VIIRS (SUOMI-NPP/NOAA)</span>
+            <span className="text-xs font-bold text-slate-800 dark:text-slate-200 block truncate">
+              {language === 'id' ? '375 m Resolusi Tinggi (7x)' : '375m High-Resolution (7x)'}
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-[#070b14] border border-slate-200/80 dark:border-slate-800/80">
+          <div className="w-8 h-8 rounded-lg bg-sky-100 dark:bg-sky-950/80 border border-sky-200 dark:border-sky-800 text-sky-600 dark:text-sky-400 flex items-center justify-center font-bold text-xs shrink-0">
+            5.5
+          </div>
+          <div className="min-w-0">
+            <span className="text-[10px] font-mono font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider block">WANAREKSA CORE</span>
+            <span className="text-xs font-bold text-slate-800 dark:text-slate-200 block truncate">5.5 km Equal-Area Harmonized</span>
+          </div>
         </div>
       </div>
 
@@ -216,19 +241,19 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
               <Layers className="w-4 h-4" />
               <span>{language === 'id' ? 'Arsitektur & Paradoks Sains' : 'Architecture & Science Dilemma'}</span>
             </div>
-            <h2 className="text-xl sm:text-3xl font-black text-neutral-900 dark:text-white tracking-tight mt-1">
+            <h2 className="text-xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
               {language === 'id' ? 'Membedah Paradoks Sensorik 2012' : 'Deconstructing the 2012 Sensor Shift'}
             </h2>
           </div>
 
           {/* Interactive Simulation Switcher (Mobile Touch-Friendly) */}
-          <div className="w-full sm:w-auto grid grid-cols-2 sm:flex items-center gap-1 p-1 bg-neutral-100 dark:bg-neutral-900 rounded-xl border border-neutral-300 dark:border-neutral-700 text-xs shrink-0">
+          <div className="w-full sm:w-auto grid grid-cols-2 sm:flex items-center gap-1 p-1 bg-slate-100 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 text-xs shrink-0">
             <button
               onClick={() => setParadoxMode('raw')}
               className={`min-h-[40px] sm:min-h-0 px-3 py-1.5 rounded-lg transition-all cursor-pointer font-semibold flex items-center justify-center text-center ${
                 paradoxMode === 'raw'
                   ? 'bg-red-600 text-white shadow-xs'
-                  : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               {language === 'id' ? 'Data Mentah (Bias)' : 'Raw (Artifact)'}
@@ -238,7 +263,7 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
               className={`min-h-[40px] sm:min-h-0 px-3 py-1.5 rounded-lg transition-all cursor-pointer font-semibold flex items-center justify-center text-center ${
                 paradoxMode === 'harmonized'
                   ? 'bg-sky-600 text-white shadow-xs'
-                  : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               {language === 'id' ? 'Terkalibrasi 5.5 km' : 'Harmonized 5.5 km'}
@@ -257,10 +282,10 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
-                  <span className="text-xs font-bold text-neutral-500 uppercase tracking-wider block">
-                    Perbandingan Resolusi Sensor
+                  <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+                    {language === 'id' ? 'Perbandingan Resolusi Sensor' : 'Sensor Resolution Comparison'}
                   </span>
-                  <h3 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white mt-0.5">
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-0.5">
                     {paradoxMode === 'raw'
                       ? (language === 'id' ? 'Lonjakan Semu Titik Api (VIIRS 375 m)' : 'Artificial Sensor Hotspot Surge (VIIRS 375 m)')
                       : (language === 'id' ? 'Fusi Spasial Setara Wanareksa (5.5 km)' : 'Wanareksa Equal-Area Spatial Fusion (5.5 km)')}
@@ -269,12 +294,14 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
                 <span className={`self-start sm:self-auto text-xs font-mono font-bold px-2.5 py-1 rounded-full ${
                   paradoxMode === 'raw' ? 'bg-red-100 text-red-800 dark:bg-red-950/80 dark:text-red-300' : 'bg-sky-100 text-sky-800 dark:bg-sky-950/80 dark:text-sky-300'
                 }`}>
-                  {paradoxMode === 'raw' ? 'Bias Double-Counting Aktif' : 'Harmonisasi Aktif'}
+                  {paradoxMode === 'raw'
+                    ? (language === 'id' ? 'Bias Double-Counting Aktif' : 'Double-Counting Bias Active')
+                    : (language === 'id' ? 'Harmonisasi Aktif' : 'Harmonization Active')}
                 </span>
               </div>
 
               {/* Visual Simulation Canvas */}
-              <div className="w-full min-h-[220px] sm:min-h-[240px] rounded-xl sm:rounded-2xl bg-neutral-50 dark:bg-[#070A10] border border-neutral-200 dark:border-neutral-800 flex items-center justify-center p-4 sm:p-6 relative overflow-hidden shadow-inner">
+              <div className="w-full min-h-[220px] sm:min-h-[240px] rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#070b14] border border-slate-200 dark:border-slate-800 flex items-center justify-center p-4 sm:p-6 relative overflow-hidden shadow-inner">
                 <div className="absolute inset-0 bg-[radial-gradient(#d1d5db_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:16px_16px] opacity-40" />
 
                 {paradoxMode === 'raw' ? (
@@ -287,22 +314,26 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
                       ))}
                     </div>
                     <span className="text-xs font-mono font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/60 px-3 py-1 rounded-full border border-red-200 dark:border-red-900/50">
-                      1 Garis Api Nyata = 8 Deteksi Terpecah (Bias 300%)
+                      {language === 'id'
+                        ? '1 Garis Api Nyata = 8 Deteksi Terpecah (Bias 300%)'
+                        : '1 Real Fire Line = 8 Split Detections (300% Bias)'}
                     </span>
                   </div>
                 ) : (
                   <div className="relative z-10 flex flex-col items-center gap-3 text-center">
                     <div className="w-40 sm:w-44 h-40 sm:h-44 rounded-xl sm:rounded-2xl bg-sky-500/10 border-2 border-sky-500 flex flex-col items-center justify-center p-4 shadow-md">
                       <div className="w-20 h-20 rounded-full bg-sky-600 text-white flex flex-col items-center justify-center font-bold text-xs shadow-md">
-                        <span className="text-sm">1 Klaster</span>
+                        <span className="text-sm">{language === 'id' ? '1 Klaster' : '1 Cluster'}</span>
                         <span className="text-[9px] font-mono opacity-90">420 MW</span>
                       </div>
                       <span className="text-[10px] font-mono text-sky-700 dark:text-sky-300 mt-2 font-bold">
-                        Grid 5.5 km Equal-Area
+                        {language === 'id' ? 'Grid 5.5 km Equal-Area' : '5.5 km Equal-Area Grid'}
                       </span>
                     </div>
                     <span className="text-xs font-mono font-bold text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-950/60 px-3 py-1 rounded-full border border-sky-200 dark:border-sky-900/50">
-                      8 Titik Terpecah Disatukan Menjadi 1 Peristiwa
+                      {language === 'id'
+                        ? '8 Titik Terpecah Disatukan Menjadi 1 Peristiwa'
+                        : '8 Split Detections Unified into 1 Event'}
                     </span>
                   </div>
                 )}
@@ -310,8 +341,12 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
 
               <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
                 {paradoxMode === 'raw'
-                  ? 'Sebelum 2012, MODIS (1 km) mendeteksi satu peristiwa kebakaran sebagai 1 titik. Sejak 2012, VIIRS (375 m) memecah garis api yang sama menjadi 7 hingga 9 titik. Jika data tidak diharmonisasi, frekuensi kebakaran tampak melonjak secara semu.'
-                  : 'Algoritma Wanareksa mengelompokkan titik api ke dalam grid 5.5 km equal-area dan mengalibrasi daya radiatif api (FRP) Stefan-Boltzmann agar data deret waktu 2000-2026 tetap konsisten dan valid.'}
+                  ? (language === 'id'
+                      ? 'Sebelum 2012, MODIS (1 km) mendeteksi satu peristiwa kebakaran sebagai 1 titik. Sejak 2012, VIIRS (375 m) memecah garis api yang sama menjadi 7 hingga 9 titik. Jika data tidak diharmonisasi, frekuensi kebakaran tampak melonjak secara semu.'
+                      : 'Before 2012, MODIS (1 km) detected a single fire event as 1 hotspot. Since 2012, VIIRS (375 m) splits that same fire line into 7 to 9 hotspots. Without harmonization, fire counts artificially surge.')
+                  : (language === 'id'
+                      ? 'Algoritma Wanareksa mengelompokkan titik api ke dalam grid 5.5 km equal-area dan mengalibrasi daya radiatif api (FRP) Stefan-Boltzmann agar data deret waktu 2000-2026 tetap konsisten dan valid.'
+                      : 'The Wanareksa algorithm aggregates detections into a 5.5 km equal-area grid and calibrates fire radiative power (FRP) via Stefan-Boltzmann to ensure a homogenous 2000-2026 climate record.')}
               </p>
             </div>
           </ObsidianSpotlightCard>
@@ -321,38 +356,42 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-neutral-500 uppercase tracking-wider">
-                  Hidrologi Gambut BRGM
+                  {language === 'id' ? 'Hidrologi Gambut BRGM' : 'BRGM Peat Hydrology'}
                 </span>
                 <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
               </div>
 
               <div>
-                <h3 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
                   {language === 'id' ? 'Tinggi Muka Air Tanah (TMAG)' : 'Peat Groundwater Table'}
                 </h3>
                 <span className="text-xs text-amber-600 dark:text-amber-400 font-semibold font-mono block mt-0.5">
-                  TMAG &lt; -40 cm = Zona Kritis
+                  {language === 'id' ? 'TMAG < -40 cm = Zona Kritis' : 'GWL < -40 cm = Critical Zone'}
                 </span>
               </div>
 
               {/* Peat Stratigraphy Visualizer */}
-              <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-[#070A10] border border-neutral-200 dark:border-neutral-800 space-y-2.5">
+              <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#070b14] border border-slate-200 dark:border-slate-800 space-y-2.5">
                 <div className="flex justify-between text-[11px] font-mono">
-                  <span className="text-sky-600 font-semibold">0 cm (Aman)</span>
-                  <span className="text-amber-500 font-bold">-40 cm (Batas Kritis)</span>
-                  <span className="text-neutral-500">-100 cm</span>
+                  <span className="text-sky-600 font-semibold">{language === 'id' ? '0 cm (Aman)' : '0 cm (Safe)'}</span>
+                  <span className="text-amber-500 font-bold">{language === 'id' ? '-40 cm (Batas Kritis)' : '-40 cm (Critical Limit)'}</span>
+                  <span className="text-slate-500">-100 cm</span>
                 </div>
                 <div className="w-full h-3 rounded-full bg-gradient-to-r from-sky-500 via-amber-500 to-red-600 relative">
                   <div className="w-4 h-4 rounded-full bg-white border-2 border-amber-600 absolute top-1/2 -translate-y-1/2 left-[65%] shadow-md" />
                 </div>
-                <p className="text-[11px] text-neutral-500 dark:text-neutral-400 pt-1 leading-relaxed">
-                  Ketika muka air tanah turun melewati -40 cm, lapisan gambut mengering dan memicu kebakaran bawah tanah (smoldering) yang menghasilkan asap pekat.
+                <p className="text-[11px] text-slate-600 dark:text-slate-400 pt-1 leading-relaxed">
+                  {language === 'id'
+                    ? 'Ketika muka air tanah turun melewati -40 cm, lapisan gambut mengering dan memicu kebakaran bawah tanah (smoldering) yang menghasilkan asap pekat.'
+                    : 'When peat groundwater table drops below -40 cm, the surface peat dries out, triggering smoldering underground fires that produce hazardous toxic haze.'}
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-neutral-200 dark:border-neutral-800 flex items-center justify-between text-xs">
-                <span className="text-neutral-500">Regulasi:</span>
-                <span className="font-semibold text-neutral-800 dark:text-neutral-200">PP No. 71/2014 &amp; Standar BRGM</span>
+              <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
+                <span className="text-slate-500">{language === 'id' ? 'Regulasi:' : 'Regulation:'}</span>
+                <span className="font-semibold text-slate-800 dark:text-slate-200">
+                  {language === 'id' ? 'PP No. 71/2014 & Standar BRGM' : 'Gov. Reg. 71/2014 & BRGM Standards'}
+                </span>
               </div>
             </div>
           </ObsidianSpotlightCard>
@@ -367,7 +406,7 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
             <Cpu className="w-4 h-4" />
             <span>{language === 'id' ? 'Pilar Sains & Rekayasa' : 'Scientific & Engineering Pillars'}</span>
           </div>
-          <h2 className="text-xl sm:text-3xl font-black text-neutral-900 dark:text-white tracking-tight mt-1">
+          <h2 className="text-xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
             {language === 'id' ? '4 Terobosan Teknologi Wanareksa' : '4 Core Technological Breakthroughs of Wanareksa'}
           </h2>
         </div>
@@ -379,15 +418,17 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
               <div className="w-9 h-9 rounded-xl bg-sky-50 dark:bg-sky-950/60 border border-sky-200 dark:border-sky-800 text-sky-600 dark:text-sky-400 flex items-center justify-center shadow-xs">
                 <Database className="w-4 h-4" />
               </div>
-              <h3 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white">
-                1. Grid Spasial Equal-Area 5.5 km
+              <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white">
+                {language === 'id' ? '1. Grid Spasial Equal-Area 5.5 km' : '1. 5.5 km Equal-Area Spatial Grid'}
               </h3>
-              <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                Menyatukan piksel resolusi 375 m VIIRS ke dalam footprint setara MODIS 1 km untuk mengeliminasi bias hitung ganda lintas generasi sensor.
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                {language === 'id'
+                  ? 'Menyatukan piksel resolusi 375 m VIIRS ke dalam footprint setara MODIS 1 km untuk mengeliminasi bias hitung ganda lintas generasi sensor.'
+                  : 'Aggregates sharp VIIRS 375m pixels into an equal-area footprint matching MODIS 1 km to eliminate double-counting bias across sensor generations.'}
               </p>
             </div>
             <span className="text-[11px] font-mono font-bold text-sky-600 dark:text-sky-400 mt-3 block">
-              Proyeksi Spasial Equal-Area
+              {language === 'id' ? 'Proyeksi Spasial Equal-Area' : 'Equal-Area Spatial Projection'}
             </span>
           </ObsidianSpotlightCard>
 
@@ -397,14 +438,16 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
                 <Flame className="w-4 h-4" />
               </div>
               <h3 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white">
-                2. Kalibrasi Radiatif FRP
+                {language === 'id' ? '2. Kalibrasi Radiatif FRP' : '2. FRP Radiative Calibration'}
               </h3>
               <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                Menstandarkan energi radiatif api lintas 4 instrumen satelit menggunakan hukum Stefan-Boltzmann pada kanal inframerah termal 3.9 µm dan 3.74 µm.
+                {language === 'id'
+                  ? 'Menstandarkan energi radiatif api lintas 4 instrumen satelit menggunakan hukum Stefan-Boltzmann pada kanal inframerah termal 3.9 µm dan 3.74 µm.'
+                  : 'Standardizes fire radiative power across 4 satellite instruments using the Stefan-Boltzmann law on 3.9 µm and 3.74 µm thermal infrared channels.'}
               </p>
             </div>
             <span className="text-[11px] font-mono font-bold text-amber-600 dark:text-amber-400 mt-3 block">
-              Model Radiasi Termal
+              {language === 'id' ? 'Model Radiasi Termal' : 'Thermal Radiation Modeling'}
             </span>
           </ObsidianSpotlightCard>
 
@@ -413,31 +456,35 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
               <div className="w-9 h-9 rounded-xl bg-red-50 dark:bg-red-950/60 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 flex items-center justify-center shadow-xs">
                 <ShieldCheck className="w-4 h-4" />
               </div>
-              <h3 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white">
-                3. Integrasi Batas Kritis Gambut
+              <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white">
+                {language === 'id' ? '3. Integrasi Batas Kritis Gambut' : '3. Peat Critical Threshold Integration'}
               </h3>
-              <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                Memadukan ambang tinggi muka air tanah BRGM (TMAG -40 cm) untuk mengidentifikasi kawasan gambut rentan sebelum api menjalar ke bawah permukaan.
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                {language === 'id'
+                  ? 'Memadukan ambang tinggi muka air tanah BRGM (TMAG -40 cm) untuk mengidentifikasi kawasan gambut rentan sebelum api menjalar ke bawah permukaan.'
+                  : 'Integrates BRGM groundwater table statutory thresholds (GWL -40 cm) to identify vulnerable peat domes before fire ignites subsurface smoldering.'}
               </p>
             </div>
             <span className="text-[11px] font-mono font-bold text-red-600 dark:text-red-400 mt-3 block">
-              Peringatan Dini BRGM
+              {language === 'id' ? 'Peringatan Dini BRGM' : 'BRGM Early Warning'}
             </span>
           </ObsidianSpotlightCard>
 
           <ObsidianSpotlightCard spotlightColor="rgba(2, 132, 199, 0.12)">
             <div className="space-y-2.5">
-              <div className="w-9 h-9 rounded-xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 text-neutral-800 dark:text-neutral-200 flex items-center justify-center shadow-xs">
+              <div className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 flex items-center justify-center shadow-xs">
                 <Globe className="w-4 h-4" />
               </div>
-              <h3 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white">
-                4. Citra Asli NASA GIBS &amp; FIRMS
+              <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white">
+                {language === 'id' ? '4. Citra Asli NASA GIBS & FIRMS' : '4. Native NASA GIBS & FIRMS Feeds'}
               </h3>
-              <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                Menyajikan citra satelit harian NASA GIBS WMTS dan live feed FIRMS 24 jam dengan opsi ekspor GeoJSON standar untuk analisis lanjutan di QGIS dan ArcGIS.
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                {language === 'id'
+                  ? 'Menyajikan citra satelit harian NASA GIBS WMTS dan live feed FIRMS 24 jam dengan opsi ekspor GeoJSON standar untuk analisis lanjutan di QGIS dan ArcGIS.'
+                  : 'Serves daily NASA GIBS WMTS true-color imagery and 24-hour FIRMS feeds with RFC 7946 GeoJSON export for QGIS and ArcGIS analysis.'}
               </p>
             </div>
-            <span className="text-[11px] font-mono font-bold text-neutral-600 dark:text-neutral-400 mt-3 block">
+            <span className="text-[11px] font-mono font-bold text-slate-600 dark:text-slate-400 mt-3 block">
               NASA GIBS WMTS Level 9
             </span>
           </ObsidianSpotlightCard>
@@ -446,13 +493,13 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
       </section>
 
       {/* 5. HISTORIC BENCHMARK CASE STUDIES */}
-      <section className="rounded-2xl sm:rounded-3xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/70 dark:bg-[#070A10]/70 p-5 sm:p-8 lg:p-10 shadow-xs space-y-5 sm:space-y-6">
+      <section className="rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-[#070b14]/70 p-5 sm:p-8 lg:p-10 shadow-xs space-y-5 sm:space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <div className="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400">
               {language === 'id' ? 'Validasi Data Historis' : 'Historical Data Validation'}
             </div>
-            <h2 className="text-xl sm:text-3xl font-black text-neutral-900 dark:text-white tracking-tight mt-0.5">
+            <h2 className="text-xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-0.5">
               {language === 'id' ? '3 Studi Kasus Kebakaran Hutan di Indonesia' : '3 Extreme Indonesian Fire Disaster Benchmarks'}
             </h2>
           </div>
@@ -467,39 +514,45 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4">
-          <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#111827] border border-neutral-200 dark:border-neutral-800 space-y-2">
+          <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#0c1220] border border-slate-200 dark:border-slate-800 space-y-2">
             <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-red-100 dark:bg-red-950/60 text-red-700 dark:text-red-300 uppercase">
-              Krisis El Niño
+              {language === 'id' ? 'Krisis El Niño' : 'El Niño Crisis'}
             </span>
-            <h4 className="font-bold text-sm text-neutral-900 dark:text-white">
-              El Niño 2015 (Kalteng &amp; Sumsel)
+            <h4 className="font-bold text-sm text-slate-900 dark:text-white">
+              {language === 'id' ? 'El Niño 2015 (Kalteng & Sumsel)' : 'El Niño 2015 (Central Kalimantan & South Sumatra)'}
             </h4>
-            <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              Pelepasan energi radiatif FRP melebihi 12.400 MW. Menguji ketahanan algoritma saat transisi awal data MODIS ke VIIRS pada kondisi kekeringan ekstrem.
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              {language === 'id'
+                ? 'Pelepasan energi radiatif FRP melebihi 12.400 MW. Menguji ketahanan algoritma saat transisi awal data MODIS ke VIIRS pada kondisi kekeringan ekstrem.'
+                : 'Fire Radiative Power (FRP) exceeded 12,400 MW. Rigorously tests algorithm resilience during the early MODIS-to-VIIRS transition under extreme drought.'}
             </p>
           </div>
 
-          <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#111827] border border-neutral-200 dark:border-neutral-800 space-y-2">
+          <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#0c1220] border border-slate-200 dark:border-slate-800 space-y-2">
             <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 uppercase">
-              Anomali Dipole
+              {language === 'id' ? 'Anomali Dipole' : 'Dipole Anomaly'}
             </span>
-            <h4 className="font-bold text-sm text-neutral-900 dark:text-white">
-              Indian Ocean Dipole (IOD+) 2019
+            <h4 className="font-bold text-sm text-slate-900 dark:text-white">
+              {language === 'id' ? 'Indian Ocean Dipole (IOD+) 2019' : 'Positive Indian Ocean Dipole (IOD+) 2019'}
             </h4>
-            <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              Kebakaran gambut di Kubah Gambut OKI dan Ketapang. Memvalidasi korelasi penurunan muka air tanah gambut dengan lonjakan sebaran titik api.
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              {language === 'id'
+                ? 'Kebakaran gambut di Kubah Gambut OKI dan Ketapang. Memvalidasi korelasi penurunan muka air tanah gambut dengan lonjakan sebaran titik api.'
+                : 'Severe peat fires in OKI and Ketapang domes. Validates the correlation between groundwater depletion and spatial hotspot surges.'}
             </p>
           </div>
 
-          <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#111827] border border-neutral-200 dark:border-neutral-800 space-y-2">
+          <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#0c1220] border border-slate-200 dark:border-slate-800 space-y-2">
             <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-100 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 uppercase">
-              Evaluasi Restorasi
+              {language === 'id' ? 'Evaluasi Restorasi' : 'Restoration Audit'}
             </span>
-            <h4 className="font-bold text-sm text-neutral-900 dark:text-white">
-              Restorasi BRGM 2022–2026 (Riau)
+            <h4 className="font-bold text-sm text-slate-900 dark:text-white">
+              {language === 'id' ? 'Restorasi BRGM 2022–2026 (Riau)' : 'BRGM Restoration 2022–2026 (Riau)'}
             </h4>
-            <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              Penyekatan kanal menjaga muka air tanah (TMAG &gt; -25 cm), tercermin pada penurunan titik api sebesar 85% dibanding dekade sebelumnya.
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              {language === 'id'
+                ? 'Penyekatan kanal menjaga muka air tanah (TMAG > -25 cm), tercermin pada penurunan titik api sebesar 85% dibanding dekade sebelumnya.'
+                : 'Canal rewetting preserved peat groundwater (GWL > -25 cm), reflected in an 85% drop in hotspots compared to previous decades.'}
             </p>
           </div>
         </div>
@@ -513,7 +566,9 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
               {language === 'id' ? 'Mulai Eksplorasi Data Satelit Karhutla' : 'Explore Indonesian Satellite Fire Intelligence'}
             </h2>
             <p className="text-xs sm:text-sm text-neutral-400 max-w-xl leading-relaxed">
-              Buka peta interaktif 26 tahun, telusuri kalender musim kebakaran 52-minggu, uji simulator lab harmonisasi, atau unduh dataset terkalibrasi.
+              {language === 'id'
+                ? 'Buka peta interaktif 26 tahun, telusuri kalender musim kebakaran 52-minggu, uji simulator lab harmonisasi, atau unduh dataset terkalibrasi.'
+                : 'Access 26-year interactive maps, explore 52-week fire seasonality calendars, test the harmonization simulator, or export calibrated datasets.'}
             </p>
           </div>
 
@@ -548,7 +603,7 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
             className="w-full sm:w-auto min-h-[40px] sm:min-h-0 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-700 transition cursor-pointer shrink-0"
           >
             {copiedClone ? <Check className="w-3.5 h-3.5 text-sky-400" /> : <Copy className="w-3.5 h-3.5 opacity-60" />}
-            <span>{copiedClone ? 'Tersalin' : 'Salin'}</span>
+            <span>{copiedClone ? (language === 'id' ? 'Tersalin' : 'Copied') : (language === 'id' ? 'Salin' : 'Copy')}</span>
           </button>
         </div>
       </section>

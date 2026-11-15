@@ -61,10 +61,10 @@ export const DashboardControlBar: React.FC<DashboardControlBarProps> = ({
   };
 
   return (
-    <div className="bg-white dark:bg-[#111827] border border-[#e5e5e7] dark:border-[#1f2937] rounded-2xl shadow-xs overflow-hidden space-y-0 transition-colors">
+    <div className="bg-white dark:bg-[#0c1220] border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xs overflow-hidden space-y-0 transition-colors">
       
       {/* Primary Toolbar Controls */}
-      <div className="px-4 sm:px-5 py-3.5 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3.5 bg-white dark:bg-[#0f172a] border-b border-slate-200 dark:border-slate-800">
+      <div className="px-4 sm:px-5 py-3.5 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3.5 bg-white dark:bg-[#0a0f1d] border-b border-slate-200 dark:border-slate-800">
 
         {/* Region Selector & Quick AOI Pills */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 flex-1 min-w-0">
@@ -99,10 +99,10 @@ export const DashboardControlBar: React.FC<DashboardControlBarProps> = ({
           {/* Quick AOI Tactile Pills */}
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
             {[
-              { id: 'riau', name: 'Riau', biome: 'Gambut' },
-              { id: 'kalteng', name: 'Kalteng', biome: 'Biosfer' },
+              { id: 'riau', name: 'Riau', biome: language === 'id' ? 'Gambut' : 'Peat' },
+              { id: 'kalteng', name: 'Kalteng', biome: language === 'id' ? 'Biosfer' : 'Biosphere' },
               { id: 'sumsel', name: 'Sumsel', biome: 'Basin' },
-              { id: 'indonesia', name: 'Indonesia', biome: 'Nasional' },
+              { id: 'indonesia', name: 'Indonesia', biome: language === 'id' ? 'Nasional' : 'National' },
             ].map((item) => {
               const isSelected = selectedAOI.id === item.id;
               const aoiObj = PRESET_AOIS.find((a) => a.id === item.id);

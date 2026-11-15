@@ -11,7 +11,11 @@ dist-ssr/
 tasks/
 anti-slop/
 *.pdf
+!submission_assets/*.pdf
 .gemini/
+.jury/
+temp_scripts/
+export_deck.py
 
 # Logs
 logs
@@ -38,3 +42,6 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+.vercel
+.env*.local

@@ -285,16 +285,23 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
       const loc = resolveHotspotLocation(h.lat, h.lon, selectedAOI.id, language);
       const localTime = getIndonesianLocalTime(h.date, h.time, h.lon);
 
+      const titlePopup = isSevere
+        ? (language === 'id' ? '🔥 BARA GAMBUT KRITIS' : '🔥 CRITICAL PEAT FIRE')
+        : (language === 'id' ? '⚠️ TITIK PANAS TERDETEKSI' : '⚠️ DETECTED HOTSPOT');
+      const labelLocation = language === 'id' ? 'Lokasi' : 'Location';
+      const labelTime = language === 'id' ? 'Waktu' : 'Time';
+      const gmapsText = language === 'id' ? '📍 Buka di Google Maps &rarr;' : '📍 Open in Google Maps &rarr;';
+
       circle.bindPopup(`
         <div style="font-family: system-ui, sans-serif; font-size: 12px; line-height: 1.4; color: #0F172A; min-width: 200px;">
           <div style="font-weight: 800; color: ${markerColor}; margin-bottom: 4px;">
-            ${isSevere ? '🔥 BARA GAMBUT KRITIS' : '⚠️ TITIK PANAS TERDETEKSI'}
+            ${titlePopup}
           </div>
           <div><strong>FRP:</strong> ${Math.round(h.frp)} MW</div>
-          <div><strong>Lokasi:</strong> {loc.district || loc.regency}, {loc.province}</div>
-          <div><strong>Waktu:</strong> ${localTime}</div>
+          <div><strong>${labelLocation}:</strong> ${loc.district || loc.regency}, ${loc.province}</div>
+          <div><strong>${labelTime}:</strong> ${localTime}</div>
           <a href="${loc.googleMapsUrl}" target="_blank" style="display: inline-block; margin-top: 6px; color: #0284C7; font-weight: 700; text-decoration: none;">
-            📍 Buka di Google Maps &rarr;
+            ${gmapsText}
           </a>
         </div>
       `);
@@ -576,15 +583,15 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
             {/* Overlaid Symbology HUD */}
             <div className="absolute bottom-4 left-4 p-3 rounded-xl bg-slate-950/85 backdrop-blur-md border border-slate-800 text-white text-xs z-10 space-y-1.5 shadow-lg">
               <div className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider">
-                LEGENDA TITIK API
+                {isIndo ? 'LEGENDA TITIK API' : 'HOTSPOT SYMBOLOGY'}
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-                <span>Bara Kritis (&ge; 40 MW)</span>
+                <span>{isIndo ? 'Bara Kritis (≥ 40 MW)' : 'Critical Smoldering (≥ 40 MW)'}</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-                <span>Titik Panas Gambut</span>
+                <span>{isIndo ? 'Titik Panas Gambut' : 'Peat Hotspot'}</span>
               </div>
             </div>
           </div>
@@ -633,37 +640,43 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 space-y-2">
               <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono">
-                01 • MASKER TEPAT
+                {isIndo ? '01 • MASKER TEPAT' : '01 • RESPIRATORY DEFENSE'}
               </span>
               <h4 className="text-sm font-bold text-slate-900 dark:text-white">
-                Gunakan Masker N95 / KN95
+                {isIndo ? 'Gunakan Masker N95 / KN95' : 'Wear N95 / KN95 Masks'}
               </h4>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Partikel asap gambut berukuran &lt; 2.5 mikron tidak dapat disaring oleh masker kain atau bedah. Prioritaskan masker N95 untuk anak dan lansia.
+                {isIndo
+                  ? 'Partikel asap gambut berukuran < 2.5 mikron tidak dapat disaring oleh masker kain atau bedah. Prioritaskan masker N95 untuk anak dan lansia.'
+                  : 'Peat smoke PM2.5 particulates easily penetrate regular cloth and surgical masks. Prioritize fitted N95 respirators for children and seniors.'}
               </p>
             </div>
 
             <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 space-y-2">
               <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono">
-                02 • RUANG BEBAS ASAP
+                {isIndo ? '02 • RUANG BEBAS ASAP' : '02 • CLEAN AIR HAVEN'}
               </span>
               <h4 className="text-sm font-bold text-slate-900 dark:text-white">
-                Tutup Celah Rumah dengan Kain Basah
+                {isIndo ? 'Tutup Celah Rumah dengan Kain Basah' : 'Seal Doors and Windows with Damp Towels'}
               </h4>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Pasang kain basah pada ventilasi dan celah pintu saat bau sangit tercium tajam. Ember air di sudut ruangan membantu mengikat abu layang.
+                {isIndo
+                  ? 'Pasang kain basah pada ventilasi dan celah pintu saat bau sangit tercium tajam. Ember air di sudut ruangan membantu mengikat abu layang.'
+                  : 'Place damp cloth towels across ventilation gaps and under doorways when acrid haze is detected to prevent fine ash ingress.'}
               </p>
             </div>
 
             <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 space-y-2">
               <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono">
-                03 • JAM KRITIS PAGI HARI
+                {isIndo ? '03 • JAM KRITIS PAGI HARI' : '03 • MORNING INVERSION PEAK'}
               </span>
               <h4 className="text-sm font-bold text-slate-900 dark:text-white">
-                Inversi Suhu Udara Pukul 06:00 - 09:00
+                {isIndo ? 'Inversi Suhu Udara Pukul 06:00 - 09:00' : 'Thermal Inversion from 06:00 to 09:00'}
               </h4>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Udara dingin di pagi hari menahan partikel asap pekat dekat tanah. Hindari aktivitas olahraga atau membuka pintu lebar sebelum siang.
+                {isIndo
+                  ? 'Udara dingin di pagi hari menahan partikel asap pekat dekat tanah. Hindari aktivitas olahraga atau membuka pintu lebar sebelum siang.'
+                  : 'Cool ground temperatures trap concentrated smoke near the soil surface. Postpone outdoor exertion until afternoon winds circulate air.'}
               </p>
             </div>
           </div>
@@ -671,37 +684,43 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 space-y-2">
               <span className="text-xs font-bold text-sky-600 dark:text-sky-400 font-mono">
-                PASAL 23 PP 71/2014
+                {isIndo ? 'PASAL 23 PP 71/2014' : 'ARTICLE 23 GOV REG 71/2014'}
               </span>
               <h4 className="text-sm font-bold text-slate-900 dark:text-white">
-                Jaga Muka Air Tanah &gt; -40 cm
+                {isIndo ? 'Jaga Muka Air Tanah > -40 cm' : 'Maintain Peat Groundwater Table > -40 cm'}
               </h4>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Jika air parit surut lebih dari 40 cm dari permukaan tanah, kapiler gambut mengering dan rentan terbakar seperti spons bensin.
+                {isIndo
+                  ? 'Jika air parit surut lebih dari 40 cm dari permukaan tanah, kapiler gambut mengering dan rentan terbakar seperti spons bensin.'
+                  : 'When drainage ditches cause groundwater to recede beyond -40 cm, porous peat layers dry out and ignite like fuel sponges.'}
               </p>
             </div>
 
             <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 space-y-2">
               <span className="text-xs font-bold text-sky-600 dark:text-sky-400 font-mono">
-                PINTU SEKAT KANAL
+                {isIndo ? 'PINTU SEKAT KANAL' : 'CANAL SLUICE GATES'}
               </span>
               <h4 className="text-sm font-bold text-slate-900 dark:text-white">
-                Tutup Sekat Kanal Menjelang Kemarau
+                {isIndo ? 'Tutup Sekat Kanal Menjelang Kemarau' : 'Lock Canal Sluice Gates Ahead of Dry Season'}
               </h4>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Pastikan sekat kanal tidak bocor agar cadangan air kubah gambut tertahan di dalam tanah dan membasahi perakaran secara alami.
+                {isIndo
+                  ? 'Pastikan sekat kanal tidak bocor agar cadangan air kubah gambut tertahan di dalam tanah dan membasahi perakaran secara alami.'
+                  : 'Ensure canal blocks remain sealed to keep hydrostatic pressure within the peat dome and naturally hydrate root zones.'}
               </p>
             </div>
 
             <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 space-y-2">
               <span className="text-xs font-bold text-sky-600 dark:text-sky-400 font-mono">
-                INJEKSI NOZZLE TOMBAK
+                {isIndo ? 'INJEKSI NOZZLE TOMBAK' : 'SUB-SURFACE NOZZLE INJECTION'}
               </span>
               <h4 className="text-sm font-bold text-slate-900 dark:text-white">
-                Padamkan Bara Bawah Tanah, Bukan Permukaan
+                {isIndo ? 'Padamkan Bara Bawah Tanah, Bukan Permukaan' : 'Suppress Subsurface Smoldering, Not Surface Flame'}
               </h4>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Penyemprotan permukaan hanya memboroskan air karena menguap. Gunakan tombak pipa berlubang untuk menyuntikkan air ke kedalaman 1–1.5 meter.
+                {isIndo
+                  ? 'Penyemprotan permukaan hanya memboroskan air karena menguap. Gunakan tombak pipa berlubang untuk menyuntikkan air ke kedalaman 1–1.5 meter.'
+                  : 'Spraying surface ash wastes water through rapid evaporation. Insert perforated metal lance nozzles 1–1.5m deep to extinguish peat embers.'}
               </p>
             </div>
           </div>
@@ -712,10 +731,12 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
       <div className="p-5 rounded-2xl bg-gradient-to-r from-slate-900 to-slate-950 text-white border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
         <div className="space-y-0.5 text-center sm:text-left">
           <div className="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
-            UNTUK PENELITI & JURI NASA SPACE APPS
+            {isIndo ? 'UNTUK PENELITI & JURI NASA SPACE APPS' : 'FOR RESEARCHERS & NASA SPACE APPS JUDGES'}
           </div>
           <div className="text-sm font-semibold text-slate-200">
-            Ingin melihat analisis spasial mendalam, kalibrasi MODIS/VIIRS 26 tahun, atau model FDRS?
+            {isIndo
+              ? 'Ingin melihat analisis spasial mendalam, kalibrasi MODIS/VIIRS 26 tahun, atau model FDRS?'
+              : 'Explore deep geospatial analytics, 26-year MODIS/VIIRS calibration, or fire weather indices?'}
           </div>
         </div>
 
@@ -723,7 +744,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
           onClick={onSwitchToScience}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-xs cursor-pointer shrink-0"
         >
-          <span>Buka Mode Riset & Satgas</span>
+          <span>{isIndo ? 'Buka Mode Riset & Satgas' : 'Launch Science & Satgas Mode'}</span>
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>

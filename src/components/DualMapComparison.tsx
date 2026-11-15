@@ -300,7 +300,7 @@ export const DualMapComparison: React.FC<DualMapComparisonProps> = ({
           <div className="flex items-center bg-[#f5f5f7] dark:bg-[#1f2937] p-1 rounded-xl border border-[#e5e5e7] dark:border-[#374151] text-xs font-semibold">
             <button
               onClick={() => setBasemap('satellite')}
-              aria-label="Basemap Satelit HD"
+              aria-label={language === 'id' ? 'Basemap Satelit HD' : 'HD Satellite Basemap'}
               className={`px-2.5 py-1 rounded-lg transition cursor-pointer min-h-[30px] ${
                 basemap === 'satellite'
                   ? 'bg-sky-700 text-white font-bold shadow-xs'
@@ -311,7 +311,7 @@ export const DualMapComparison: React.FC<DualMapComparisonProps> = ({
             </button>
             <button
               onClick={() => setBasemap('dark')}
-              aria-label="Basemap Kanvas Gelap"
+              aria-label={language === 'id' ? 'Basemap Kanvas Gelap' : 'Dark Canvas Basemap'}
               className={`px-2.5 py-1 rounded-lg transition cursor-pointer min-h-[30px] ${
                 basemap === 'dark'
                   ? 'bg-sky-700 text-white font-bold shadow-xs'
@@ -322,26 +322,26 @@ export const DualMapComparison: React.FC<DualMapComparisonProps> = ({
             </button>
             <button
               onClick={() => setBasemap('nasa_truecolor')}
-              aria-label="NASA GIBS TrueColor Basemap"
+              aria-label={language === 'id' ? 'Basemap NASA GIBS TrueColor' : 'NASA GIBS TrueColor Basemap'}
               className={`px-2.5 py-1 rounded-lg transition cursor-pointer min-h-[30px] flex items-center gap-1 ${
                 basemap === 'nasa_truecolor'
                   ? 'bg-sky-700 text-white font-bold shadow-xs'
                   : 'text-[#6e6e73] dark:text-[#9ca3af] hover:text-[#1d1d1f] dark:hover:text-white'
               }`}
-              title="NASA Global Imagery Browse Services (MODIS TrueColor per Year)"
+              title={language === 'id' ? 'NASA GIBS TrueColor (Citra Satelit MODIS per Tahun)' : 'NASA Global Imagery Browse Services (MODIS TrueColor per Year)'}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-sky-300 inline-block" />
               <span>NASA True</span>
             </button>
             <button
               onClick={() => setBasemap('nasa_bands721')}
-              aria-label="NASA GIBS FalseColor Bands 7-2-1"
+              aria-label={language === 'id' ? 'Basemap NASA GIBS FalseColor Bands 7-2-1' : 'NASA GIBS FalseColor Bands 7-2-1'}
               className={`px-2.5 py-1 rounded-lg transition cursor-pointer min-h-[30px] flex items-center gap-1 ${
                 basemap === 'nasa_bands721'
                   ? 'bg-amber-700 text-white font-bold shadow-xs'
                   : 'text-[#6e6e73] dark:text-[#9ca3af] hover:text-[#1d1d1f] dark:hover:text-white'
               }`}
-              title="NASA GIBS FalseColor Bands 7-2-1 (Smoke Cutter & Burn Scars)"
+              title={language === 'id' ? 'NASA GIBS FalseColor Bands 7-2-1 (Menembus Asap & Bekas Kebakaran)' : 'NASA GIBS FalseColor Bands 7-2-1 (Smoke Cutter & Burn Scars)'}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-amber-300 inline-block" />
               <span>7-2-1</span>

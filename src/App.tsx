@@ -20,6 +20,8 @@ import { fetchLiveNASAHotspots, LiveSyncResult } from './services/nasaFirmsApi';
 import { Language, translations } from './data/translations';
 import { RefreshCw, Loader2, Sparkles, TrendingUp, ShieldCheck } from 'lucide-react';
 import { OrbitalTelemetryTicker } from './components/OrbitalTelemetryTicker';
+import { AmbientCursorFollower } from './components/AmbientCursorFollower';
+import { telemetryAudio } from './utils/telemetryAudio';
 
 // Helper to retry dynamic imports if browser cache misses or server reconnected
 function lazyWithRetry<T extends React.ComponentType<any>>(
@@ -271,6 +273,8 @@ export function App() {
     }
   }, [activeTab, appMode]);
 
+
+
   const [rawMode, setRawMode] = useState<boolean>(false);
   const [selectedKey, setSelectedKey] = useState<string | null>('2015-38');
   const [selectedWeekData, setSelectedWeekData] = useState<HarmonizedWeekData | null>(null);
@@ -383,7 +387,7 @@ export function App() {
     if (isLiveSync) loadLiveFeed(selectedAOI, userMapKey);
   }, [selectedAOI, isLiveSync, loadLiveFeed, userMapKey]);
 
-  // Global power-user keyboard shortcuts for live pitch presentation (1-5, L, T, ?)
+  // Global power-user keyboard shortcuts for live pitch presentation (1-6, W, M, T, L, B, ?)
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement;
@@ -397,27 +401,40 @@ export function App() {
         return;
       }
 
-      if (e.key === '0' || e.key === 's' || e.key === 'S') {
-        setActiveTab('story');
-      } else if (e.key === '1') {
-        setActiveTab('overview');
-      } else if (e.key === '2') {
-        setActiveTab('lab');
-      } else if (e.key === '3') {
-        setActiveTab('mitigation');
-      } else if (e.key === '4') {
-        setActiveTab('data-hub');
-      } else if (e.key === '5') {
-        setActiveTab('team');
+      const tabMap: Record<string, NavTab> = {
+        '1': 'story',
+        '2': 'overview',
+        '3': 'lab',
+        '4': 'mitigation',
+        '5': 'data-hub',
+        '6': 'team',
+      };
+
+      if (tabMap[e.key]) {
+        e.preventDefault();
+        telemetryAudio.playClick();
+        setActiveTab(tabMap[e.key]);
       } else if (e.key === 'w' || e.key === 'W') {
+        e.preventDefault();
+        telemetryAudio.playClick();
         handleToggleAppMode(appMode === 'citizen' ? 'science' : 'citizen');
+      } else if (e.key === 'm' || e.key === 'M') {
+        e.preventDefault();
+        telemetryAudio.toggleMute();
       } else if (e.key === 'l' || e.key === 'L') {
+        e.preventDefault();
+        telemetryAudio.playClick();
         handleToggleLiveSync();
       } else if (e.key === 't' || e.key === 'T') {
+        e.preventDefault();
         toggleTheme();
       } else if (e.key === 'b' || e.key === 'B') {
+        e.preventDefault();
+        telemetryAudio.playClick();
         setIsBriefingModalOpen((prev) => !prev);
       } else if (e.key === '?' || e.key === 'h' || e.key === 'H') {
+        e.preventDefault();
+        telemetryAudio.playClick();
         setIsTourModalOpen((prev) => !prev);
       }
     };
@@ -470,8 +487,19 @@ export function App() {
   }, [yearlyAverages]);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#070b14] text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#070b14] text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200 relative">
       
+      {/* WCAG AA Skip to Main Content Link */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-[999999] px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-2xl ring-2 ring-white outline-none transition-all"
+      >
+        {language === 'id' ? 'Lompat ke Konten Utama (Skip to Content)' : 'Skip to Main Content'}
+      </a>
+
+      {/* Ambient Cursor Light Aura (Hardware-accelerated Desktop Follower) */}
+      <AmbientCursorFollower />
+
       {/* Apple-style Navigation */}
       <Navbar
         language={language}
@@ -492,7 +520,7 @@ export function App() {
       <OrbitalTelemetryTicker language={language} isLiveSync={isLiveSync} />
 
       {/* Main Canvas */}
-      <main className="flex-1 w-full px-4 sm:px-6 lg:px-8 py-6">
+      <main id="main-content" tabIndex={-1} className="flex-1 w-full px-4 sm:px-6 lg:px-8 py-6 outline-none">
         {/* DUAL MODE: MODE WARGA (CITIZEN) vs MODE RISET / SATGAS (SCIENCE) */}
         {appMode === 'citizen' ? (
           <div className="tab-view-enter">
@@ -873,6 +901,31 @@ export function App() {
                   <TeamPage language={language} />
                 </div>
               </Suspense>
+            )}
+
+            {/* Fallback 404 State for Unrecognized Routes (Awwwards Rubric) */}
+            {!['story', 'overview', 'lab', 'mitigation', 'data-hub', 'team'].includes(activeTab) && (
+              <div className="w-full min-h-[460px] flex flex-col items-center justify-center text-center p-8 rounded-3xl bg-white dark:bg-[#0c1220] border border-slate-200 dark:border-slate-800 space-y-4 tab-view-enter shadow-xs">
+                <div className="w-16 h-16 rounded-2xl bg-sky-50 dark:bg-sky-950/70 border border-sky-200 dark:border-sky-800 text-sky-600 dark:text-sky-400 flex items-center justify-center shadow-xs">
+                  <span className="font-mono text-xl font-bold">404</span>
+                </div>
+                <div className="space-y-1 max-w-md">
+                  <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">
+                    {language === 'id' ? 'Lintasan Orbit Terputus' : 'Orbital Trajectory Lost'}
+                  </h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    {language === 'id'
+                      ? 'Modul atau parameter yang Anda tuju tidak terdaftar dalam telemetri Wanareksa. Kembali ke stasiun kendali utama untuk melanjutkan pemantauan.'
+                      : 'The requested telemetry route or module parameter is not registered in the Wanareksa fleet. Return to Mission Control to continue.'}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setActiveTab('overview')}
+                  className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-xs cursor-pointer active:scale-[0.98]"
+                >
+                  {language === 'id' ? 'Kembali ke Pusat Kendali' : 'Return to Mission Control'}
+                </button>
+              </div>
             )}
           </>
         )}

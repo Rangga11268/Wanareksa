@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Logo } from './Logo';
 import { Language, translations } from '../data/translations';
-import { Menu, X, Sun, Moon, Compass, BookOpen, Globe2, SlidersHorizontal, ShieldAlert, Database, Users, Bell } from 'lucide-react';
+import { Menu, X, Sun, Moon, Compass, BookOpen, Globe2, SlidersHorizontal, ShieldAlert, Database, Users, Bell, Volume2, VolumeX } from 'lucide-react';
+import { telemetryAudio } from '../utils/telemetryAudio';
 
 export type NavTab = 'story' | 'overview' | 'lab' | 'mitigation' | 'data-hub' | 'team';
 export type ThemeMode = 'system' | 'light' | 'dark';
@@ -38,6 +39,12 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const t = translations[language];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMuted, setIsMuted] = useState<boolean>(() => telemetryAudio.getIsMuted());
+
+  const handleToggleAudio = () => {
+    const next = telemetryAudio.toggleMute();
+    setIsMuted(next);
+  };
 
   const navItems = [
     { id: 'story' as NavTab, label: t.navStory, icon: BookOpen },
@@ -54,7 +61,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <>
-      <header className="print:hidden sticky top-0 z-[1000] bg-white/95 dark:bg-[#0c121e]/95 backdrop-blur-xl border-b border-[#e5e5e7] dark:border-[#1f2937] transition-all w-full">
+      <header className="print:hidden sticky top-0 z-[1000] bg-white/95 dark:bg-[#070c18]/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 transition-all w-full">
         {/* ROW 1: PRIMARY BRANDING & GLOBAL CONTROLS */}
         <div className="w-full px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-4">
           
@@ -118,6 +125,20 @@ export const Navbar: React.FC<NavbarProps> = ({
                 NASA FIRMS Live
               </span>
             )}
+
+            {/* Audio Feedback Toggle Button */}
+            <button
+              onClick={handleToggleAudio}
+              aria-label={isMuted ? (language === 'id' ? 'Aktifkan Suara Telemetri' : 'Enable Telemetry Audio') : (language === 'id' ? 'Bisukan Suara' : 'Mute Audio')}
+              title={isMuted ? (language === 'id' ? 'Suara Telemetri: Nonaktif' : 'Telemetry Sound: Muted') : (language === 'id' ? 'Suara Telemetri: Aktif' : 'Telemetry Sound: Active')}
+              className="p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800 flex items-center justify-center min-w-[36px] min-h-[36px] cursor-pointer group"
+            >
+              {isMuted ? (
+                <VolumeX className="w-4 h-4 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 transition-colors" />
+              ) : (
+                <Volume2 className="w-4 h-4 text-sky-500 animate-pulse" />
+              )}
+            </button>
 
             {/* Direct Dark / Light Theme Toggle Button */}
             {onToggleTheme && (
@@ -196,7 +217,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                   return (
                     <button
                       key={item.id}
-                      onClick={() => onSelectTab(item.id)}
+                      onClick={() => {
+                        telemetryAudio.playClick();
+                        onSelectTab(item.id);
+                      }}
                       className={`group flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer relative ${
                         isActive
                           ? 'bg-white dark:bg-[#141d2e] text-slate-900 dark:text-white shadow-xs border border-slate-200 dark:border-slate-700 font-bold'
@@ -216,7 +240,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 })}
               </nav>
 
-              <div className="hidden lg:flex items-center gap-2 text-[11px] font-mono text-slate-500">
+              <div className="hidden lg:flex items-center gap-3 text-[11px] font-mono text-slate-500">
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-slate-200/60 dark:bg-slate-800/80 px-2 py-0.5 rounded border border-slate-300/60 dark:border-slate-700/60 hidden xl:inline" title="Tekan tombol 1-6 di keyboard untuk navigasi cepat">
+                  Shortcut: [1-6]
+                </span>
                 <span>Modul Analisis NASA:</span>
                 <span className="font-bold text-sky-600 dark:text-sky-400 uppercase">{activeTab}</span>
               </div>

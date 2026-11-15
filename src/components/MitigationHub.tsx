@@ -509,9 +509,15 @@ ${language === 'id' ? 'Sumber Data: NASA FIRMS (MODIS 1km / VIIRS 375m) & Open-M
                   onChange={(e) => setSelectedTeamUnit(e.target.value as any)}
                   className="w-full px-3 py-2 rounded-xl bg-[#f5f5f7] dark:bg-[#151d2f] border border-[#e5e5e7] dark:border-[#1f2937] text-[#1d1d1f] dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-[#0071e3]"
                 >
-                  <option value="manggala_agni">Brigade Manggala Agni (KLHK)</option>
-                  <option value="mpa">Masyarakat Peduli Api (MPA Desa)</option>
-                  <option value="bpbd">Satgas Gabungan BPBD &amp; Damkar</option>
+                  <option value="manggala_agni">
+                    {language === 'id' ? 'Brigade Manggala Agni (KLHK)' : 'Manggala Agni Fire Brigade (KLHK)'}
+                  </option>
+                  <option value="mpa">
+                    {language === 'id' ? 'Masyarakat Peduli Api (MPA Desa)' : 'Community Fire Care (MPA Village)'}
+                  </option>
+                  <option value="bpbd">
+                    {language === 'id' ? 'Satgas Gabungan BPBD & Damkar' : 'Joint Disaster Agency (BPBD & Fire Dept)'}
+                  </option>
                 </select>
               </div>
 
@@ -749,18 +755,26 @@ ${language === 'id' ? 'Sumber Data: NASA FIRMS (MODIS 1km / VIIRS 375m) & Open-M
                         {/* WhatsApp Dispatch Button */}
                         <a
                           href={`https://wa.me/?text=${encodeURIComponent(
-                            `🚨 *DISPOSISI DARURAT TITIK PANAS WANAREKSA*\n` +
-                            `Wilayah: ${selectedAOI.name} (${loc.regency}${loc.district ? `, ${loc.district}` : ''})\n` +
-                            `Koordinat: ${spot.lat.toFixed(5)}, ${spot.lon.toFixed(5)}\n` +
-                            `FRP: ${spot.frp} MW | Sensor: ${spot.instrument} (${spot.satellite})\n` +
-                            `Keyakinan: ${spot.confidence}% | Waktu: ${loc.localTimeFormatted}\n` +
-                            `Google Maps: ${loc.googleMapsUrl}\n` +
-                            `Instruksi: Segera kerahkan tim pemadaman darat Manggala Agni / MPA ke lokasi.`
+                            language === 'id'
+                              ? `🚨 *DISPOSISI DARURAT TITIK PANAS WANAREKSA*\n` +
+                                `Wilayah: ${selectedAOI.name} (${loc.regency}${loc.district ? `, ${loc.district}` : ''})\n` +
+                                `Koordinat: ${spot.lat.toFixed(5)}, ${spot.lon.toFixed(5)}\n` +
+                                `FRP: ${spot.frp} MW | Sensor: ${spot.instrument} (${spot.satellite})\n` +
+                                `Keyakinan: ${spot.confidence}% | Waktu: ${loc.localTimeFormatted}\n` +
+                                `Google Maps: ${loc.googleMapsUrl}\n` +
+                                `Instruksi: Segera kerahkan tim pemadaman darat Manggala Agni / MPA ke lokasi.`
+                              : `🚨 *WANAREKSA RAPID WILDFIRE DISPATCH*\n` +
+                                `Region: ${selectedAOI.name} (${loc.regency}${loc.district ? `, ${loc.district}` : ''})\n` +
+                                `Coordinates: ${spot.lat.toFixed(5)}, ${spot.lon.toFixed(5)}\n` +
+                                `FRP: ${spot.frp} MW | Sensor: ${spot.instrument} (${spot.satellite})\n` +
+                                `Confidence: ${spot.confidence}% | Time: ${loc.localTimeFormatted}\n` +
+                                `Google Maps: ${loc.googleMapsUrl}\n` +
+                                `Instruction: Urgent field deployment required for ground suppression.`
                           )}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900 border border-emerald-200 dark:border-emerald-800 font-semibold transition cursor-pointer"
-                          title="Kirim Disposisi WhatsApp"
+                          title={language === 'id' ? 'Kirim Disposisi WhatsApp' : 'Dispatch via WhatsApp'}
                         >
                           <MessageSquare className="w-3 h-3" />
                           <span>WA</span>
@@ -772,7 +786,7 @@ ${language === 'id' ? 'Sumber Data: NASA FIRMS (MODIS 1km / VIIRS 375m) & Open-M
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-[#0071e3]/10 dark:bg-[#38bdf8]/10 text-[#0071e3] dark:text-[#38bdf8] hover:bg-[#0071e3]/20 border border-[#0071e3]/20 font-semibold transition"
-                          title="Buka Navigasi Google Maps"
+                          title={language === 'id' ? 'Buka Navigasi Google Maps' : 'Open in Google Maps'}
                         >
                           <span>Maps</span>
                           <ExternalLink className="w-2.5 h-2.5" />

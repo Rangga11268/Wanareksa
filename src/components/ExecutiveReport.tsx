@@ -381,23 +381,29 @@ export const ExecutiveReport: React.FC<ExecutiveReportProps> = ({
               {/* Center Official Title */}
               <div className="text-center flex-1">
                 <div className="text-[10px] font-sans font-extrabold uppercase tracking-widest text-[#1e293b]">
-                  REPUBLIK INDONESIA
+                  {language === 'id' ? 'REPUBLIK INDONESIA' : 'REPUBLIC OF INDONESIA'}
                 </div>
                 <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-[#334155]">
-                  KEMENTERIAN LINGKUNGAN HIDUP DAN KEHUTANAN &bull; BADAN RESTORASI GAMBUT DAN MANGROVE
+                  {language === 'id'
+                    ? 'KEMENTERIAN LINGKUNGAN HIDUP DAN KEHUTANAN • BADAN RESTORASI GAMBUT DAN MANGROVE'
+                    : 'MINISTRY OF ENVIRONMENT & FORESTRY • PEATLAND & MANGROVE RESTORATION AGENCY'}
                 </div>
                 <div className="text-[13px] font-sans font-black uppercase tracking-tight text-[#0f172a] mt-0.5">
-                  PUSAT PENGENDALIAN OPERASI &amp; SISTEM MONITORING SATELIT WANAREKSA
+                  {language === 'id'
+                    ? 'PUSAT PENGENDALIAN OPERASI & SISTEM MONITORING SATELIT WANAREKSA'
+                    : 'OPERATIONS CONTROL CENTER & WANAREKSA SATELLITE MONITORING SYSTEM'}
                 </div>
                 <div className="text-[9px] font-sans text-[#64748b]">
-                  Konsorsium Pengamatan Bumi NASA Space Apps Challenge Jakarta &bull; Harmonisasi MODIS/VIIRS 5.5km
+                  {language === 'id'
+                    ? 'Konsorsium Pengamatan Bumi NASA Space Apps Challenge Jakarta • Harmonisasi MODIS/VIIRS 5.5km'
+                    : 'NASA Space Apps Challenge Jakarta Earth Observation Consortium • MODIS/VIIRS 5.5km Harmonization'}
                 </div>
               </div>
 
               {/* Right Operational Badge & Registry */}
               <div className="text-right shrink-0 font-sans">
                 <span className="inline-block px-2 py-0.5 border border-rose-700 bg-rose-50 text-rose-800 text-[8.5px] font-extrabold uppercase rounded-xs tracking-wider">
-                  OPERASIONAL SEGERA
+                  {language === 'id' ? 'OPERASIONAL SEGERA' : 'IMMEDIATE ACTION'}
                 </span>
                 <div className="text-[8px] font-mono text-slate-500 mt-1">
                   {docRegNumber}
@@ -412,10 +418,14 @@ export const ExecutiveReport: React.FC<ExecutiveReportProps> = ({
           {/* Document Title Header */}
           <div className="text-center my-3">
             <h1 className="text-[14px] font-sans font-black uppercase tracking-wide text-[#0f172a]">
-              LAPORAN SITUASI INTELIJEN KARHUTLA &amp; DISPOSISI OPERASIONAL
+              {language === 'id'
+                ? 'LAPORAN SITUASI INTELIJEN KARHUTLA & DISPOSISI OPERASIONAL'
+                : 'WILDFIRE SITUATION INTELLIGENCE REPORT & OPERATIONAL DISPATCH'}
             </h1>
             <div className="text-[9.5px] font-sans text-slate-600 mt-0.5">
-              Ref: Standar Operasional Prosedur Pengendalian Kebakaran Hutan &amp; Lahan Gambut (PP No. 57/2016)
+              {language === 'id'
+                ? 'Ref: Standar Operasional Prosedur Pengendalian Kebakaran Hutan & Lahan Gambut (PP No. 57/2016)'
+                : 'Ref: Peatland & Wildfire Control Standard Operating Procedures (Gov Reg No. 57/2016)'}
             </div>
           </div>
 
@@ -423,33 +433,45 @@ export const ExecutiveReport: React.FC<ExecutiveReportProps> = ({
           <table className="w-full border-collapse border border-slate-300 text-[10px] font-sans mb-3">
             <tbody>
               <tr className="bg-slate-50">
-                <td className="border border-slate-300 p-1.5 font-bold text-slate-700 w-1/4">WILAYAH SASARAN</td>
+                <td className="border border-slate-300 p-1.5 font-bold text-slate-700 w-1/4">
+                  {language === 'id' ? 'WILAYAH SASARAN' : 'TARGET REGION'}
+                </td>
                 <td className="border border-slate-300 p-1.5 font-extrabold text-[#0f172a] w-1/4">
                   {selectedAOI.name} ({selectedAOI.id.toUpperCase()})
                 </td>
-                <td className="border border-slate-300 p-1.5 font-bold text-slate-700 w-1/4">TANGGAL OBSERVASI</td>
+                <td className="border border-slate-300 p-1.5 font-bold text-slate-700 w-1/4">
+                  {language === 'id' ? 'TANGGAL OBSERVASI' : 'OBSERVATION DATE'}
+                </td>
                 <td className="border border-slate-300 p-1.5 font-semibold text-[#0f172a] w-1/4">
                   {reportDateFormatted}
                 </td>
               </tr>
               <tr>
-                <td className="border border-slate-300 p-1.5 font-bold text-slate-700">LANSKAP KHG</td>
+                <td className="border border-slate-300 p-1.5 font-bold text-slate-700">
+                  {language === 'id' ? 'LANSKAP KHG' : 'PEAT HYDROLOGICAL UNIT'}
+                </td>
                 <td className="border border-slate-300 p-1.5 text-slate-900 font-medium">
                   {profile.khgName}
                 </td>
-                <td className="border border-slate-300 p-1.5 font-bold text-slate-700">STATUS BAHAYA / TRIAGE</td>
+                <td className="border border-slate-300 p-1.5 font-bold text-slate-700">
+                  {language === 'id' ? 'STATUS BAHAYA / TRIAGE' : 'THREAT LEVEL / TRIAGE'}
+                </td>
                 <td className="border border-slate-300 p-1.5 font-black text-rose-700">
                   {threatLevel}
                 </td>
               </tr>
               <tr className="bg-slate-50">
-                <td className="border border-slate-300 p-1.5 font-bold text-slate-700">KOORDINAT ACUAN</td>
+                <td className="border border-slate-300 p-1.5 font-bold text-slate-700">
+                  {language === 'id' ? 'KOORDINAT ACUAN' : 'REFERENCE COORDINATES'}
+                </td>
                 <td className="border border-slate-300 p-1.5 font-mono text-slate-900">
                   {selectedAOI.center[0].toFixed(4)}° N, {selectedAOI.center[1].toFixed(4)}° E
                 </td>
-                <td className="border border-slate-300 p-1.5 font-bold text-slate-700">KONDISI GAMBUT</td>
+                <td className="border border-slate-300 p-1.5 font-bold text-slate-700">
+                  {language === 'id' ? 'KONDISI GAMBUT' : 'PEAT CONDITIONS'}
+                </td>
                 <td className="border border-slate-300 p-1.5 text-slate-900 font-semibold">
-                  Tebal: {profile.peatDepth} &bull; TMAG: {currentTmat} cm
+                  {language === 'id' ? 'Tebal:' : 'Depth:'} {profile.peatDepth} &bull; TMAG: {currentTmat} cm
                 </td>
               </tr>
             </tbody>
@@ -458,67 +480,91 @@ export const ExecutiveReport: React.FC<ExecutiveReportProps> = ({
           {/* 3. Section I: Executive Situation Synthesis */}
           <div className="mb-3">
             <div className="text-[11px] font-sans font-bold uppercase tracking-wide border-b border-slate-400 pb-0.5 mb-1.5 flex justify-between text-[#0f172a]">
-              <span>I. RINGKASAN EKSEKUTIF &amp; ANALISIS KERENTANAN SPASIAL</span>
+              <span>
+                {language === 'id'
+                  ? 'I. RINGKASAN EKSEKUTIF & ANALISIS KERENTANAN SPASIAL'
+                  : 'I. EXECUTIVE SUMMARY & SPATIAL VULNERABILITY SYNTHESIS'}
+              </span>
               <span className="text-[9px] font-mono font-normal text-slate-600">NASA TERRA/AQUA &amp; SUOMI-NPP/NOAA-20</span>
             </div>
             <p className="text-[10px] leading-relaxed text-justify text-[#1e293b]">
-              Berdasarkan hasil harmonisasi multi-satelit pengamatan bumi NASA dengan faktor koreksi sensor (MODIS 1.04 / VIIRS 0.88) serta integrasi telemetri stasiun hidrologis, wilayah pertahanan <strong>{selectedAOI.name}</strong> ({profile.khgName}) saat ini berada pada status <strong>{threatLevel}</strong>. Kondisi Muka Air Tanah Gambut (TMAT) tercatat <strong>{currentTmat} cm</strong>, berada di bawah batas ambang kritis nasional PP No. 57/2016 (-40 cm). Dengan Kadar Air Gambut (KAG) sebesar <strong>{profile.kag}%</strong> dan Indeks Cuaca Api (FWI) <strong>{effectiveFwi}</strong>, kawasan ini memiliki <strong>{currentTmat <= -40 ? 'kerentanan tinggi terhadap kebakaran bawah permukaan (smoldering peat fires) yang sulit dideteksi secara visual dari darat' : 'kondisi hidrologis stabil namun membutuhkan pemantauan berkala'}</strong>. Kebutuhan air pemadaman diestimasikan sebesar <strong>± {(triage.level === 1 ? 95000 : triage.level === 2 ? 65000 : triage.level === 3 ? 35000 : 15000).toLocaleString('id-ID')} Liter/hektar</strong> menggunakan metode <em>peat water injection</em> ({triage.actionId}).
+              {language === 'id' ? (
+                <>
+                  Berdasarkan hasil harmonisasi multi-satelit pengamatan bumi NASA dengan faktor koreksi sensor (MODIS 1.04 / VIIRS 0.88) serta integrasi telemetri stasiun hidrologis, wilayah pertahanan <strong>{selectedAOI.name}</strong> ({profile.khgName}) saat ini berada pada status <strong>{threatLevel}</strong>. Kondisi Muka Air Tanah Gambut (TMAT) tercatat <strong>{currentTmat} cm</strong>, berada di bawah batas ambang kritis nasional PP No. 57/2016 (-40 cm). Dengan Kadar Air Gambut (KAG) sebesar <strong>{profile.kag}%</strong> dan Indeks Cuaca Api (FWI) <strong>{effectiveFwi}</strong>, kawasan ini memiliki <strong>{currentTmat <= -40 ? 'kerentanan tinggi terhadap kebakaran bawah permukaan (smoldering peat fires) yang sulit dideteksi secara visual dari darat' : 'kondisi hidrologis stabil namun membutuhkan pemantauan berkala'}</strong>. Kebutuhan air pemadaman diestimasikan sebesar <strong>± {(triage.level === 1 ? 95000 : triage.level === 2 ? 65000 : triage.level === 3 ? 35000 : 15000).toLocaleString('id-ID')} Liter/hektar</strong> menggunakan metode <em>peat water injection</em> ({triage.actionId}).
+                </>
+              ) : (
+                <>
+                  Based on multi-satellite NASA Earth observation harmonization with cross-sensor calibration factors (MODIS 1.04 / VIIRS 0.88) and in-situ hydrological telemetry, <strong>{selectedAOI.name}</strong> ({profile.khgName}) is designated at <strong>{threatLevel}</strong> status. Peat groundwater table (GWL) is recorded at <strong>{currentTmat} cm</strong>, below the national statutory critical threshold (-40 cm, Gov Reg 57/2016). With peat moisture at <strong>{profile.kag}%</strong> and Fire Weather Index (FWI) at <strong>{effectiveFwi}</strong>, this landscape exhibits <strong>{currentTmat <= -40 ? 'high vulnerability to subsurface smoldering fires requiring deep thermal probing' : 'hydrologically stable conditions under active monitoring'}</strong>. Required suppression water buffer is estimated at <strong>± {(triage.level === 1 ? 95000 : triage.level === 2 ? 65000 : triage.level === 3 ? 35000 : 15000).toLocaleString('en-US')} Liters/hectare</strong> via <em>peat water lance injection</em> ({triage.actionEn}).
+                </>
+              )}
             </p>
           </div>
 
           {/* 4. Section II: Hydrological & Environmental Telemetry Matrix */}
           <div className="mb-3">
             <div className="text-[11px] font-sans font-bold uppercase tracking-wide border-b border-slate-400 pb-0.5 mb-1.5 text-[#0f172a]">
-              II. MATRIKS TELEMETRI HIDROLOGI GAMBUT &amp; KONDISI ATMOSFER
+              {language === 'id'
+                ? 'II. MATRIKS TELEMETRI HIDROLOGI GAMBUT & KONDISI ATMOSFER'
+                : 'II. PEAT HYDROLOGY & ATMOSPHERIC TELEMETRY MATRIX'}
             </div>
             <table className="w-full border-collapse border border-slate-300 text-[9.5px] font-sans">
               <thead>
                 <tr className="bg-slate-100 text-slate-800 font-bold uppercase text-[8.5px]">
-                  <th className="border border-slate-300 p-1.5 text-left">Indikator Pemantauan</th>
-                  <th className="border border-slate-300 p-1.5 text-left">Nilai Aktual</th>
-                  <th className="border border-slate-300 p-1.5 text-left">Batas Kritis / Regulasi</th>
-                  <th className="border border-slate-300 p-1.5 text-left">Status Risiko Lapangan</th>
+                  <th className="border border-slate-300 p-1.5 text-left">{language === 'id' ? 'Indikator Pemantauan' : 'Monitoring Indicator'}</th>
+                  <th className="border border-slate-300 p-1.5 text-left">{language === 'id' ? 'Nilai Aktual' : 'Actual Value'}</th>
+                  <th className="border border-slate-300 p-1.5 text-left">{language === 'id' ? 'Batas Kritis / Regulasi' : 'Critical Threshold / Regulation'}</th>
+                  <th className="border border-slate-300 p-1.5 text-left">{language === 'id' ? 'Status Risiko Lapangan' : 'Field Risk Status'}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td className="border border-slate-300 p-1 font-semibold">Tinggi Muka Air Tanah (TMAT)</td>
+                  <td className="border border-slate-300 p-1 font-semibold">{language === 'id' ? 'Tinggi Muka Air Tanah (TMAT)' : 'Groundwater Table (TMAT)'}</td>
                   <td className="border border-slate-300 p-1 font-mono font-bold text-rose-700">{currentTmat} cm</td>
                   <td className="border border-slate-300 p-1 text-slate-600">-40 cm (PP No. 57/2016)</td>
                   <td className="border border-slate-300 p-1 font-bold text-rose-700">
-                    {currentTmat <= -40 ? 'KRITIS: Kubah Mengering' : 'NORMAL: Hidrasi Terjaga'}
+                    {language === 'id'
+                      ? (currentTmat <= -40 ? 'KRITIS: Kubah Mengering' : 'NORMAL: Hidrasi Terjaga')
+                      : (currentTmat <= -40 ? 'CRITICAL: Peat Dome Drying' : 'NORMAL: Hydration Maintained')}
                   </td>
                 </tr>
                 <tr className="bg-slate-50">
                   <td className="border border-slate-300 p-1 font-semibold">Fire Weather Index (FWI)</td>
                   <td className="border border-slate-300 p-1 font-mono font-bold text-amber-700">{effectiveFwi}</td>
-                  <td className="border border-slate-300 p-1 text-slate-600">&ge; 48 (Kategori Sangat Tinggi)</td>
+                  <td className="border border-slate-300 p-1 text-slate-600">{language === 'id' ? '≥ 48 (Kategori Sangat Tinggi)' : '≥ 48 (Very High Category)'}</td>
                   <td className="border border-slate-300 p-1 font-bold text-amber-700">
-                    {effectiveFwi >= 48 ? 'BAHAYA TINGGI: Perambatan Cepat' : 'SIAGA: Kelembaban Rendah'}
+                    {language === 'id'
+                      ? (effectiveFwi >= 48 ? 'BAHAYA TINGGI: Perambatan Cepat' : 'SIAGA: Kelembaban Rendah')
+                      : (effectiveFwi >= 48 ? 'HIGH RISK: Rapid Spread' : 'ALERT: Low Moisture')}
                   </td>
                 </tr>
                 <tr>
-                  <td className="border border-slate-300 p-1 font-semibold">Suhu Udara &amp; Kelembapan Relatif</td>
+                  <td className="border border-slate-300 p-1 font-semibold">{language === 'id' ? 'Suhu Udara & Kelembapan Relatif' : 'Air Temp & Relative Humidity'}</td>
                   <td className="border border-slate-300 p-1 font-mono">{liveWeather?.temperature ?? 32}°C / RH {liveWeather?.relativeHumidity ?? 62}%</td>
-                  <td className="border border-slate-300 p-1 text-slate-600">RH &lt; 65% (Kondisi Kering)</td>
+                  <td className="border border-slate-300 p-1 text-slate-600">{language === 'id' ? 'RH < 65% (Kondisi Kering)' : 'RH < 65% (Dry Air Condition)'}</td>
                   <td className="border border-slate-300 p-1 text-slate-800">
-                    {(liveWeather?.relativeHumidity ?? 62) < 65 ? 'Bahan Bakar Serasah Kering' : 'Kondisi Atmosfer Moderat'}
+                    {language === 'id'
+                      ? ((liveWeather?.relativeHumidity ?? 62) < 65 ? 'Bahan Bakar Serasah Kering' : 'Kondisi Atmosfer Moderat')
+                      : ((liveWeather?.relativeHumidity ?? 62) < 65 ? 'Dry Fuel Litter Bed' : 'Moderate Atmosphere')}
                   </td>
                 </tr>
                 <tr className="bg-slate-50">
-                  <td className="border border-slate-300 p-1 font-semibold">Hari Tanpa Hujan (HTH)</td>
-                  <td className="border border-slate-300 p-1 font-mono">{liveWeather?.dryDaysCount ?? 9} Hari</td>
-                  <td className="border border-slate-300 p-1 text-slate-600">&gt; 7 Hari (Ambang Siaga Kekeringan)</td>
+                  <td className="border border-slate-300 p-1 font-semibold">{language === 'id' ? 'Hari Tanpa Hujan (HTH)' : 'Consecutive Dry Days (CDD)'}</td>
+                  <td className="border border-slate-300 p-1 font-mono">{liveWeather?.dryDaysCount ?? 9} {language === 'id' ? 'Hari' : 'Days'}</td>
+                  <td className="border border-slate-300 p-1 text-slate-600">{language === 'id' ? '> 7 Hari (Ambang Siaga Kekeringan)' : '> 7 Days (Drought Alert)'}</td>
                   <td className="border border-slate-300 p-1 font-semibold text-amber-800">
-                    {(liveWeather?.dryDaysCount ?? 9) > 7 ? 'Waspada Dehidrasi Lapisan Gambut' : 'Cadangan Air Hujan Mencukupi'}
+                    {language === 'id'
+                      ? ((liveWeather?.dryDaysCount ?? 9) > 7 ? 'Waspada Dehidrasi Lapisan Gambut' : 'Cadangan Air Hujan Mencukupi')
+                      : ((liveWeather?.dryDaysCount ?? 9) > 7 ? 'Peat Dehydration Alert' : 'Sufficient Rainfall Buffer')}
                   </td>
                 </tr>
                 <tr>
-                  <td className="border border-slate-300 p-1 font-semibold">Infrastruktur Sekat Kanal (Canal Blocking)</td>
-                  <td className="border border-slate-300 p-1 font-mono font-bold">{profile.canalBlocks} Unit Terpasang</td>
-                  <td className="border border-slate-300 p-1 text-slate-600">Sumber Air: {profile.nearestWaterSource}</td>
+                  <td className="border border-slate-300 p-1 font-semibold">{language === 'id' ? 'Infrastruktur Sekat Kanal (Canal Blocking)' : 'Canal Blocking Infrastructure'}</td>
+                  <td className="border border-slate-300 p-1 font-mono font-bold">{profile.canalBlocks} {language === 'id' ? 'Unit Terpasang' : 'Units Installed'}</td>
+                  <td className="border border-slate-300 p-1 text-slate-600">{language === 'id' ? 'Sumber Air:' : 'Water Source:'} {profile.nearestWaterSource}</td>
                   <td className="border border-slate-300 p-1 text-emerald-800 font-semibold">
-                    {profile.canalBlocks > 0 ? 'Fasilitas Pembasahan Siap Dioperasikan' : 'Keterbatasan Pasokan Air Permukaan'}
+                    {language === 'id'
+                      ? (profile.canalBlocks > 0 ? 'Fasilitas Pembasahan Siap Dioperasikan' : 'Keterbatasan Pasokan Air Permukaan')
+                      : (profile.canalBlocks > 0 ? 'Rewetting Facilities Operational' : 'Limited Surface Water Supply')}
                   </td>
                 </tr>
               </tbody>
@@ -528,24 +574,30 @@ export const ExecutiveReport: React.FC<ExecutiveReportProps> = ({
           {/* 5. Section III: Active Hotspot Surveillance Targets */}
           <div className="mb-3">
             <div className="text-[11px] font-sans font-bold uppercase tracking-wide border-b border-slate-400 pb-0.5 mb-1.5 flex justify-between text-[#0f172a]">
-              <span>III. SASARAN DETEKSI ANOMALI TITIK PANAS PRIORITAS (NASA FIRMS NRT)</span>
+              <span>
+                {language === 'id'
+                  ? 'III. SASARAN DETEKSI ANOMALI TITIK PANAS PRIORITAS (NASA FIRMS NRT)'
+                  : 'III. PRIORITY HOTSPOT ANOMALY SURVEILLANCE TARGETS (NASA FIRMS NRT)'}
+              </span>
               <span className="text-[9px] font-mono font-normal text-slate-600">TOP FIRE RADIATIVE POWER</span>
             </div>
 
             {topSpots.length === 0 ? (
               <div className="p-2 border border-slate-300 bg-slate-50 text-center text-[9.5px] font-sans text-slate-600">
-                Tidak ada titik api berdaya radiasi tinggi (FRP &gt; 10 MW) terpantau pada lintasan orbit satelit 24 jam terakhir di wilayah ini.
+                {language === 'id'
+                  ? 'Tidak ada titik api berdaya radiasi tinggi (FRP > 10 MW) terpantau pada lintasan orbit satelit 24 jam terakhir di wilayah ini.'
+                  : 'No high-radiative-power hotspots (FRP > 10 MW) detected during the last 24 hours of satellite passes in this area.'}
               </div>
             ) : (
               <table className="w-full border-collapse border border-slate-300 text-[9px] font-sans">
                 <thead>
                   <tr className="bg-slate-100 text-slate-800 font-bold uppercase text-[8px]">
                     <th className="border border-slate-300 p-1 text-center w-7">No</th>
-                    <th className="border border-slate-300 p-1 text-left">Wilayah Administratif</th>
-                    <th className="border border-slate-300 p-1 text-left">Koordinat (Lat, Lon)</th>
-                    <th className="border border-slate-300 p-1 text-left">Sensor Satelit</th>
+                    <th className="border border-slate-300 p-1 text-left">{language === 'id' ? 'Wilayah Administratif' : 'Administrative Region'}</th>
+                    <th className="border border-slate-300 p-1 text-left">{language === 'id' ? 'Koordinat (Lat, Lon)' : 'Coordinates (Lat, Lon)'}</th>
+                    <th className="border border-slate-300 p-1 text-left">{language === 'id' ? 'Sensor Satelit' : 'Satellite Sensor'}</th>
                     <th className="border border-slate-300 p-1 text-center">FRP (MW)</th>
-                    <th className="border border-slate-300 p-1 text-left">Waktu Deteksi</th>
+                    <th className="border border-slate-300 p-1 text-left">{language === 'id' ? 'Waktu Deteksi' : 'Detection Time'}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -570,20 +622,28 @@ export const ExecutiveReport: React.FC<ExecutiveReportProps> = ({
             )}
 
             <div className="mt-1 text-[8px] font-sans text-slate-600 flex justify-between">
-              <span>*Kebutuhan Air Pemadaman Lapangan: Estimasi ± {((topSpots.length || 1) * 45000).toLocaleString('id-ID')} Liter via nozzle suntik gambut (peat lance).</span>
-              <span>Pasokan Terdekat: {profile.nearestWaterSource}</span>
+              <span>
+                {language === 'id'
+                  ? `*Kebutuhan Air Pemadaman Lapangan: Estimasi ± ${((topSpots.length || 1) * 45000).toLocaleString('id-ID')} Liter via nozzle suntik gambut (peat lance).`
+                  : `*Estimated Field Suppression Water: ± ${((topSpots.length || 1) * 45000).toLocaleString('en-US')} Liters via peat lance nozzle.`}
+              </span>
+              <span>
+                {language === 'id' ? 'Pasokan Terdekat:' : 'Nearest Supply:'} {profile.nearestWaterSource}
+              </span>
             </div>
           </div>
 
           {/* 6. Section IV: Tactical Directives for Brigade & Taskforces */}
           <div className="mb-4">
             <div className="text-[11px] font-sans font-bold uppercase tracking-wide border-b border-slate-400 pb-0.5 mb-1.5 text-[#0f172a]">
-              IV. INSTRUKSI TAKTIS &amp; DISPOSISI OPERASIONAL SATGAS LAPANGAN (SOP MANGGALA AGNI / BPBD / MPA)
+              {language === 'id'
+                ? 'IV. INSTRUKSI TAKTIS & DISPOSISI OPERASIONAL SATGAS LAPANGAN (SOP MANGGALA AGNI / BPBD / MPA)'
+                : 'IV. TACTICAL DIRECTIVES & TASKFORCE OPERATIONAL DISPATCH (SOP MANGGALA AGNI / BPBD / MPA)'}
             </div>
             <ol className="list-decimal pl-4 text-[9.5px] leading-relaxed text-[#1e293b] space-y-0.5">
               {profile.tacticalDirectives.map((dir, idx) => {
                 const colonIdx = dir.indexOf(':');
-                const title = colonIdx > -1 ? dir.substring(0, colonIdx) : `Instruksi ${idx + 1}`;
+                const title = colonIdx > -1 ? dir.substring(0, colonIdx) : (language === 'id' ? `Instruksi ${idx + 1}` : `Directive ${idx + 1}`);
                 const desc = colonIdx > -1 ? dir.substring(colonIdx + 1) : dir;
                 return (
                   <li key={idx}>
@@ -597,32 +657,52 @@ export const ExecutiveReport: React.FC<ExecutiveReportProps> = ({
           {/* 7. Section V: Formal Endorsement & Verification Block */}
           <div className="pt-2 border-t-2 border-[#0f172a] grid grid-cols-2 gap-8 text-center text-[9.5px] font-sans">
             <div>
-              <div className="text-[8px] font-bold uppercase tracking-wider text-slate-600">DIVERIFIKASI SISTEM SECARA OTOMATIS</div>
-              <div className="font-bold text-[#0f172a] mt-0.5">Sistem Pengolahan Telemetri Satelit Wanareksa</div>
+              <div className="text-[8px] font-bold uppercase tracking-wider text-slate-600">
+                {language === 'id' ? 'DIVERIFIKASI SISTEM SECARA OTOMATIS' : 'AUTOMATICALLY SYSTEM VERIFIED'}
+              </div>
+              <div className="font-bold text-[#0f172a] mt-0.5">
+                {language === 'id' ? 'Sistem Pengolahan Telemetri Satelit Wanareksa' : 'Wanareksa Satellite Telemetry Processing Engine'}
+              </div>
               <div className="h-10 flex items-center justify-center my-1">
                 <div className="px-2.5 py-1 border border-emerald-700 bg-emerald-50 text-emerald-800 text-[8px] font-mono font-bold uppercase rounded-xs">
                   VERIFIED BY WANAREKSA SATELLITE ENGINE
                 </div>
               </div>
-              <div className="font-bold text-[10px] text-[#0f172a]">TIM INTELIJEN BUMI WANAREKSA</div>
+              <div className="font-bold text-[10px] text-[#0f172a]">
+                {language === 'id' ? 'TIM INTELIJEN BUMI WANAREKSA' : 'WANAREKSA EARTH INTELLIGENCE TEAM'}
+              </div>
               <div className="text-[8px] text-slate-500">NASA Space Apps Challenge Jakarta 2026</div>
             </div>
 
             <div>
-              <div className="text-[8px] font-bold uppercase tracking-wider text-slate-600">MENGETAHUI &amp; MENGESAHKAN</div>
-              <div className="font-bold text-[#0f172a] mt-0.5">Komandan Posko Pengendalian Karhutla Wilayah</div>
-              <div className="h-10 flex items-center justify-center italic text-slate-400 text-[10px]" style={{ fontFamily: 'Georgia, serif' }}>
-                ( Cap Stempel &amp; Tanda Tangan Komandan Posko )
+              <div className="text-[8px] font-bold uppercase tracking-wider text-slate-600">
+                {language === 'id' ? 'MENGETAHUI & MENGESAHKAN' : 'ACKNOWLEDGED & ENDORSED BY'}
               </div>
-              <div className="font-bold text-[10px] text-[#0f172a]">SATGAS PENGENDALIAN KARHUTLA &amp; BRGM</div>
-              <div className="text-[8px] text-slate-500">Kementerian Lingkungan Hidup dan Kehutanan</div>
+              <div className="font-bold text-[#0f172a] mt-0.5">
+                {language === 'id' ? 'Komandan Posko Pengendalian Karhutla Wilayah' : 'Regional Wildfire Command Post Officer'}
+              </div>
+              <div className="h-10 flex items-center justify-center italic text-slate-400 text-[10px]" style={{ fontFamily: 'Georgia, serif' }}>
+                {language === 'id' ? '( Cap Stempel & Tanda Tangan Komandan Posko )' : '( Official Seal & Signature of Command Post Officer )'}
+              </div>
+              <div className="font-bold text-[10px] text-[#0f172a]">
+                {language === 'id' ? 'SATGAS PENGENDALIAN KARHUTLA & BRGM' : 'WILDFIRE TASKFORCE & BRGM'}
+              </div>
+              <div className="text-[8px] text-slate-500">
+                {language === 'id' ? 'Kementerian Lingkungan Hidup dan Kehutanan' : 'Ministry of Environment and Forestry'}
+              </div>
             </div>
           </div>
 
           {/* Footer Security Notice */}
           <div className="mt-3 pt-1 border-t border-slate-300 flex justify-between text-[7.5px] font-mono text-slate-500">
-            <span>DOKUMEN INI RESMI &amp; DILINDUNGI HAK AKSES TELEMETRI SATELIT MULTI-AGENCY NASA-BRGM</span>
-            <span>LEMBAR 1 DARI 1 &bull; KODE: WNR-NASA-SITREP-2026</span>
+            <span>
+              {language === 'id'
+                ? 'DOKUMEN INI RESMI & DILINDUNGI HAK AKSES TELEMETRI SATELIT MULTI-AGENCY NASA-BRGM'
+                : 'OFFICIAL DOCUMENT PROTECTED UNDER MULTI-AGENCY NASA-BRGM SATELLITE ACCESS'}
+            </span>
+            <span>
+              {language === 'id' ? 'LEMBAR 1 DARI 1 • KODE: WNR-NASA-SITREP-2026' : 'PAGE 1 OF 1 • CODE: WNR-NASA-SITREP-2026'}
+            </span>
           </div>
 
         </div>

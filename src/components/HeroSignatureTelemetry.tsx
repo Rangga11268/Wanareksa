@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Flame, Satellite, Layers, Radio, Sparkles, Sliders, Info, Eye } from 'lucide-react';
 import { Language } from '../data/translations';
+import { telemetryAudio } from '../utils/telemetryAudio';
 
 interface HeroSignatureTelemetryProps {
   language: Language;
@@ -8,65 +9,80 @@ interface HeroSignatureTelemetryProps {
 
 interface PeatNode {
   id: string;
-  name: string;
-  region: string;
+  nameId: string;
+  nameEn: string;
+  regionId: string;
+  regionEn: string;
   lat: string;
   lng: string;
   xPct: number;
   yPct: number;
   tmag: string;
   status: 'safe' | 'warning' | 'critical';
-  satPass: string;
+  satPassId: string;
+  satPassEn: string;
 }
 
 const PEAT_NODES: PeatNode[] = [
   {
     id: 'riau',
-    name: 'Kubah Gambut Giam Siak',
-    region: 'Riau, Sumatra',
+    nameId: 'Kubah Gambut Giam Siak',
+    nameEn: 'Giam Siak Peat Dome',
+    regionId: 'Riau, Sumatra',
+    regionEn: 'Riau, Sumatra',
     lat: '0.85° N',
     lng: '101.78° E',
     xPct: 24,
     yPct: 44,
     tmag: '-28 cm',
     status: 'safe',
-    satPass: 'Terra 10:30 WIB',
+    satPassId: 'Terra 10:30 WIB',
+    satPassEn: 'Terra 10:30 LT',
   },
   {
     id: 'kalteng',
-    name: 'Kubah Gambut Sebangau',
-    region: 'Kalimantan Tengah',
+    nameId: 'Kubah Gambut Sebangau',
+    nameEn: 'Sebangau Peat Dome',
+    regionId: 'Kalimantan Tengah',
+    regionEn: 'Central Kalimantan',
     lat: '2.21° S',
     lng: '113.92° E',
     xPct: 49,
     yPct: 56,
     tmag: '-48 cm',
     status: 'critical',
-    satPass: 'Suomi-NPP 13:15 WIB',
+    satPassId: 'Suomi-NPP 13:15 WIB',
+    satPassEn: 'Suomi-NPP 13:15 LT',
   },
   {
     id: 'sumsel',
-    name: 'Kubah Gambut OKI',
-    region: 'Sumatera Selatan',
+    nameId: 'Kubah Gambut OKI',
+    nameEn: 'OKI Peat Dome',
+    regionId: 'Sumatera Selatan',
+    regionEn: 'South Sumatra',
     lat: '3.32° S',
     lng: '104.91° E',
     xPct: 32,
     yPct: 62,
     tmag: '-38 cm',
     status: 'warning',
-    satPass: 'Aqua 13:45 WIB',
+    satPassId: 'Aqua 13:45 WIB',
+    satPassEn: 'Aqua 13:45 LT',
   },
   {
     id: 'papua',
-    name: 'Basin Gambut Mappi',
-    region: 'Papua Selatan',
+    nameId: 'Basin Gambut Mappi',
+    nameEn: 'Mappi Peat Basin',
+    regionId: 'Papua Selatan',
+    regionEn: 'South Papua',
     lat: '6.45° S',
     lng: '139.34° E',
     xPct: 84,
     yPct: 68,
     tmag: '-18 cm',
     status: 'safe',
-    satPass: 'NOAA-20 14:10 WIT',
+    satPassId: 'NOAA-20 14:10 WIT',
+    satPassEn: 'NOAA-20 14:10 LT',
   },
 ];
 
@@ -82,6 +98,8 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
   const firePosRef = useRef({ x: 200, y: 150 });
   const animFrameRef = useRef<number | null>(null);
   const idleAngleRef = useRef(0);
+  const lastSoundTickRef = useRef(0);
+  const particlesRef = useRef<Array<{ x: number; y: number; vx: number; vy: number; life: number; maxLife: number; size: number }>>([]);
 
   // Mouse & Touch Handler for Footprint Canvas
   const updateFirePosition = useCallback((clientX: number, clientY: number) => {
@@ -90,6 +108,12 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
     const x = Math.max(40, Math.min(rect.width - 40, clientX - rect.left));
     const y = Math.max(40, Math.min(rect.height - 40, clientY - rect.top));
     firePosRef.current = { x, y };
+
+    const now = Date.now();
+    if (now - lastSoundTickRef.current > 140) {
+      telemetryAudio.playClick();
+      lastSoundTickRef.current = now;
+    }
   }, []);
 
   // Main Canvas Rendering Loop
@@ -105,8 +129,12 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
     const render = () => {
       if (!running) return;
 
-      const width = canvas.width;
-      const height = canvas.height;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const width = canvas.width / dpr;
+      const height = canvas.height / dpr;
+
+      ctx.save();
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       // Idle motion if user is not dragging
       if (!isInteracting) {
@@ -243,7 +271,7 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
 
         ctx.fillStyle = '#f87171';
         ctx.font = '9px monospace';
-        ctx.fillText('VIIRS 375 m: 7 DETEKSI TERPISAH', fx - 70, fy + 48);
+        ctx.fillText(isIndo ? 'VIIRS 375 m: 7 DETEKSI TERPISAH' : 'VIIRS 375m: 7 DISCRETE DETECTIONS', fx - 70, fy + 48);
       }
 
       // Physical Fire Origin (Smoldering Peat Front)
@@ -268,6 +296,39 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
       ctx.lineTo(fx, fy + 12);
       ctx.stroke();
 
+      // Thermal Ember Particles (Convective heat dispersion)
+      const particles = particlesRef.current;
+      if (particles.length < 24) {
+        particles.push({
+          x: fx + (Math.random() - 0.5) * 16,
+          y: fy + (Math.random() - 0.5) * 8,
+          vx: (Math.random() - 0.5) * 0.8,
+          vy: -1.2 - Math.random() * 1.5,
+          life: 0,
+          maxLife: 35 + Math.random() * 25,
+          size: 1 + Math.random() * 2,
+        });
+      }
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life++;
+
+        const alpha = Math.max(0, 1 - p.life / p.maxLife);
+        ctx.fillStyle = `rgba(251, 146, 60, ${alpha * 0.8})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (p.life >= p.maxLife) {
+          particles.splice(i, 1);
+        }
+      }
+
+      ctx.restore();
+
       animFrameRef.current = requestAnimationFrame(render);
     };
 
@@ -279,15 +340,20 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
     };
   }, [activeMode, isInteracting, sensorFilter]);
 
-  // Adjust canvas pixel density
+  // Adjust canvas pixel density for Retina / High-DPI screens
   useEffect(() => {
     if (activeMode !== 'footprint' || !canvasRef.current) return;
     const canvas = canvasRef.current;
     const parent = canvas.parentElement;
     if (parent) {
-      canvas.width = parent.clientWidth || 440;
-      canvas.height = parent.clientHeight || 320;
-      firePosRef.current = { x: canvas.width / 2, y: canvas.height / 2 };
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = parent.clientWidth || 440;
+      const h = parent.clientHeight || 320;
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      firePosRef.current = { x: w / 2, y: h / 2 };
     }
   }, [activeMode]);
 
@@ -298,7 +364,10 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
       <div className="relative z-30 p-3 sm:p-3.5 bg-neutral-950/90 backdrop-blur-md border-b border-neutral-800 flex items-center justify-between gap-2 text-xs">
         <div className="flex items-center gap-1.5 p-0.5 rounded-lg bg-neutral-900 border border-neutral-800">
           <button
-            onClick={() => setActiveMode('orbital')}
+            onClick={() => {
+              telemetryAudio.playClick();
+              setActiveMode('orbital');
+            }}
             className={`px-2.5 py-1 rounded-md text-[11px] font-mono font-bold transition flex items-center gap-1 cursor-pointer ${
               activeMode === 'orbital'
                 ? 'bg-sky-600 text-white shadow-xs'
@@ -310,7 +379,10 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
           </button>
 
           <button
-            onClick={() => setActiveMode('footprint')}
+            onClick={() => {
+              telemetryAudio.playClick();
+              setActiveMode('footprint');
+            }}
             className={`px-2.5 py-1 rounded-md text-[11px] font-mono font-bold transition flex items-center gap-1 cursor-pointer ${
               activeMode === 'footprint'
                 ? 'bg-amber-600 text-white shadow-xs'
@@ -360,12 +432,15 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
               return (
                 <button
                   key={node.id}
-                  onClick={() => setActiveNode(node)}
+                  onClick={() => {
+                    telemetryAudio.playRadarPing();
+                    setActiveNode(node);
+                  }}
                   style={{ left: `${node.xPct}%`, top: `${node.yPct}%` }}
                   className={`absolute -translate-x-1/2 -translate-y-1/2 group/pin z-20 transition-all cursor-pointer ${
                     isSelected ? 'scale-125' : 'hover:scale-110'
                   }`}
-                  title={`${node.name} (${node.region})`}
+                  title={`${isIndo ? node.nameId : node.nameEn} (${isIndo ? node.regionId : node.regionEn})`}
                 >
                   <span className="relative flex h-5 w-5 items-center justify-center">
                     <span
@@ -396,7 +471,7 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] font-mono font-bold text-sky-400 uppercase tracking-wider">
-                    {activeNode.region}
+                    {isIndo ? activeNode.regionId : activeNode.regionEn}
                   </span>
                   <span className="text-neutral-500">&bull;</span>
                   <span className="text-[10px] font-mono text-neutral-300">
@@ -404,13 +479,15 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
                   </span>
                 </div>
                 <h4 className="text-xs sm:text-sm font-bold text-white">
-                  {activeNode.name}
+                  {isIndo ? activeNode.nameId : activeNode.nameEn}
                 </h4>
               </div>
 
               <div className="flex items-center gap-3 shrink-0 text-[10px] font-mono">
                 <div className="p-1.5 rounded-lg bg-neutral-900 border border-neutral-800">
-                  <span className="text-neutral-400 block text-[9px]">TMAG Gambut</span>
+                  <span className="text-neutral-400 block text-[9px]">
+                    {isIndo ? 'TMAG Gambut' : 'Peat GWL'}
+                  </span>
                   <strong className={`font-bold ${
                     activeNode.status === 'critical'
                       ? 'text-red-400'
@@ -423,9 +500,11 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
                 </div>
 
                 <div className="p-1.5 rounded-lg bg-neutral-900 border border-neutral-800">
-                  <span className="text-neutral-400 block text-[9px]">Lintasan Sensor</span>
+                  <span className="text-neutral-400 block text-[9px]">
+                    {isIndo ? 'Lintasan Sensor' : 'Sensor Pass'}
+                  </span>
                   <strong className="text-neutral-200">
-                    {activeNode.satPass}
+                    {isIndo ? activeNode.satPassId : activeNode.satPassEn}
                   </strong>
                 </div>
               </div>
@@ -466,7 +545,7 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
                     sensorFilter === 'all' ? 'bg-neutral-800 text-white font-bold' : 'text-neutral-400'
                   }`}
                 >
-                  Semua
+                  {isIndo ? 'Semua' : 'All'}
                 </button>
                 <button
                   onClick={() => setSensorFilter('modis')}
@@ -497,18 +576,21 @@ export const HeroSignatureTelemetry: React.FC<HeroSignatureTelemetryProps> = ({ 
 
             {/* Bottom Live Calculation HUD */}
             <div className="absolute bottom-2 left-2 right-2 p-2.5 rounded-xl bg-neutral-950/90 backdrop-blur-md border border-neutral-800 flex items-center justify-between text-[10px] font-mono pointer-events-none">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5">
                 <span className="text-orange-400">
-                  MODIS: <strong>1 Titik</strong>
+                  MODIS: <strong>{isIndo ? '1 Titik' : '1 Hotspot'}</strong>
                 </span>
                 <span className="text-neutral-600">vs</span>
                 <span className="text-red-400">
-                  VIIRS: <strong>7 Titik (Bias 300%)</strong>
+                  VIIRS: <strong>{isIndo ? '7 Titik (Bias 300%)' : '7 Hotspots (300% Bias)'}</strong>
                 </span>
               </div>
-              <span className="text-sky-400 font-bold">
-                Fusi 5.5 km = 1 Peristiwa
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-neutral-500 hidden sm:inline">&bull;</span>
+                <span className="text-sky-400 font-bold">
+                  {isIndo ? 'Wanareksa 5,5 km: 1 Klaster (420 MW)' : 'Wanareksa 5.5 km: 1 Cluster (420 MW)'}
+                </span>
+              </div>
             </div>
 
           </div>

@@ -489,7 +489,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({ language }) => {
               </div>
 
               <div className="pt-2 border-t border-[#e5e5e7] dark:border-[#1f2937] text-[10px] text-[#86868b] dark:text-[#9ca3af] flex justify-between">
-                <span>TMAG Ambang Kritis -40 cm</span>
+                <span>{language === 'id' ? 'TMAG Ambang Kritis -40 cm' : 'Critical Water Table Limit -40 cm'}</span>
                 <span className="font-mono">#059669</span>
               </div>
             </div>
