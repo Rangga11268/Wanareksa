@@ -484,7 +484,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
         fillOpacity: 0.85,
       });
 
-      const loc = resolveHotspotLocation(h.lat, h.lon, selectedAOI.id, language);
+      const loc = resolveHotspotLocation(h.lat, h.lon, selectedAOI.id, language, h.date, h.time);
       const localTime = getIndonesianLocalTime(h.date, h.time, h.lon);
 
       const titlePopup = isSevere
@@ -494,15 +494,22 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
       const labelTime = language === 'id' ? 'Waktu' : 'Time';
       const gmapsText = language === 'id' ? 'Buka di Google Maps &rarr;' : 'Open in Google Maps &rarr;';
 
+      const locationHierarchy = loc.district
+        ? `${loc.district}, ${loc.regency}, ${loc.province}`
+        : `${loc.regency}, ${loc.province}`;
+
       circle.bindPopup(`
-        <div style="font-family: system-ui, sans-serif; font-size: 12px; line-height: 1.4; color: #0F172A; min-width: 200px;">
-          <div style="font-weight: 800; color: ${markerColor}; margin-bottom: 4px;">
-            ${titlePopup}
+        <div style="font-family: system-ui, sans-serif; font-size: 12px; line-height: 1.4; color: #0F172A; min-width: 220px; padding: 2px;">
+          <div style="font-weight: 800; color: ${markerColor}; margin-bottom: 4px; font-size: 13px; display: flex; align-items: center; justify-content: space-between;">
+            <span>${titlePopup}</span>
+            <span style="font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; background: ${markerColor}20; color: ${markerColor};">
+              ${h.instrument}
+            </span>
           </div>
-          <div><strong>FRP:</strong> ${Math.round(h.frp)} MW</div>
-          <div><strong>${labelLocation}:</strong> ${loc.district || loc.regency}, ${loc.province}</div>
-          <div><strong>${labelTime}:</strong> ${localTime}</div>
-          <a href="${loc.googleMapsUrl}" target="_blank" style="display: inline-block; margin-top: 6px; color: #0284C7; font-weight: 700; text-decoration: none;">
+          <div style="margin-bottom: 2px;"><strong>FRP:</strong> ${Math.round(h.frp)} MW</div>
+          <div style="margin-bottom: 2px;"><strong>${labelLocation}:</strong> ${locationHierarchy}</div>
+          <div style="margin-bottom: 4px;"><strong>${labelTime}:</strong> ${localTime.timeFormatted} <span style="color:#64748B;font-size:11px;">(${h.date})</span></div>
+          <a href="${loc.googleMapsUrl}" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-top: 4px; color: #0284C7; font-weight: 700; text-decoration: none; font-size: 11.5px;">
             ${gmapsText}
           </a>
         </div>

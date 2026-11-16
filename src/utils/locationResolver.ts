@@ -77,7 +77,9 @@ export function resolveHotspotLocation(
   lat: number,
   lon: number,
   aoiId: string = 'indonesia',
-  language: 'en' | 'id' = 'id'
+  language: 'en' | 'id' = 'id',
+  dateStr?: string,
+  timeStr?: string
 ): DetailedLocationInfo {
   let province = language === 'id' ? 'Indonesia' : 'Indonesia';
   let regency = language === 'id' ? 'Wilayah Indonesia' : 'Indonesian Region';
@@ -147,7 +149,68 @@ export function resolveHotspotLocation(
     }
   }
 
-  // 3. SOUTH SUMATRA (SUMSEL)
+  // 3. EAST KALIMANTAN (KALIMANTAN TIMUR / KALTIM - SAMARINDA, IKN, KUTAI)
+  else if (lon >= 115.5 && lon <= 119.5 && lat >= -2.5 && lat <= 2.8) {
+    province = 'Kalimantan Timur';
+    isPeatland = true;
+
+    if (lat >= -0.7 && lat <= -0.2 && lon >= 117.0 && lon <= 117.35) {
+      regency = 'Kota Samarinda & Kutai Kartanegara';
+      district = 'Palaran / Sanga-Sanga / Loa Janan';
+      landscape = 'KHG Sungai Mahakam - Sungai Belayan (Kawasan Gambut Mahakam Hilir)';
+      peatDepthEstimate = '2.5 – 4.2 m';
+    } else if (lat >= -1.5 && lat <= -0.8 && lon >= 116.5 && lon <= 117.2) {
+      regency = 'Kota Balikpapan & Penajam Paser Utara (Kawasan IKN)';
+      district = 'Sepaku / Samboja / Balikpapan Utara';
+      landscape = 'Kawasan Hutan Lindung Sungai Wain & Buffer IKN Nusantara';
+      peatDepthEstimate = '1.8 – 3.2 m';
+    } else if (lat >= -0.6 && lat <= 1.0 && lon >= 115.8 && lon <= 117.0) {
+      regency = 'Kabupaten Kutai Kartanegara & Kutai Barat';
+      district = 'Muara Kaman / Kota Bangun / Muara Siran';
+      landscape = 'Kubah Gambut Danau Semayang-Melintang (KHG Kedang Kepala)';
+      peatDepthEstimate = '4.0 – 6.5 m';
+    } else if (lat > 1.0) {
+      regency = 'Kabupaten Berau & Kutai Timur';
+      district = 'Kelay / Segah / Sangatta';
+      landscape = 'Taman Nasional Kutai & Lanskap Hutan Tropis Berau';
+      peatDepthEstimate = '1.5 – 3.0 m';
+    } else {
+      regency = 'Kabupaten Paser & Penajam Paser Utara';
+      district = 'Kuaro / Tanah Grogot / Long Ikis';
+      landscape = 'KHG Sungai Kendilo - Teluk Adang';
+      peatDepthEstimate = '2.0 – 3.5 m';
+    }
+  }
+
+  // 4. SOUTH KALIMANTAN (KALIMANTAN SELATAN / KALSEL)
+  else if (lon >= 114.2 && lon <= 116.5 && lat >= -4.5 && lat <= -1.8) {
+    province = 'Kalimantan Selatan';
+    isPeatland = true;
+
+    if (lat <= -3.6) {
+      regency = 'Kabupaten Tanah Laut';
+      district = 'Kurau / Bumi Makmur / Bati-Bati';
+      landscape = 'Kawasan Rawa Gambut Pesisir Tanah Laut';
+      peatDepthEstimate = '2.0 – 3.8 m';
+    } else if (lat >= -3.55 && lat <= -3.2 && lon >= 114.65) {
+      regency = 'Kota Banjarbaru & Kabupaten Banjar';
+      district = 'Landasan Ulin / Gambut / Liang Anggang';
+      landscape = 'Kawasan Gambut Bandara Syamsudin Noor (KHG Barito-Alalak)';
+      peatDepthEstimate = '2.5 – 4.0 m';
+    } else if (lat > -3.0) {
+      regency = 'Kabupaten Hulu Sungai Utara & Barito Kuala';
+      district = 'Danau Panggang / Amuntai / Marabahan';
+      landscape = 'KHG Sungai Barito - Sungai Tapin';
+      peatDepthEstimate = '3.0 – 5.0 m';
+    } else {
+      regency = 'Kota Banjarmasin & Barito Kuala';
+      district = 'Alalak / Banjarmasin Selatan';
+      landscape = 'Lanskap Rawa Pasang Surut Barito';
+      peatDepthEstimate = '1.8 – 3.2 m';
+    }
+  }
+
+  // 5. SOUTH SUMATRA (SUMSEL)
   else if (lon >= 103.5 && lon <= 106.5 && lat >= -4.5 && lat <= -1.5) {
     province = 'Sumatera Selatan';
     isPeatland = true;
@@ -170,7 +233,7 @@ export function resolveHotspotLocation(
     }
   }
 
-  // 4. JAMBI
+  // 6. JAMBI
   else if (lon >= 102.5 && lon <= 104.8 && lat >= -2.0 && lat <= -0.5) {
     province = 'Jambi';
     isPeatland = true;
@@ -180,7 +243,7 @@ export function resolveHotspotLocation(
     peatDepthEstimate = '3.5 – 6.0 m';
   }
 
-  // 5. WEST KALIMANTAN (KALBAR)
+  // 7. WEST KALIMANTAN (KALBAR)
   else if (lon >= 108.5 && lon <= 112.5 && lat >= -3.0 && lat <= 1.5) {
     province = 'Kalimantan Barat';
     isPeatland = true;
@@ -198,7 +261,7 @@ export function resolveHotspotLocation(
     }
   }
 
-  // 6. PAPUA (SOUTH PAPUA)
+  // 8. PAPUA (SOUTH PAPUA)
   else if (lon >= 137.0 && lon <= 141.2 && lat >= -9.0 && lat <= -4.0) {
     province = 'Papua Selatan';
     isPeatland = true;
@@ -208,14 +271,67 @@ export function resolveHotspotLocation(
     peatDepthEstimate = '1.8 – 3.5 m';
   }
 
-  // 7. ACEH & SUMUT (TRIPA)
-  else if (lon >= 95.0 && lon <= 99.5 && lat >= 2.0 && lat <= 5.8) {
-    province = 'Aceh & Sumatera Utara';
+  // 9. ACEH & SUMUT (TRIPA & LABUHANBATU)
+  else if (lon >= 95.0 && lon <= 100.8 && lat >= 1.5 && lat <= 5.8) {
     isPeatland = true;
-    regency = 'Kabupaten Nagan Raya & Aceh Barat';
-    district = 'Darul Makmur / Kuala Pesisir';
-    landscape = 'Kawasan Rawa Gambut Tripa (Kawasan Ekosistem Leuser)';
-    peatDepthEstimate = '3.0 – 5.5 m';
+    if (lon < 98.0) {
+      province = 'Aceh';
+      regency = 'Kabupaten Nagan Raya & Aceh Barat';
+      district = 'Darul Makmur / Kuala Pesisir';
+      landscape = 'Kawasan Rawa Gambut Tripa (Kawasan Ekosistem Leuser)';
+      peatDepthEstimate = '3.0 – 5.5 m';
+    } else {
+      province = 'Sumatera Utara';
+      regency = 'Kabupaten Labuhanbatu & Asahan';
+      district = 'Panai Hilir / Kualuh Hilir';
+      landscape = 'KHG Sungai Barumun - Sungai Kualuh (Rawa Gambut Labuhanbatu)';
+      peatDepthEstimate = '3.0 – 5.2 m';
+    }
+  }
+
+  // 10. LAMPUNG (MESUJI / TULANG BAWANG)
+  else if (lon >= 104.5 && lon <= 106.0 && lat >= -5.2 && lat <= -3.8) {
+    province = 'Lampung';
+    isPeatland = true;
+    regency = 'Kabupaten Mesuji & Tulang Bawang';
+    district = 'Rawajitu / Rawa Pitu';
+    landscape = 'KHG Sungai Mesuji - Sungai Tulang Bawang';
+    peatDepthEstimate = '1.8 – 3.2 m';
+  }
+
+  // 11. SULAWESI REGION
+  else if (lon >= 118.5 && lon <= 125.0 && lat >= -6.0 && lat <= 2.0) {
+    province = 'Sulawesi';
+    regency = 'Kawasan Hutan Pegunungan Sulawesi';
+    district = 'Lanskap Konservasi Wallacea';
+    landscape = 'Kawasan Hutan Hujan Tropis & Savana Sulawesi';
+    peatDepthEstimate = '> 0.5 m';
+  }
+
+  // 12. JAWA & BALI REGION
+  else if (lon >= 105.0 && lon <= 116.0 && lat >= -8.8 && lat <= -5.8) {
+    province = 'Jawa & Bali';
+    regency = 'Kawasan Konservasi & Pegunungan Jawa';
+    district = 'Kawasan Lereng Vulkanik';
+    landscape = 'Taman Nasional Bromo Tengger Semeru / Ijen / Baluran / Merbabu';
+    peatDepthEstimate = '> 0.5 m';
+  }
+
+  // 13. SMART REGIONAL BASIN FALLBACK (Prevents generic "Indonesian Region")
+  else {
+    if (lon >= 95.0 && lon <= 106.0) {
+      province = language === 'id' ? 'Sumatera' : 'Sumatra';
+      regency = language === 'id' ? 'Lanskap Vegetasi Sumatera' : 'Sumatra Basin Landscape';
+    } else if (lon >= 108.0 && lon <= 119.5) {
+      province = 'Kalimantan';
+      regency = language === 'id' ? 'Lanskap Hutan Tropis Kalimantan' : 'Kalimantan Tropical Landscape';
+    } else if (lon >= 119.5 && lon <= 126.0) {
+      province = 'Sulawesi';
+      regency = language === 'id' ? 'Lanskap Kepulauan Wallacea' : 'Wallacea Archipelago Landscape';
+    } else if (lon >= 130.0 && lon <= 141.5) {
+      province = 'Papua & Maluku';
+      regency = language === 'id' ? 'Lanskap Rimba Papua' : 'Papua Rainforest Landscape';
+    }
   }
 
   // Fallback translation
@@ -228,10 +344,12 @@ export function resolveHotspotLocation(
       .replace('Taman Nasional', 'National Park')
       .replace('Kawasan Eks-PLG', 'Ex-Mega Rice Project (PLG) Basin')
       .replace('Konsesi HTI & Kubah Gambut', 'Pulpwood Concession & Peat Dome')
-      .replace('Lanskap Gambut & Rawa Savana', 'Peatland & Savannah Wetland Landscape');
+      .replace('Lanskap Gambut & Rawa Savana', 'Peatland & Savannah Wetland Landscape')
+      .replace('Kawasan Gambut', 'Peatland Zone')
+      .replace('Kawasan Rawa Gambut Pesisir', 'Coastal Peat Swamp Zone');
   }
 
-  const { timeFormatted, tz } = getIndonesianLocalTime('2026-01-01', '1200', lon);
+  const { timeFormatted, tz } = getIndonesianLocalTime(dateStr || '2026-01-01', timeStr || '1200', lon);
   const latFormatted = `${Math.abs(lat).toFixed(4)}° ${lat >= 0 ? 'N' : 'S'}`;
   const lonFormatted = `${Math.abs(lon).toFixed(4)}° ${lon >= 0 ? 'E' : 'W'}`;
 
