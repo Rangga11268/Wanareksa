@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Logo } from './Logo';
 import { Language, translations } from '../data/translations';
 import { Menu, X, Sun, Moon, Compass, BookOpen, Globe2, SlidersHorizontal, ShieldAlert, Database, Users, Bell, Volume2, VolumeX } from 'lucide-react';
@@ -41,6 +41,21 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMuted, setIsMuted] = useState<boolean>(() => telemetryAudio.getIsMuted());
 
+  // Prevent background scroll and expensive map re-renders when mobile menu is active
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    };
+  }, [isMobileMenuOpen]);
+
   const handleToggleAudio = () => {
     const next = telemetryAudio.toggleMute();
     setIsMuted(next);
@@ -75,34 +90,56 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </div>
 
-          {/* Central Mode Switcher: Mode Warga vs Mode Riset & Satgas (Refined Architectural Segmented Bar) */}
-          <div className="hidden md:inline-flex items-center bg-slate-100/90 dark:bg-slate-900/90 p-0.5 rounded-lg border border-slate-200 dark:border-slate-800 text-xs shadow-2xs h-9">
+          {/* Central Architectural Platform Perspective Switcher */}
+          <nav aria-label="Perspective Navigation" className="hidden md:flex items-center p-1 rounded-xl bg-slate-100/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-2xs h-10">
             <button
-              onClick={() => onToggleAppMode('citizen')}
-              className={`h-8 px-3 rounded-md transition-all cursor-pointer font-bold flex items-center gap-1.5 ${
+              onClick={() => {
+                telemetryAudio.playClick();
+                onToggleAppMode('citizen');
+              }}
+              className={`h-8 px-3.5 rounded-lg transition-all cursor-pointer text-xs flex items-center gap-2 ${
                 appMode === 'citizen'
-                  ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs border border-slate-200/80 dark:border-slate-700'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs font-bold border border-slate-200/80 dark:border-slate-700'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium hover:bg-white/40 dark:hover:bg-slate-800/40'
               }`}
               title={t.modeCitizenDesc}
             >
-              <ShieldAlert className="w-3.5 h-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" />
-              <span>{t.modeCitizen}</span>
+              <ShieldAlert className={`w-3.5 h-3.5 shrink-0 ${appMode === 'citizen' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`} />
+              <span className="font-bold tracking-tight">{language === 'id' ? 'Portal Warga' : 'Citizen Portal'}</span>
+              <span className={`text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded ${
+                appMode === 'citizen'
+                  ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
+                  : 'text-slate-400 dark:text-slate-500 hidden xl:inline'
+              }`}>
+                {language === 'id' ? 'Aksi Cepat' : 'Rapid Action'}
+              </span>
             </button>
 
+            <div className="h-4 w-px bg-slate-200 dark:bg-slate-800 mx-1" />
+
             <button
-              onClick={() => onToggleAppMode('science')}
-              className={`h-8 px-3 rounded-md transition-all cursor-pointer font-bold flex items-center gap-1.5 ${
+              onClick={() => {
+                telemetryAudio.playClick();
+                onToggleAppMode('science');
+              }}
+              className={`h-8 px-3.5 rounded-lg transition-all cursor-pointer text-xs flex items-center gap-2 ${
                 appMode === 'science'
-                  ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs border border-slate-200/80 dark:border-slate-700'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs font-bold border border-slate-200/80 dark:border-slate-700'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium hover:bg-white/40 dark:hover:bg-slate-800/40'
               }`}
               title={t.modeScienceDesc}
             >
-              <Globe2 className="w-3.5 h-3.5 shrink-0 text-sky-600 dark:text-sky-400" />
-              <span>{t.modeScience}</span>
+              <Globe2 className={`w-3.5 h-3.5 shrink-0 ${appMode === 'science' ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400'}`} />
+              <span className="font-bold tracking-tight">{language === 'id' ? 'Riset Sains & Satgas' : 'Science & Satgas'}</span>
+              <span className={`text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded ${
+                appMode === 'science'
+                  ? 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20'
+                  : 'text-slate-400 dark:text-slate-500 hidden xl:inline'
+              }`}>
+                NASA 26-Yr
+              </span>
             </button>
-          </div>
+          </nav>
 
           {/* Right Controls: Alert Hub, Theme, Language, Tour & Mobile Toggle */}
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
@@ -252,40 +289,42 @@ export const Navbar: React.FC<NavbarProps> = ({
         )}
       </header>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer (GPU-Optimized, Zero-Lag, No Heavy Fullscreen Blur) */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-[1001] md:hidden bg-black/40 backdrop-blur-xs pt-14 flex flex-col">
-          <div className="bg-white dark:bg-[#111827] border-b border-[#e5e5e7] dark:border-[#1f2937] p-4 space-y-3 shadow-xl animate-in slide-in-from-top-2 duration-150">
-            {/* Mobile Mode Switcher (Clean Segmented) */}
-            <div className="grid grid-cols-2 bg-slate-100 dark:bg-slate-900 p-0.5 rounded-lg border border-slate-200 dark:border-slate-800 text-xs shadow-2xs gap-0.5">
+        <div className="fixed inset-0 z-[1001] md:hidden bg-slate-950/70 flex flex-col pt-14 transition-opacity duration-150">
+          <div className="bg-white dark:bg-[#0c1220] border-b border-slate-200 dark:border-slate-800 p-4 space-y-3.5 shadow-2xl max-h-[calc(100vh-3.5rem)] overflow-y-auto overscroll-contain animate-in fade-in duration-100">
+            {/* Mobile Mode Switcher (Tactile Segmented Bar) */}
+            <div className="grid grid-cols-2 bg-slate-100 dark:bg-slate-900/90 p-1 rounded-xl border border-slate-200 dark:border-slate-800 text-xs shadow-2xs gap-1">
               <button
                 onClick={() => {
+                  telemetryAudio.playClick();
                   onToggleAppMode('citizen');
                   setIsMobileMenuOpen(false);
                 }}
-                className={`py-2 rounded-md transition-all cursor-pointer font-bold flex items-center justify-center gap-1.5 ${
+                className={`py-2 px-2.5 rounded-lg transition-all cursor-pointer font-bold flex items-center justify-center gap-2 ${
                   appMode === 'citizen'
-                    ? 'bg-emerald-600 text-white shadow-2xs'
-                    : 'text-slate-600 dark:text-slate-400'
+                    ? 'bg-white dark:bg-slate-800 text-emerald-700 dark:text-emerald-300 shadow-xs border border-slate-200/80 dark:border-slate-700'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
-                <ShieldAlert className="w-3.5 h-3.5" />
-                <span>{t.modeCitizen}</span>
+                <ShieldAlert className={`w-4 h-4 ${appMode === 'citizen' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`} />
+                <span>{language === 'id' ? 'Portal Warga' : 'Citizen Portal'}</span>
               </button>
 
               <button
                 onClick={() => {
+                  telemetryAudio.playClick();
                   onToggleAppMode('science');
                   setIsMobileMenuOpen(false);
                 }}
-                className={`py-2 rounded-md transition-all cursor-pointer font-bold flex items-center justify-center gap-1.5 ${
+                className={`py-2 px-2.5 rounded-lg transition-all cursor-pointer font-bold flex items-center justify-center gap-2 ${
                   appMode === 'science'
-                    ? 'bg-sky-600 text-white shadow-2xs'
-                    : 'text-slate-600 dark:text-slate-400'
+                    ? 'bg-white dark:bg-slate-800 text-sky-700 dark:text-sky-300 shadow-xs border border-slate-200/80 dark:border-slate-700'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
-                <Globe2 className="w-3.5 h-3.5" />
-                <span>{t.modeScience}</span>
+                <Globe2 className={`w-4 h-4 ${appMode === 'science' ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400'}`} />
+                <span>{language === 'id' ? 'Sains & Satgas' : 'Science & Satgas'}</span>
               </button>
             </div>
 
@@ -296,19 +335,22 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onOpenTour();
                   setIsMobileMenuOpen(false);
                 }}
-                className="w-full text-left px-3.5 py-2.5 rounded-lg text-sm font-semibold transition min-h-[40px] cursor-pointer bg-sky-50 dark:bg-sky-950/60 border border-sky-200 dark:border-sky-800 text-sky-700 dark:text-sky-300 flex items-center justify-between"
+                className="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition cursor-pointer bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-between min-h-[40px]"
               >
                 <div className="flex items-center gap-2">
                   <Compass className="w-4 h-4 text-sky-600 dark:text-sky-400" />
                   <span>{t.scienceTourBtn}</span>
                 </div>
-                <span className="text-[10px] uppercase font-mono font-bold tracking-wider">
-                  {language === 'id' ? 'Ringkasan 30 Detik' : '30-Sec Briefing'}
+                <span className="text-[10px] uppercase font-mono font-bold tracking-wider text-slate-400">
+                  {language === 'id' ? '30 Detik' : '30-Sec'}
                 </span>
               </button>
             )}
 
             <div className="space-y-1">
+              <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 px-1 pt-1 font-bold">
+                {appMode === 'science' ? (language === 'id' ? 'Modul Analisis Sains:' : 'Science Modules:') : (language === 'id' ? 'Menu Pintas:' : 'Navigation:')}
+              </div>
               {navItems.map((item) => {
                 const isActive = activeTab === item.id;
                 const Icon = item.icon;
@@ -316,16 +358,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <button
                     key={item.id}
                     onClick={() => {
+                      telemetryAudio.playClick();
                       onSelectTab(item.id);
                       setIsMobileMenuOpen(false);
                     }}
-                    className={`w-full text-left px-3.5 py-2.5 rounded-xl text-sm font-medium transition min-h-[42px] cursor-pointer flex items-center gap-2.5 ${
+                    className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-medium transition min-h-[40px] cursor-pointer flex items-center gap-2.5 ${
                       isActive
-                        ? 'bg-slate-100 dark:bg-[#1f2937] text-slate-900 dark:text-white font-bold'
-                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-[#1a2333] hover:text-slate-900 dark:hover:text-white'
+                        ? 'bg-slate-100 dark:bg-[#1a2333] text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-slate-700'
+                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-[#151d2e] hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
-                    <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`} />
+                    <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400'}`} />
                     <span>{item.label}</span>
                   </button>
                 );
@@ -333,25 +376,25 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             {/* Mobile Theme & Language Bar */}
-            <div className="pt-3 border-t border-[#e5e5e7] dark:border-[#1f2937] flex items-center justify-between gap-2">
-              <span className="text-xs font-medium text-[#86868b] dark:text-[#9ca3af]">
-                {language === 'id' ? 'Tema Tampilan:' : 'Theme Mode:'}
+            <div className="pt-2.5 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-2 text-xs">
+              <span className="text-slate-500 font-mono text-[11px]">
+                {language === 'id' ? 'Tema Tampilan' : 'Appearance'}
               </span>
 
               {onToggleTheme && (
                 <button
                   onClick={onToggleTheme}
-                  className="px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition border border-[#e5e5e7] dark:border-[#374151] bg-[#f5f5f7] dark:bg-[#1f2937] text-[#1d1d1f] dark:text-white"
+                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200"
                 >
                   {theme === 'dark' ? (
                     <>
                       <Sun className="w-3.5 h-3.5 text-amber-400" />
-                      <span>{language === 'id' ? 'Mode Gelap (Aktif)' : 'Dark (Active)'}</span>
+                      <span>{language === 'id' ? 'Mode Gelap' : 'Dark'}</span>
                     </>
                   ) : (
                     <>
-                      <Moon className="w-3.5 h-3.5 text-indigo-500" />
-                      <span>{language === 'id' ? 'Mode Terang (Aktif)' : 'Light (Active)'}</span>
+                      <Moon className="w-3.5 h-3.5 text-slate-600" />
+                      <span>{language === 'id' ? 'Mode Terang' : 'Light'}</span>
                     </>
                   )}
                 </button>

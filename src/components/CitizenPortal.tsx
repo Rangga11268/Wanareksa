@@ -31,7 +31,8 @@ import {
   Clock,
   CheckSquare,
   Square,
-  Gauge
+  Gauge,
+  Globe2
 } from 'lucide-react';
 import { IconBadge } from './IconBadge';
 
@@ -565,30 +566,43 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
           </div>
         </div>
 
-        {/* Region Selector (Refined Architectural Segmented Control) */}
-        <div className="flex items-center gap-1 p-0.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-x-auto">
-          {[
-            { id: 'riau', name: 'Riau' },
-            { id: 'kalteng', name: 'Kalteng' },
-            { id: 'sumsel', name: 'Sumsel' },
-            { id: 'indonesia', name: 'Nasional' },
-          ].map((item) => {
-            const isSelected = selectedAOI.id === item.id;
-            const aoiObj = PRESET_AOIS.find((a) => a.id === item.id);
-            return (
-              <button
-                key={item.id}
-                onClick={() => aoiObj && onSelectAOI(aoiObj)}
-                className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
-                  isSelected
-                    ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xs'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                }`}
-              >
-                {item.name}
-              </button>
-            );
-          })}
+        {/* Right: Region Selector & Quick Switch to Science Mode */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+          {/* Region Selector (Refined Architectural Segmented Control) */}
+          <div className="flex items-center gap-1 p-0.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-x-auto">
+            {[
+              { id: 'riau', name: 'Riau' },
+              { id: 'kalteng', name: 'Kalteng' },
+              { id: 'sumsel', name: 'Sumsel' },
+              { id: 'indonesia', name: 'Nasional' },
+            ].map((item) => {
+              const isSelected = selectedAOI.id === item.id;
+              const aoiObj = PRESET_AOIS.find((a) => a.id === item.id);
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => aoiObj && onSelectAOI(aoiObj)}
+                  className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
+                    isSelected
+                      ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xs'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  {item.name}
+                </button>
+              );
+            })}
+          </div>
+
+          <button
+            onClick={onSwitchToScience}
+            className="hidden sm:inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-sky-500/60 dark:hover:border-sky-500/60 bg-slate-50 dark:bg-slate-900/60 hover:bg-sky-50 dark:hover:bg-sky-950/40 text-slate-700 dark:text-slate-300 hover:text-sky-700 dark:hover:text-sky-300 text-xs font-semibold transition-all cursor-pointer shadow-2xs shrink-0 min-h-[36px]"
+            title={isIndo ? 'Beralih ke Analisis Sains & Satgas 26 Tahun' : 'Switch to 26-Year Science & Satgas Mode'}
+          >
+            <Globe2 className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
+            <span>{isIndo ? 'Ke Mode Sains' : 'To Science Mode'}</span>
+            <ArrowRight className="w-3 h-3 opacity-60" />
+          </button>
         </div>
       </div>
 
@@ -1234,26 +1248,64 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
         )}
       </div>
 
-      {/* 4. CALL TO ACTION FOR SCIENTISTS & NASA JUDGES */}
-      <div className="p-5 rounded-2xl bg-gradient-to-r from-slate-900 to-slate-950 text-white border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
-        <div className="space-y-0.5 text-center sm:text-left">
-          <div className="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
-            {isIndo ? 'UNTUK PENELITI & JURI NASA SPACE APPS' : 'FOR RESEARCHERS & NASA SPACE APPS JUDGES'}
+      {/* 4. GATEWAY TO SCIENTIFIC RESEARCH & SATGAS SUITE */}
+      <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-[#0c1220] border border-slate-200 dark:border-slate-800 p-6 sm:p-7 shadow-xs transition-colors">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+          <div className="space-y-3 max-w-2xl">
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-mono font-bold tracking-wider text-sky-600 dark:text-sky-400 uppercase">
+                {isIndo ? 'PLATFORM RISET // NASA EOS & SATGAS' : 'RESEARCH SUITE // NASA EOS & TASK FORCE'}
+              </span>
+              <span className="text-slate-300 dark:text-slate-700">&bull;</span>
+              <span className="text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
+                2000 – 2026 Archive
+              </span>
+            </div>
+
+            <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight leading-snug">
+              {isIndo
+                ? 'Laboratorium Harmonisasi Satelit 26 Tahun & Fisika Gambut'
+                : '26-Year Satellite Harmonization & Peat Physics Lab'}
+            </h3>
+
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              {isIndo
+                ? 'Eksplorasi kalibrasi daya radiasi termal (FRP) MODIS 1km vs VIIRS 375m, simulasi tinggi muka air tanah kubah gambut (PP 71/2014), dan pemodelan efektivitas sekat kanal.'
+                : 'Explore cross-sensor thermal energy calibration (MODIS 1km vs VIIRS 375m), peat dome groundwater dynamics (Gov Reg 71/2014), and empirical canal blocking simulations.'}
+            </p>
+
+            {/* Scientific Capability Badges */}
+            <div className="flex flex-wrap items-center gap-2 pt-1">
+              {[
+                { label: isIndo ? 'Fusi Spasial 5.5 km' : '5.5 km Spatial Fusion', badge: 'Equal-Area' },
+                { label: isIndo ? 'Kompensasi Bias 300%' : '300% Bias Reconciled', badge: 'Sensor Physics' },
+                { label: isIndo ? 'Model Restorasi BRGM' : 'BRGM Policy Simulator', badge: 'Hydro-FDRS' },
+              ].map((pill, idx) => (
+                <div
+                  key={idx}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[11px] font-mono text-slate-700 dark:text-slate-300"
+                >
+                  <span className="font-semibold">{pill.label}</span>
+                  <span className="text-[9px] text-sky-600 dark:text-sky-400 font-bold uppercase">{pill.badge}</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="text-sm font-semibold text-slate-200">
-            {isIndo
-              ? 'Ingin melihat analisis spasial mendalam, kalibrasi MODIS/VIIRS 26 tahun, atau model FDRS?'
-              : 'Explore deep geospatial analytics, 26-year MODIS/VIIRS calibration, or fire weather indices?'}
+
+          <div className="flex flex-col sm:flex-row lg:flex-col items-stretch sm:items-center lg:items-end gap-2.5 shrink-0">
+            <button
+              onClick={onSwitchToScience}
+              className="inline-flex items-center justify-center gap-2.5 px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs sm:text-sm transition-all shadow-md active:scale-98 cursor-pointer w-full sm:w-auto"
+            >
+              <Globe2 className="w-4 h-4 text-sky-400 dark:text-sky-600" />
+              <span>{isIndo ? 'Masuk ke Mode Sains & Satgas' : 'Launch Science & Satgas Deck'}</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+            <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 text-center lg:text-right">
+              {isIndo ? 'Fusi MODIS + VIIRS · Open Science MIT' : 'MODIS + VIIRS Fusion · Open Science MIT'}
+            </span>
           </div>
         </div>
-
-        <button
-          onClick={onSwitchToScience}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition shadow-xs cursor-pointer w-full sm:w-auto shrink-0"
-        >
-          <span>{isIndo ? 'Buka Mode Riset & Satgas' : 'Launch Science & Satgas Mode'}</span>
-          <ArrowRight className="w-4 h-4" />
-        </button>
       </div>
     </div>
   );
