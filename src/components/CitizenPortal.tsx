@@ -527,7 +527,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
         <div className="flex items-center gap-3">
           <IconBadge icon={AlertTriangle} variant="rose" size="lg" />
           <div>
-            <div className="flex items-center gap-2 font-mono text-[11px]">
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 font-mono text-[11px]">
               <span className="font-bold text-rose-400 uppercase tracking-wider flex items-center gap-1">
                 {isIndo ? 'STATUS SIAGA DARURAT' : 'ACTIVE PEAT ALERT'}
               </span>

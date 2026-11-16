@@ -487,7 +487,7 @@ export function App() {
   }, [yearlyAverages]);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#070b14] text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200 relative">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#070b14] text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200 relative overflow-x-hidden max-w-full w-full">
       
       {/* WCAG AA Skip to Main Content Link */}
       <a
@@ -520,7 +520,7 @@ export function App() {
       <OrbitalTelemetryTicker language={language} isLiveSync={isLiveSync} />
 
       {/* Main Canvas */}
-      <main id="main-content" tabIndex={-1} className="flex-1 w-full px-4 sm:px-6 lg:px-8 py-6 outline-none">
+      <main id="main-content" tabIndex={-1} className="flex-1 w-full max-w-full overflow-x-hidden px-4 sm:px-6 lg:px-8 py-6 outline-none">
         {/* DUAL MODE: MODE WARGA (CITIZEN) vs MODE RISET / SATGAS (SCIENCE) */}
         {appMode === 'citizen' ? (
           <div className="tab-view-enter">

@@ -126,7 +126,7 @@ export const OrbitalTelemetryTicker: React.FC<OrbitalTelemetryTickerProps> = ({
 
       {/* Infinite Scrolling Marquee Track with Adaptive Edge Fade */}
       <div
-        className="relative flex-1 overflow-hidden h-full flex items-center"
+        className="relative flex-1 min-w-0 overflow-hidden h-full flex items-center"
         style={{
           maskImage: 'linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%)',

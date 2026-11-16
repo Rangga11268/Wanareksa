@@ -281,200 +281,206 @@ export const Navbar: React.FC<NavbarProps> = ({
         )}
       </header>
 
-      {/* Mobile Side Slide-In Drawer (GPU-Accelerated 60 FPS, Native Slide Feel) */}
-      {/* Overlay Backdrop */}
+      {/* Mobile Side Slide-In Drawer (Clipped in overflow-hidden to eliminate horizontal page swipe) */}
       <div
-        className={`fixed inset-0 z-[1001] md:hidden bg-slate-950/60 transition-opacity duration-300 ease-in-out ${
-          isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-        onClick={() => setIsMobileMenuOpen(false)}
-        aria-hidden="true"
-      />
-
-      {/* Drawer Panel Sliding from Right */}
-      <aside
-        aria-label="Mobile Navigation Drawer"
-        className={`fixed top-0 right-0 bottom-0 z-[1002] md:hidden w-[84vw] max-w-sm bg-white dark:bg-[#0c1220] border-l border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col h-full transform transition-transform duration-300 ease-out will-change-transform ${
-          isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full pointer-events-none'
+        className={`fixed inset-0 z-[1001] md:hidden overflow-hidden transition-all duration-300 ${
+          isMobileMenuOpen ? 'pointer-events-auto visible' : 'pointer-events-none invisible'
         }`}
       >
-        {/* Drawer Header with Logo & Close Button */}
-        <div className="flex items-center justify-between px-4 h-14 border-b border-slate-200 dark:border-slate-800 shrink-0">
-          <div className="flex items-center gap-2">
-            <Logo size="sm" showSubtitle={false} />
-          </div>
-          <button
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="h-9 w-9 rounded-lg flex items-center justify-center text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
-            aria-label={language === 'id' ? 'Tutup Navigasi' : 'Close Navigation'}
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+        {/* Overlay Backdrop */}
+        <div
+          className={`absolute inset-0 bg-slate-950/60 transition-opacity duration-300 ease-in-out ${
+            isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
+          }`}
+          onClick={() => setIsMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
 
-        {/* Scrollable Drawer Body */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 overscroll-contain">
-          {/* Mode Switcher (Portal Warga vs Sains & Satgas) */}
-          <div className="grid grid-cols-2 bg-slate-100 dark:bg-slate-900 p-1 rounded-xl border border-slate-200 dark:border-slate-800 text-xs shadow-2xs gap-1">
-            <button
-              onClick={() => {
-                telemetryAudio.playClick();
-                onToggleAppMode('citizen');
-                setIsMobileMenuOpen(false);
-              }}
-              className={`py-2 px-2 rounded-lg transition-all cursor-pointer font-bold flex items-center justify-center gap-1.5 ${
-                appMode === 'citizen'
-                  ? 'bg-white dark:bg-slate-800 text-emerald-700 dark:text-emerald-300 shadow-xs border border-slate-200/80 dark:border-slate-700'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              <ShieldAlert className={`w-3.5 h-3.5 shrink-0 ${appMode === 'citizen' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`} />
-              <span className="truncate">{language === 'id' ? 'Portal Warga' : 'Citizen'}</span>
-            </button>
-
-            <button
-              onClick={() => {
-                telemetryAudio.playClick();
-                onToggleAppMode('science');
-                setIsMobileMenuOpen(false);
-              }}
-              className={`py-2 px-2 rounded-lg transition-all cursor-pointer font-bold flex items-center justify-center gap-1.5 ${
-                appMode === 'science'
-                  ? 'bg-white dark:bg-slate-800 text-sky-700 dark:text-sky-300 shadow-xs border border-slate-200/80 dark:border-slate-700'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              <Globe2 className={`w-3.5 h-3.5 shrink-0 ${appMode === 'science' ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400'}`} />
-              <span className="truncate">{language === 'id' ? 'Sains & Satgas' : 'Science'}</span>
-            </button>
-          </div>
-
-          {/* 30-Sec Tour Button */}
-          {onOpenTour && (
-            <button
-              onClick={() => {
-                onOpenTour();
-                setIsMobileMenuOpen(false);
-              }}
-              className="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition cursor-pointer bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-between min-h-[40px]"
-            >
-              <div className="flex items-center gap-2">
-                <Compass className="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0" />
-                <span>{t.scienceTourBtn}</span>
-              </div>
-              <span className="text-[10px] uppercase font-mono font-bold tracking-wider text-slate-400">
-                {language === 'id' ? '30 Detik' : '30-Sec'}
-              </span>
-            </button>
-          )}
-
-          {/* Navigation Links */}
-          <div className="space-y-1">
-            <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 px-1 pt-1 font-bold">
-              {appMode === 'science' ? (language === 'id' ? 'Modul Analisis Sains:' : 'Science Modules:') : (language === 'id' ? 'Menu Navigasi:' : 'Navigation:')}
+        {/* Drawer Panel Sliding from Right */}
+        <aside
+          aria-label="Mobile Navigation Drawer"
+          className={`absolute top-0 right-0 bottom-0 w-[84vw] max-w-sm bg-white dark:bg-[#0c1220] border-l border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col h-full transform transition-transform duration-300 ease-out will-change-transform ${
+            isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+        >
+          {/* Drawer Header with Logo & Close Button */}
+          <div className="flex items-center justify-between px-4 h-14 border-b border-slate-200 dark:border-slate-800 shrink-0">
+            <div className="flex items-center gap-2">
+              <Logo size="sm" showSubtitle={false} />
             </div>
-            {navItems.map((item) => {
-              const isActive = activeTab === item.id;
-              const Icon = item.icon;
-              return (
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="h-9 w-9 rounded-lg flex items-center justify-center text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
+              aria-label={language === 'id' ? 'Tutup Navigasi' : 'Close Navigation'}
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Scrollable Drawer Body */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 overscroll-contain">
+            {/* Mode Switcher (Portal Warga vs Sains & Satgas) */}
+            <div className="grid grid-cols-2 bg-slate-100 dark:bg-slate-900 p-1 rounded-xl border border-slate-200 dark:border-slate-800 text-xs shadow-2xs gap-1">
+              <button
+                onClick={() => {
+                  telemetryAudio.playClick();
+                  onToggleAppMode('citizen');
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`py-2 px-2 rounded-lg transition-all cursor-pointer font-bold flex items-center justify-center gap-1.5 ${
+                  appMode === 'citizen'
+                    ? 'bg-white dark:bg-slate-800 text-emerald-700 dark:text-emerald-300 shadow-xs border border-slate-200/80 dark:border-slate-700'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                <ShieldAlert className={`w-3.5 h-3.5 shrink-0 ${appMode === 'citizen' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`} />
+                <span className="truncate">{language === 'id' ? 'Portal Warga' : 'Citizen'}</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  telemetryAudio.playClick();
+                  onToggleAppMode('science');
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`py-2 px-2 rounded-lg transition-all cursor-pointer font-bold flex items-center justify-center gap-1.5 ${
+                  appMode === 'science'
+                    ? 'bg-white dark:bg-slate-800 text-sky-700 dark:text-sky-300 shadow-xs border border-slate-200/80 dark:border-slate-700'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                <Globe2 className={`w-3.5 h-3.5 shrink-0 ${appMode === 'science' ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400'}`} />
+                <span className="truncate">{language === 'id' ? 'Sains & Satgas' : 'Science'}</span>
+              </button>
+            </div>
+
+            {/* 30-Sec Tour Button */}
+            {onOpenTour && (
+              <button
+                onClick={() => {
+                  onOpenTour();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition cursor-pointer bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-between min-h-[40px]"
+              >
+                <div className="flex items-center gap-2">
+                  <Compass className="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0" />
+                  <span>{t.scienceTourBtn}</span>
+                </div>
+                <span className="text-[10px] uppercase font-mono font-bold tracking-wider text-slate-400">
+                  {language === 'id' ? '30 Detik' : '30-Sec'}
+                </span>
+              </button>
+            )}
+
+            {/* Navigation Links */}
+            <div className="space-y-1">
+              <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 px-1 pt-1 font-bold">
+                {appMode === 'science' ? (language === 'id' ? 'Modul Analisis Sains:' : 'Science Modules:') : (language === 'id' ? 'Menu Navigasi:' : 'Navigation:')}
+              </div>
+              {navItems.map((item) => {
+                const isActive = activeTab === item.id;
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      telemetryAudio.playClick();
+                      onSelectTab(item.id);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-medium transition min-h-[42px] cursor-pointer flex items-center gap-2.5 ${
+                      isActive
+                        ? 'bg-slate-100 dark:bg-[#1a2333] text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-slate-700'
+                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-[#151d2e] hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400'}`} />
+                    <span>{item.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Drawer Bottom Quick Controls: Language, Telemetry Audio & Theme */}
+          <div className="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-[#0a0f1d] shrink-0 space-y-3">
+            {/* Row 1: Language Switcher in Drawer */}
+            <div className="flex items-center justify-between gap-2 text-xs">
+              <span className="text-slate-500 font-mono text-[11px] font-medium">
+                {language === 'id' ? 'Bahasa / Language:' : 'Language:'}
+              </span>
+              <div className="flex items-center bg-slate-200/70 dark:bg-slate-800 p-0.5 rounded-lg text-xs font-mono font-bold border border-slate-300/70 dark:border-slate-700">
                 <button
-                  key={item.id}
-                  onClick={() => {
-                    telemetryAudio.playClick();
-                    onSelectTab(item.id);
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-medium transition min-h-[42px] cursor-pointer flex items-center gap-2.5 ${
-                    isActive
-                      ? 'bg-slate-100 dark:bg-[#1a2333] text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-slate-700'
-                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-[#151d2e] hover:text-slate-900 dark:hover:text-white'
+                  onClick={() => onToggleLanguage('en')}
+                  className={`px-3 py-1 rounded-md transition-all cursor-pointer ${
+                    language === 'en'
+                      ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-2xs font-bold'
+                      : 'text-slate-500 dark:text-slate-400'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400'}`} />
-                  <span>{item.label}</span>
+                  EN
                 </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Drawer Bottom Quick Controls: Language, Telemetry Audio & Theme */}
-        <div className="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-[#0a0f1d] shrink-0 space-y-3">
-          {/* Row 1: Language Switcher in Drawer */}
-          <div className="flex items-center justify-between gap-2 text-xs">
-            <span className="text-slate-500 font-mono text-[11px] font-medium">
-              {language === 'id' ? 'Bahasa / Language:' : 'Language:'}
-            </span>
-            <div className="flex items-center bg-slate-200/70 dark:bg-slate-800 p-0.5 rounded-lg text-xs font-mono font-bold border border-slate-300/70 dark:border-slate-700">
-              <button
-                onClick={() => onToggleLanguage('en')}
-                className={`px-3 py-1 rounded-md transition-all cursor-pointer ${
-                  language === 'en'
-                    ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-2xs font-bold'
-                    : 'text-slate-500 dark:text-slate-400'
-                }`}
-              >
-                EN
-              </button>
-              <button
-                onClick={() => onToggleLanguage('id')}
-                className={`px-3 py-1 rounded-md transition-all cursor-pointer ${
-                  language === 'id'
-                    ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-2xs font-bold'
-                    : 'text-slate-500 dark:text-slate-400'
-                }`}
-              >
-                ID
-              </button>
+                <button
+                  onClick={() => onToggleLanguage('id')}
+                  className={`px-3 py-1 rounded-md transition-all cursor-pointer ${
+                    language === 'id'
+                      ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-2xs font-bold'
+                      : 'text-slate-500 dark:text-slate-400'
+                  }`}
+                >
+                  ID
+                </button>
+              </div>
             </div>
-          </div>
 
-          {/* Row 2: Audio Feedback & Theme Toggles */}
-          <div className="grid grid-cols-2 gap-2 text-xs">
-            {/* Audio Toggle */}
-            <button
-              onClick={handleToggleAudio}
-              className="px-2.5 py-2 rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 cursor-pointer transition border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300"
-            >
-              {isMuted ? (
-                <>
-                  <VolumeX className="w-3.5 h-3.5 text-slate-400" />
-                  <span className="text-[11px] font-mono">{language === 'id' ? 'Suara Mati' : 'Muted'}</span>
-                </>
-              ) : (
-                <>
-                  <Volume2 className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
-                  <span className="text-[11px] font-mono">{language === 'id' ? 'Suara Aktif' : 'Sound On'}</span>
-                </>
-              )}
-            </button>
-
-            {/* Theme Toggle */}
-            {onToggleTheme && (
+            {/* Row 2: Audio Feedback & Theme Toggles */}
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              {/* Audio Toggle */}
               <button
-                onClick={onToggleTheme}
+                onClick={handleToggleAudio}
                 className="px-2.5 py-2 rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 cursor-pointer transition border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300"
               >
-                {theme === 'dark' ? (
+                {isMuted ? (
                   <>
-                    <Sun className="w-3.5 h-3.5 text-amber-400" />
-                    <span className="text-[11px]">{language === 'id' ? 'Mode Gelap' : 'Dark'}</span>
+                    <VolumeX className="w-3.5 h-3.5 text-slate-400" />
+                    <span className="text-[11px] font-mono">{language === 'id' ? 'Suara Mati' : 'Muted'}</span>
                   </>
                 ) : (
                   <>
-                    <Moon className="w-3.5 h-3.5 text-slate-600" />
-                    <span className="text-[11px]">{language === 'id' ? 'Mode Terang' : 'Light'}</span>
+                    <Volume2 className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
+                    <span className="text-[11px] font-mono">{language === 'id' ? 'Suara Aktif' : 'Sound On'}</span>
                   </>
                 )}
               </button>
-            )}
-          </div>
 
-          <div className="text-[10px] font-mono text-slate-400 text-center pt-1 border-t border-slate-200/60 dark:border-slate-800/60">
-            WANAREKSA // NASA Space Apps 2026
+              {/* Theme Toggle */}
+              {onToggleTheme && (
+                <button
+                  onClick={onToggleTheme}
+                  className="px-2.5 py-2 rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 cursor-pointer transition border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300"
+                >
+                  {theme === 'dark' ? (
+                    <>
+                      <Sun className="w-3.5 h-3.5 text-amber-400" />
+                      <span className="text-[11px]">{language === 'id' ? 'Mode Gelap' : 'Dark'}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Moon className="w-3.5 h-3.5 text-slate-600" />
+                      <span className="text-[11px]">{language === 'id' ? 'Mode Terang' : 'Light'}</span>
+                    </>
+                  )}
+                </button>
+              )}
+            </div>
+
+            <div className="text-[10px] font-mono text-slate-400 text-center pt-1 border-t border-slate-200/60 dark:border-slate-800/60">
+              WANAREKSA // NASA Space Apps 2026
+            </div>
           </div>
-        </div>
-      </aside>
+        </aside>
+      </div>
     </>
   );
 };
