@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X, ExternalLink } from 'lucide-react';
 import { Language, translations } from '../data/translations';
 
@@ -26,6 +27,28 @@ export const NasaApiKeyModal: React.FC<NasaApiKeyModalProps> = ({
   const t = translations[language];
   const [inputKey, setInputKey] = useState(currentKey);
 
+  // Prevent background scroll
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  // Support ESC key
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const handleSave = (e: React.FormEvent) => {
@@ -34,23 +57,30 @@ export const NasaApiKeyModal: React.FC<NasaApiKeyModalProps> = ({
     onClose();
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 dark:bg-black/70 backdrop-blur-xs">
+  const content = (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+      {/* Backdrop overlay (Click outside to dismiss) */}
+      <div 
+        className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-xs transition-opacity"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+
       <div
-        className="bg-white dark:bg-[#111827] border border-[#e5e5e7] dark:border-[#1f2937] rounded-3xl max-w-lg w-full p-5 sm:p-6 shadow-2xl relative"
+        className="relative z-10 bg-white dark:bg-[#111827] border border-[#e5e5e7] dark:border-[#1f2937] rounded-3xl max-w-lg w-full p-5 sm:p-6 shadow-2xl"
         role="dialog"
         aria-modal="true"
         aria-labelledby="nasa-modal-title"
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-[#86868b] dark:text-[#9ca3af] hover:text-[#1d1d1f] dark:hover:text-white p-1.5 rounded-full hover:bg-[#f5f5f7] dark:hover:bg-[#1f2937] transition cursor-pointer"
+          className="absolute top-4 right-4 text-[#86868b] dark:text-[#9ca3af] hover:text-[#1d1d1f] dark:hover:text-white p-2 rounded-xl hover:bg-[#f5f5f7] dark:hover:bg-[#1f2937] transition cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center"
           aria-label={t.close}
         >
           <X className="w-4 h-4" />
         </button>
 
-        <div className="mb-4">
+        <div className="mb-4 pr-10">
           <h3 id="nasa-modal-title" className="text-base font-bold text-[#1d1d1f] dark:text-white">
             {t.apiKeyModalTitle}
           </h3>
@@ -119,4 +149,6 @@ export const NasaApiKeyModal: React.FC<NasaApiKeyModalProps> = ({
       </div>
     </div>
   );
+
+  return createPortal(content, document.body);
 };

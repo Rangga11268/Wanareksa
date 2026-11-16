@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { 
   X, 
   Bell, 
@@ -197,6 +198,28 @@ Wanareksa Peat Early Warning System — https://wanareksa.vercel.app`;
     setTimeout(() => setCopiedId(null), 2500);
   };
 
+  // Prevent background scroll
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  // Support ESC key
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   const createWhatsAppUrl = (alert: AlertItem) => {
     const msg = `Halo ${alert.mpaContactName}, berikut DISPATCH RESMI PERINGATAN DINI WANAREKSA [${alert.id}]:
 Status: ${alert.level === 'CRITICAL' ? 'SIAGA 1 (Muka air tanah ' + alert.groundwaterCm + ' cm)' : 'WASPADA'}
@@ -207,10 +230,17 @@ Mohon konfirmasi kesiapan posko MPA!`;
     return `https://wa.me/${alert.mpaPhone}?text=${encodeURIComponent(msg)}`;
   };
 
-  return (
-    <div className="fixed inset-0 z-[2000] flex items-center justify-center p-3 sm:p-5 bg-black/75 backdrop-blur-md animate-in fade-in duration-150">
+  const content = (
+    <div className="fixed inset-0 z-[2000] flex items-center justify-center p-3 sm:p-5 animate-in fade-in duration-150">
+      {/* Backdrop with click to dismiss */}
       <div 
-        className="w-full max-w-4xl max-h-[92vh] flex flex-col rounded-3xl bg-white dark:bg-[#0c121e] border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150"
+        className="fixed inset-0 bg-black/75 backdrop-blur-md transition-opacity" 
+        onClick={onClose}
+        aria-hidden="true"
+      />
+
+      <div 
+        className="relative z-10 w-full max-w-4xl max-h-[92vh] flex flex-col rounded-3xl bg-white dark:bg-[#0c121e] border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150"
         role="dialog"
         aria-modal="true"
       >
@@ -463,4 +493,6 @@ Mohon konfirmasi kesiapan posko MPA!`;
       </div>
     </div>
   );
+
+  return createPortal(content, document.body);
 };

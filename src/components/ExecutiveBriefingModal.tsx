@@ -1,5 +1,6 @@
-import React from 'react';
-import { X, Printer, ShieldCheck, Flame, Droplets, AlertTriangle, Satellite, CheckCircle2, Clock } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { X, Printer, ShieldCheck, Flame, Droplets, AlertTriangle, Satellite, CheckCircle2 } from 'lucide-react';
 import { IconBadge } from './IconBadge';
 import { Language, translations } from '../data/translations';
 import { AOIRegion, HarmonizedWeekData, RawHotspot } from '../engine/harmonizer';
@@ -25,6 +26,30 @@ export const ExecutiveBriefingModal: React.FC<ExecutiveBriefingModalProps> = ({
 }) => {
   const t = translations[language];
 
+  // Prevent background scroll while modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  // Support ESC key to close
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const currentDate = new Date().toISOString().split('T')[0];
@@ -45,25 +70,45 @@ export const ExecutiveBriefingModal: React.FC<ExecutiveBriefingModalProps> = ({
   }
 
   const liveCount = liveHotspots.length;
-  const liveFrp = Math.round(liveHotspots.reduce((sum, h) => sum + h.frp, 0));
 
   const handlePrint = () => {
     window.print();
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/70 backdrop-blur-sm overflow-y-auto print:p-0 print:bg-white print:static">
+  const content = (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 overflow-y-auto print:p-0 print:bg-white print:static">
       
+      {/* Backdrop overlay (Click outside to dismiss) */}
+      <div 
+        className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity print:hidden" 
+        onClick={onClose}
+        aria-hidden="true"
+      />
+
       {/* Modal Container */}
-      <div className="relative w-full max-w-4xl bg-white dark:bg-[#0c121e] text-slate-900 dark:text-slate-100 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 space-y-6 max-h-[92vh] overflow-y-auto print:max-h-none print:shadow-none print:border-none print:p-4 print:text-black print:bg-white">
+      <div 
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="sitrep-report-title"
+        className="relative z-10 w-full max-w-4xl bg-white dark:bg-[#0c121e] text-slate-900 dark:text-slate-100 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto print:max-h-none print:shadow-none print:border-none print:p-4 print:text-black print:bg-white my-auto"
+      >
         
+        {/* Floating Quick Close Button (Always visible on mobile & desktop) */}
+        <button
+          onClick={onClose}
+          aria-label={t.close}
+          className="absolute top-3 right-3 sm:top-5 sm:right-5 z-20 h-10 w-10 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center transition cursor-pointer shadow-xs border border-slate-200 dark:border-slate-700 print:hidden"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
         {/* Top Control Bar (Hidden on Print) */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800 print:hidden">
+        <div className="flex items-center justify-between pb-4 pr-12 border-b border-slate-200 dark:border-slate-800 print:hidden">
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-1 rounded-lg bg-sky-100 dark:bg-sky-950/80 text-sky-800 dark:text-sky-300 font-bold text-xs">
+            <span className="px-2.5 py-1 rounded-lg bg-sky-100 dark:bg-sky-950/80 text-sky-800 dark:text-sky-300 font-bold text-xs font-mono">
               OFFICIAL SITREP
             </span>
-            <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-mono hidden sm:inline">
               A4 Executive Briefing
             </span>
           </div>
@@ -76,13 +121,6 @@ export const ExecutiveBriefingModal: React.FC<ExecutiveBriefingModalProps> = ({
               <Printer className="w-4 h-4" />
               <span>{t.printBriefingBtn}</span>
             </button>
-            <button
-              onClick={onClose}
-              aria-label={t.close}
-              className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 transition cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center"
-            >
-              <X className="w-5 h-5" />
-            </button>
           </div>
         </div>
 
@@ -92,7 +130,7 @@ export const ExecutiveBriefingModal: React.FC<ExecutiveBriefingModalProps> = ({
             <div className="text-[11px] font-mono uppercase tracking-widest text-sky-600 dark:text-sky-400 font-bold">
               Wanareksa &bull; NASA Space Apps Challenge 2026
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white mt-1 print:text-black">
+            <h1 id="sitrep-report-title" className="text-xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white mt-1 print:text-black leading-tight">
               {language === 'id' ? 'LAPORAN SITUASI INTELIJEN TITIK PANAS & GAMBUT' : 'EXECUTIVE WILDFIRE & PEATLAND SITUATION REPORT'}
             </h1>
             <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">
@@ -100,8 +138,8 @@ export const ExecutiveBriefingModal: React.FC<ExecutiveBriefingModalProps> = ({
             </div>
           </div>
 
-          <div className="text-right text-xs space-y-0.5 shrink-0">
-            <div className="font-mono font-bold text-slate-900 dark:text-white print:text-black">DOC-ID: TH-SITREP-2026-09</div>
+          <div className="text-left sm:text-right text-xs space-y-0.5 shrink-0 font-mono">
+            <div className="font-bold text-slate-900 dark:text-white print:text-black">DOC-ID: TH-SITREP-2026-09</div>
             <div className="text-slate-500">Date: {currentDate}</div>
             <div className="text-slate-500">Time: {currentTime}</div>
           </div>
@@ -219,7 +257,26 @@ export const ExecutiveBriefingModal: React.FC<ExecutiveBriefingModalProps> = ({
           </div>
         </div>
 
+        {/* Modal Bottom Actions (Print & Close) */}
+        <div className="pt-2 flex items-center justify-end gap-2.5 print:hidden">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs transition cursor-pointer"
+          >
+            {language === 'id' ? 'Tutup Laporan' : 'Close Report'}
+          </button>
+          <button
+            onClick={handlePrint}
+            className="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-xs"
+          >
+            <Printer className="w-4 h-4" />
+            <span>{t.printBriefingBtn}</span>
+          </button>
+        </div>
+
       </div>
     </div>
   );
+
+  return createPortal(content, document.body);
 };
