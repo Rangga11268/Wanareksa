@@ -549,7 +549,7 @@ export const MapViewer: React.FC<MapViewerProps> = ({
             <span>NASA FIRMS NRT</span>
           </div>
           <span className="text-slate-300 font-mono text-[10px] border-l border-slate-800 pl-2.5">
-            MODIS: <b className="text-slate-100">{modisCount}</b> // VIIRS: <b className="text-slate-100">{viirsCount}</b> // MAX: <b className="text-emerald-400">{maxFrp} MW</b>
+            MODIS: <b className="text-slate-100">{modisCount}</b> &bull; VIIRS: <b className="text-slate-100">{viirsCount}</b> &bull; MAX: <b className="text-emerald-400">{maxFrp} MW</b>
           </span>
           {cursorCoords && (
             <span className="hidden md:inline text-slate-400 font-mono text-[10px] border-l border-slate-800 pl-2.5">

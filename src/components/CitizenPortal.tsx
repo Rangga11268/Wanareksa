@@ -533,7 +533,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
               <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-400/40 uppercase tracking-wider">
                 {isIndo ? 'PANDUAN DEWAN JURI & PENELITI' : 'JUDGES & RESEARCHERS GUIDE'}
               </span>
-              <span className="text-slate-500 text-xs hidden sm:inline">//</span>
+              <span className="text-sky-400/50 text-xs hidden sm:inline">&bull;</span>
               <span className="text-slate-300 text-xs font-mono hidden sm:inline">
                 26-Yr Archive · MODIS 1km vs VIIRS 375m
               </span>
@@ -565,7 +565,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
               <span className="font-bold text-rose-400 uppercase tracking-wider flex items-center gap-1">
                 {isIndo ? 'STATUS SIAGA DARURAT' : 'ACTIVE PEAT ALERT'}
               </span>
-              <span className="text-slate-500">//</span>
+              <span className="text-rose-400/60 font-light">&bull;</span>
               <span className="text-slate-400 font-medium">
                 {isIndo ? '3 Wilayah Kubah Gambut Siaga 1' : '3 Critical Dome Zones Monitored'}
               </span>
@@ -598,7 +598,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
           <div className="min-w-0">
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold tracking-wider text-emerald-600 dark:text-emerald-400 uppercase">
-                {isIndo ? 'MODE WARGA // AKSI CEPAT' : 'CITIZEN ACTION // RAPID RESPONSE'}
+                {isIndo ? 'MODE WARGA · AKSI CEPAT' : 'CITIZEN ACTION · RAPID RESPONSE'}
               </span>
             </div>
             <h1 className="text-base sm:text-xl font-extrabold text-slate-900 dark:text-white tracking-tight truncate">
@@ -1295,7 +1295,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
           <div className="space-y-3 max-w-2xl">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-[11px] font-mono font-bold tracking-wider text-sky-600 dark:text-sky-400 uppercase">
-                {isIndo ? 'PLATFORM RISET // NASA EOS & SATGAS' : 'RESEARCH SUITE // NASA EOS & TASK FORCE'}
+                {isIndo ? 'PLATFORM RISET · NASA EOS & SATGAS' : 'RESEARCH SUITE · NASA EOS & TASK FORCE'}
               </span>
               <span className="text-slate-300 dark:text-slate-700">&bull;</span>
               <span className="text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">

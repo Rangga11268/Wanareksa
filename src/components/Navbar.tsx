@@ -511,7 +511,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             <div className="text-[10px] font-mono text-slate-400 text-center pt-1 border-t border-slate-200/60 dark:border-slate-800/60">
-              WANAREKSA // NASA Space Apps 2026
+              WANAREKSA &bull; NASA Space Apps 2026
             </div>
           </div>
         </aside>

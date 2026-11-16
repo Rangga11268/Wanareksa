@@ -25,8 +25,8 @@ export default {
         }
       },
       fontFamily: {
-        mono: ['"Fira Code"', 'Consolas', 'Monaco', 'monospace'],
-        sans: ['Inter', 'system-ui', 'sans-serif']
+        mono: ['"JetBrains Mono"', '"Fira Code"', 'Consolas', 'Monaco', 'monospace'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif']
       }
     },
   },

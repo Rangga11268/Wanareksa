@@ -363,7 +363,7 @@ export const ExecutiveReport: React.FC<ExecutiveReportProps> = ({
         <div
           id="official-sitrep-document"
           className="bg-white text-[#0f172a] p-6 sm:p-8 border border-slate-300 shadow-xl mx-auto print:border-none print:shadow-none print:p-6"
-          style={{ width: '100%', maxWidth: '794px', boxSizing: 'border-box', fontFamily: "'Times New Roman', Times, Georgia, serif" }}
+          style={{ width: '100%', maxWidth: '794px', boxSizing: 'border-box', fontFamily: "'Inter', system-ui, -apple-system, sans-serif" }}
         >
           
           {/* 1. Official Government & NASA Letterhead (Kop Surat Resmi) */}
@@ -680,7 +680,7 @@ export const ExecutiveReport: React.FC<ExecutiveReportProps> = ({
               <div className="font-bold text-[#0f172a] mt-0.5">
                 {language === 'id' ? 'Komandan Posko Pengendalian Karhutla Wilayah' : 'Regional Wildfire Command Post Officer'}
               </div>
-              <div className="h-10 flex items-center justify-center italic text-slate-400 text-[10px]" style={{ fontFamily: 'Georgia, serif' }}>
+              <div className="h-10 flex items-center justify-center italic text-slate-400 text-[10px]" style={{ fontFamily: "'Inter', sans-serif" }}>
                 {language === 'id' ? '( Cap Stempel & Tanda Tangan Komandan Posko )' : '( Official Seal & Signature of Command Post Officer )'}
               </div>
               <div className="font-bold text-[10px] text-[#0f172a]">

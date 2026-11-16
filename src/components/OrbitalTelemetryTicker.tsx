@@ -139,10 +139,10 @@ export const OrbitalTelemetryTicker: React.FC<OrbitalTelemetryTickerProps> = ({
               <div key={`${item.id}-${idx}`} className="flex items-center gap-2 text-[11px] font-mono shrink-0 mr-8">
                 <Icon className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
                 <span className="font-bold text-slate-900 dark:text-slate-100 font-sans tracking-tight">{item.name}</span>
-                <span className="text-slate-300 dark:text-slate-700 font-light">//</span>
+                <span className="text-slate-300 dark:text-slate-700 font-light">&bull;</span>
                 <span className="text-slate-600 dark:text-slate-300 font-medium">{item.sensor}</span>
                 <span className="text-slate-400 dark:text-slate-500 hidden md:inline text-[10px]">({item.spec})</span>
-                <span className="text-slate-300 dark:text-slate-700 font-light">//</span>
+                <span className="text-slate-300 dark:text-slate-700 font-light">&bull;</span>
                 <span className={`px-1.5 py-0.5 rounded text-[9.5px] font-bold border tracking-wider uppercase font-mono ${getStatusBadgeStyle(item.status)}`}>
                   {item.status}
                 </span>

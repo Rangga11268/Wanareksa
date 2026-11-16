@@ -236,10 +236,10 @@ export const CinematicIntroTour: React.FC<CinematicIntroTourProps> = ({
       {/* Clean Scientific Footer */}
       <footer className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-10 py-3 sm:py-6 flex flex-col sm:flex-row items-center justify-between gap-1.5 sm:gap-2 border-t border-slate-800/80 text-[10px] sm:text-[11px] font-mono text-slate-400 text-center sm:text-left backdrop-blur-xs">
         <div>
-          NASA GODDARD SPACE FLIGHT CENTER // EARTH SCIENCE DIVISION
+          NASA GODDARD SPACE FLIGHT CENTER &bull; EARTH SCIENCE DIVISION
         </div>
         <div>
-          INDONESIA EQUATORIAL GRID // 0.7893° S, 113.9213° E
+          INDONESIA EQUATORIAL GRID &bull; 0.7893° S, 113.9213° E
         </div>
       </footer>
     </div>
