@@ -520,7 +520,7 @@ export function App() {
       <OrbitalTelemetryTicker language={language} isLiveSync={isLiveSync} />
 
       {/* Main Canvas */}
-      <main id="main-content" tabIndex={-1} className="flex-1 w-full max-w-full overflow-x-hidden px-4 sm:px-6 lg:px-8 py-6 outline-none">
+      <main id="main-content" tabIndex={-1} className="flex-1 w-full max-w-full overflow-x-hidden px-3.5 sm:px-6 lg:px-8 py-4 sm:py-6 outline-none">
         {/* DUAL MODE: MODE WARGA (CITIZEN) vs MODE RISET / SATGAS (SCIENCE) */}
         {appMode === 'citizen' ? (
           <div className="tab-view-enter">

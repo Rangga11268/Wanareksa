@@ -531,11 +531,11 @@ export const MapViewer: React.FC<MapViewerProps> = ({
       </div>
 
       {/* Clean Unobstructed Map Viewport */}
-      <div className="relative z-0 [isolation:isolate]">
-        <div ref={mapContainerRef} className="w-full h-[540px] lg:h-[620px] z-0" />
+      <div className="relative z-0 [isolation:isolate] overflow-hidden">
+        <div ref={mapContainerRef} className="w-full h-[400px] sm:h-[540px] lg:h-[620px] z-0 overflow-hidden" />
 
         {/* Floating Mini Legend HUD (Top Left inside Map) */}
-        <div className="absolute top-3 left-3 z-[1000] pointer-events-auto bg-[#070b14] text-white border border-slate-800 rounded-lg px-3 py-1.5 text-[10px] font-mono flex items-center gap-2.5 shadow-md">
+        <div className="absolute top-3 left-3 z-[1000] pointer-events-auto bg-[#070b14] text-white border border-slate-800 rounded-lg px-2.5 sm:px-3 py-1.5 text-[10px] font-mono flex items-center gap-2 sm:gap-2.5 shadow-md max-w-[calc(100%-24px)] flex-wrap">
           <span className="text-slate-400 font-semibold uppercase text-[9px] tracking-wider">FRP (MW):</span>
           <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-xs bg-[#10b981]" />&lt;15</span>
           <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-xs bg-[#f59e0b]" />15-50</span>
@@ -544,8 +544,8 @@ export const MapViewer: React.FC<MapViewerProps> = ({
         </div>
 
         {/* Minimal Floating Telemetry Status (Bottom Left inside Map) */}
-        <div className="absolute bottom-3 left-3 z-[1000] pointer-events-auto bg-[#070b14] text-white border border-slate-800 rounded-lg px-3.5 py-2 text-[11px] flex items-center gap-3 shadow-md">
-          <div className="flex items-center gap-1.5 text-sky-400 font-semibold uppercase tracking-wider text-[10px]">
+        <div className="absolute bottom-3 left-3 z-[1000] pointer-events-auto bg-[#070b14] text-white border border-slate-800 rounded-lg px-3 sm:px-3.5 py-1.5 sm:py-2 text-[11px] flex items-center gap-2.5 sm:gap-3 shadow-md max-w-[calc(100%-24px)] flex-wrap">
+          <div className="flex items-center gap-1.5 text-sky-400 font-semibold uppercase tracking-wider text-[10px] shrink-0">
             <span>NASA FIRMS NRT</span>
           </div>
           <span className="text-slate-300 font-mono text-[10px] border-l border-slate-800 pl-2.5">
