@@ -963,7 +963,8 @@ export function App() {
             localStorage.setItem('wanareksa_intro_seen', 'true');
           } catch (e) {}
         }}
-        onEnterApp={() => {
+        onEnterApp={(targetMode) => {
+          if (targetMode) handleToggleAppMode(targetMode);
           setIsTourModalOpen(false);
           try {
             localStorage.setItem('wanareksa_intro_seen', 'true');

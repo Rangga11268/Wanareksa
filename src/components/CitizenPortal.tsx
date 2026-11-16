@@ -522,6 +522,40 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
   return (
     <div className="w-full max-w-7xl mx-auto space-y-6 pb-16">
       
+      {/* JUDGES & EVALUATORS MODE CALLOUT BANNER (Guarantees Science Mode is Never Missed) */}
+      <div className="rounded-2xl p-4 sm:p-5 bg-gradient-to-r from-sky-950/90 via-slate-900/90 to-[#071329]/95 border border-sky-500/40 text-white shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
+        <div className="flex items-start sm:items-center gap-3.5 min-w-0">
+          <div className="p-2.5 rounded-xl bg-sky-500/20 border border-sky-400/30 text-sky-400 shrink-0 mt-0.5 sm:mt-0">
+            <Globe2 className="w-5 h-5" />
+          </div>
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-400/40 uppercase tracking-wider">
+                {isIndo ? 'PANDUAN DEWAN JURI & PENELITI' : 'JUDGES & RESEARCHERS GUIDE'}
+              </span>
+              <span className="text-slate-500 text-xs hidden sm:inline">//</span>
+              <span className="text-slate-300 text-xs font-mono hidden sm:inline">
+                26-Yr Archive · MODIS 1km vs VIIRS 375m
+              </span>
+            </div>
+            <p className="text-xs sm:text-sm font-semibold text-slate-100 mt-1 leading-snug">
+              {isIndo
+                ? 'Halaman ini adalah Portal Aksi Cepat Warga. Untuk menguji Laboratorium Harmonisasi Satelit 26 Tahun NASA, Kalender Kebakaran, dan Simulasi Restorasi Gambut BRGM, buka Mode Sains.'
+                : 'You are viewing the Citizen Rapid Action Portal. To evaluate the 26-Year NASA Satellite Harmonization Lab, Burning Calendar, and BRGM Peat Physics Simulator, launch Science Mode.'}
+            </p>
+          </div>
+        </div>
+
+        <button
+          onClick={onSwitchToScience}
+          className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 cursor-pointer shrink-0 min-h-[42px]"
+        >
+          <Globe2 className="w-4 h-4 text-slate-950 shrink-0" />
+          <span>{isIndo ? 'Buka Mode Sains & Satgas' : 'Launch Science Mode'}</span>
+          <ArrowRight className="w-4 h-4 text-slate-950 shrink-0" />
+        </button>
+      </div>
+
       {/* 0. LIVE PEAT EMERGENCY ALERT TICKER & QUICK DISPATCH BAR */}
       <div className="rounded-xl p-3.5 sm:p-4 bg-slate-900/95 border border-rose-500/35 shadow-xs text-white flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div className="flex items-start gap-3 min-w-0">

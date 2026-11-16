@@ -235,6 +235,41 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
+        {/* MOBILE MODE PERSPECTIVE DOCK (1-Tap Direct Switch for Judges & Citizens on Mobile) */}
+        <div className="md:hidden w-full px-2.5 sm:px-4 py-1.5 border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/95 dark:bg-[#0a0f1d]/95 backdrop-blur-md">
+          <div className="grid grid-cols-2 gap-1 p-0.5 rounded-xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300/70 dark:border-slate-800 text-xs shadow-2xs">
+            <button
+              onClick={() => {
+                telemetryAudio.playClick();
+                onToggleAppMode('citizen');
+              }}
+              className={`py-1.5 px-2 rounded-lg transition-all cursor-pointer font-bold flex items-center justify-center gap-1.5 min-h-[34px] ${
+                appMode === 'citizen'
+                  ? 'bg-white dark:bg-slate-800 text-emerald-700 dark:text-emerald-300 shadow-xs border border-slate-200/80 dark:border-slate-700'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <ShieldAlert className={`w-3.5 h-3.5 shrink-0 ${appMode === 'citizen' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`} />
+              <span className="truncate">{language === 'id' ? 'Portal Warga' : 'Citizen'}</span>
+            </button>
+
+            <button
+              onClick={() => {
+                telemetryAudio.playClick();
+                onToggleAppMode('science');
+              }}
+              className={`py-1.5 px-2 rounded-lg transition-all cursor-pointer font-bold flex items-center justify-center gap-1.5 min-h-[34px] ${
+                appMode === 'science'
+                  ? 'bg-white dark:bg-slate-800 text-sky-700 dark:text-sky-300 shadow-xs border border-slate-200/80 dark:border-slate-700'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <Globe2 className={`w-3.5 h-3.5 shrink-0 ${appMode === 'science' ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400'}`} />
+              <span className="truncate">{language === 'id' ? 'Sains & Satgas' : 'Science 26-Yr'}</span>
+            </button>
+          </div>
+        </div>
+
         {/* ROW 2: SCIENCE & SATGAS SUB-NAVIGATION (Hanya Tampil Saat Mode Riset Aktif) */}
         {appMode === 'science' && (
           <div className="hidden md:block w-full border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/70 dark:bg-[#0a0f1d]/70 px-4 sm:px-6 lg:px-8 py-2">

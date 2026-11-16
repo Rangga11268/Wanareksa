@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Globe2, ShieldAlert } from 'lucide-react';
 import { Language } from '../data/translations';
 
 interface CinematicIntroTourProps {
@@ -8,7 +8,7 @@ interface CinematicIntroTourProps {
   onToggleLanguage: (lang: Language) => void;
   isOpen: boolean;
   onClose: () => void;
-  onEnterApp?: () => void;
+  onEnterApp?: (mode?: 'citizen' | 'science') => void;
 }
 
 export const CinematicIntroTour: React.FC<CinematicIntroTourProps> = ({
@@ -20,14 +20,14 @@ export const CinematicIntroTour: React.FC<CinematicIntroTourProps> = ({
 }) => {
   const [isExiting, setIsExiting] = useState<boolean>(false);
 
-  const handleEnter = () => {
+  const handleEnter = (targetMode: 'citizen' | 'science' = 'science') => {
     if (isExiting) return;
     setIsExiting(true);
     setTimeout(() => {
       try {
         localStorage.setItem('wanareksa_intro_seen', 'true');
       } catch (e) {}
-      if (onEnterApp) onEnterApp();
+      if (onEnterApp) onEnterApp(targetMode);
       onClose();
       setIsExiting(false);
     }, 200);
@@ -36,9 +36,12 @@ export const CinematicIntroTour: React.FC<CinematicIntroTourProps> = ({
   useEffect(() => {
     if (!isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === 'Escape' || e.key === ' ') {
+      if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        handleEnter();
+        handleEnter('science');
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        handleEnter('citizen');
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -184,19 +187,49 @@ export const CinematicIntroTour: React.FC<CinematicIntroTourProps> = ({
           </div>
         </div>
 
-        {/* Prominent Primary CTA Button */}
-        <div className="flex flex-col items-center space-y-2 pt-1 sm:pt-2 w-full sm:w-auto">
+        {/* Dual Mode Entry Buttons (Dewan Juri & Peneliti vs Portal Warga) */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 pt-2 w-full max-w-xl">
+          {/* Primary CTA: Mode Sains (Targeted at Hackathon Judges) */}
           <button
-            onClick={handleEnter}
-            className="w-full sm:w-auto min-h-[48px] px-8 sm:px-10 py-3 sm:py-3.5 bg-[#0b3d91] hover:bg-blue-700 text-white font-bold text-sm sm:text-base rounded-xl transition-all border border-blue-400/40 shadow-xl shadow-blue-950 flex items-center justify-center gap-2.5 cursor-pointer active:scale-98"
+            onClick={() => handleEnter('science')}
+            className="flex-1 min-h-[50px] px-5 py-3 bg-[#0b3d91] hover:bg-blue-700 text-white font-bold text-xs sm:text-sm rounded-xl transition-all border border-blue-400/40 shadow-xl shadow-blue-950 flex items-center justify-between gap-3 cursor-pointer active:scale-98"
           >
-            <span>{language === 'id' ? 'Masuk ke Platform Analisis' : 'Launch Analytics Platform'}</span>
-            <ArrowRight className="w-4 h-4" />
+            <div className="flex items-center gap-2.5 min-w-0">
+              <Globe2 className="w-5 h-5 text-sky-300 shrink-0" />
+              <div className="text-left min-w-0">
+                <div className="font-extrabold text-white text-xs sm:text-sm truncate">
+                  {language === 'id' ? 'Mode Sains & Satgas' : 'Science & Satgas Mode'}
+                </div>
+                <div className="text-[10px] font-mono text-sky-200 opacity-80 truncate">
+                  {language === 'id' ? 'Dewan Juri & Riset 26 Thn' : 'For Judges & 26-Yr Archive'}
+                </div>
+              </div>
+            </div>
+            <ArrowRight className="w-4 h-4 text-sky-200 shrink-0" />
           </button>
-          <span className="text-[10px] sm:text-[11px] font-mono text-slate-400">
-            {language === 'id' ? 'Tekan Enter atau ketuk untuk memulai' : 'Press Enter or tap to begin'}
-          </span>
+
+          {/* Secondary CTA: Mode Warga */}
+          <button
+            onClick={() => handleEnter('citizen')}
+            className="flex-1 min-h-[50px] px-5 py-3 bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white font-bold text-xs sm:text-sm rounded-xl transition-all border border-slate-700/80 shadow-md flex items-center justify-between gap-3 cursor-pointer active:scale-98"
+          >
+            <div className="flex items-center gap-2.5 min-w-0">
+              <ShieldAlert className="w-5 h-5 text-emerald-400 shrink-0" />
+              <div className="text-left min-w-0">
+                <div className="font-extrabold text-white text-xs sm:text-sm truncate">
+                  {language === 'id' ? 'Portal Warga' : 'Citizen Portal'}
+                </div>
+                <div className="text-[10px] font-mono text-slate-400 truncate">
+                  {language === 'id' ? 'Aksi Cepat & Siaga Asap' : 'Rapid Action & Smoke Defense'}
+                </div>
+              </div>
+            </div>
+            <ArrowRight className="w-4 h-4 text-slate-400 shrink-0 opacity-60" />
+          </button>
         </div>
+        <span className="text-[10px] sm:text-[11px] font-mono text-slate-400">
+          {language === 'id' ? 'Pilih mode di atas untuk memulai eksplorasi' : 'Select a mode above to begin exploration'}
+        </span>
 
       </main>
 
