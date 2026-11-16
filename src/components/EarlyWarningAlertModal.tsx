@@ -110,8 +110,6 @@ export const EarlyWarningAlertModal: React.FC<EarlyWarningAlertModalProps> = ({
     typeof Notification !== 'undefined' ? Notification.permission : 'default'
   );
 
-  if (!isOpen) return null;
-
   // Web Audio API synthesized radar alert ping (zero external audio dependencies)
   const playSirenPing = () => {
     try {
@@ -229,6 +227,8 @@ Instruksi: ${alert.actionRequired}
 Mohon konfirmasi kesiapan posko MPA!`;
     return `https://wa.me/${alert.mpaPhone}?text=${encodeURIComponent(msg)}`;
   };
+
+  if (!isOpen) return null;
 
   const content = (
     <div className="fixed inset-0 z-[2000] flex items-center justify-center p-3 sm:p-5 animate-in fade-in duration-150">
