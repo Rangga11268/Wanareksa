@@ -106,11 +106,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <ShieldAlert className={`w-3.5 h-3.5 shrink-0 ${appMode === 'citizen' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`} />
               <span className="font-bold tracking-tight">{language === 'id' ? 'Portal Warga' : 'Citizen Portal'}</span>
-              <span className={`text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded ${
-                appMode === 'citizen'
-                  ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
-                  : 'text-slate-400 dark:text-slate-500 hidden xl:inline'
-              }`}>
+              <span className="text-[10px] font-mono font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wider hidden xl:inline">
                 {language === 'id' ? 'Aksi Cepat' : 'Rapid Action'}
               </span>
             </button>
@@ -131,11 +127,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <Globe2 className={`w-3.5 h-3.5 shrink-0 ${appMode === 'science' ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400'}`} />
               <span className="font-bold tracking-tight">{language === 'id' ? 'Riset Sains & Satgas' : 'Science & Satgas'}</span>
-              <span className={`text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded ${
-                appMode === 'science'
-                  ? 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20'
-                  : 'text-slate-400 dark:text-slate-500 hidden xl:inline'
-              }`}>
+              <span className="text-[10px] font-mono font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wider hidden xl:inline">
                 NASA 26-Yr
               </span>
             </button>
@@ -147,12 +139,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             {onOpenAlertModal && (
               <button
                 onClick={onOpenAlertModal}
-                className="flex items-center gap-1.5 px-3 h-9 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs font-semibold transition-all shadow-2xs cursor-pointer group"
+                className="flex items-center justify-center gap-1.5 px-2.5 sm:px-3 h-9 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs font-semibold transition-all shadow-2xs cursor-pointer group"
                 title={language === 'id' ? 'Pusat Peringatan Dini Gambut' : 'Early Warning Alert Hub'}
                 aria-label={language === 'id' ? 'Pusat Peringatan Dini' : 'Early Warning Alert Hub'}
               >
                 <Bell className="w-3.5 h-3.5 text-rose-500 shrink-0" />
-                <span>{language === 'id' ? '3 Siaga' : '3 Alerts'}</span>
+                <span className="hidden sm:inline">{language === 'id' ? '3 Siaga' : '3 Alerts'}</span>
               </button>
             )}
 

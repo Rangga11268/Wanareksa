@@ -102,10 +102,10 @@ export const RiskForecast: React.FC<RiskForecastProps> = ({
     : 'low';
 
   const riskLabels = {
-    low: { label: language === 'id' ? 'Risiko Rendah' : 'Low Risk', color: 'text-emerald-700 dark:text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20' },
-    moderate: { label: language === 'id' ? 'Status Waspada' : 'Moderate Alert', color: 'text-amber-700 dark:text-amber-400', bg: 'bg-amber-500/10 border-amber-500/20' },
-    high: { label: language === 'id' ? 'Siaga Tinggi' : 'High Alert', color: 'text-orange-700 dark:text-orange-400', bg: 'bg-orange-500/10 border-orange-500/20' },
-    extreme: { label: language === 'id' ? 'Siaga Darurat' : 'Emergency State', color: 'text-red-700 dark:text-red-400', bg: 'bg-red-500/10 border-red-500/20' },
+    low: { label: language === 'id' ? 'Risiko Rendah' : 'Low Risk', color: 'text-emerald-600 dark:text-emerald-400' },
+    moderate: { label: language === 'id' ? 'Status Waspada' : 'Moderate Alert', color: 'text-amber-600 dark:text-amber-400' },
+    high: { label: language === 'id' ? 'Siaga Tinggi' : 'High Alert', color: 'text-orange-600 dark:text-orange-400' },
+    extreme: { label: language === 'id' ? 'Siaga Darurat' : 'Emergency State', color: 'text-rose-600 dark:text-rose-400' },
   }[riskTier];
 
   // Prepare chart series data
@@ -130,7 +130,7 @@ export const RiskForecast: React.FC<RiskForecastProps> = ({
             </span>
           </div>
           
-          <span className="text-[11px] font-mono font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider self-start sm:self-auto">
+          <span className={`text-[11px] font-mono font-bold uppercase tracking-wider self-start sm:self-auto ${riskLabels.color}`}>
             {riskLabels.label}
           </span>
         </div>
@@ -171,38 +171,44 @@ export const RiskForecast: React.FC<RiskForecastProps> = ({
         </div>
 
         {/* Peat Vulnerability Index Score & Progress Bar (No Text Collision on Mobile) */}
-        <div className="p-3.5 bg-[#f5f5f7] dark:bg-[#151d2f] rounded-xl border border-[#e5e5e7] dark:border-[#1f2937]">
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 text-xs text-[#6e6e73] dark:text-[#9ca3af] mb-2">
-            <span className="font-medium text-[11px] sm:text-xs">
+        <div className="p-3.5 bg-slate-50 dark:bg-slate-900/60 rounded-xl border border-slate-200 dark:border-slate-800">
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <span className="font-semibold text-xs text-slate-800 dark:text-slate-200 truncate">
               {language === 'id' ? 'Indeks Kerentanan Gambut' : 'Peat Vulnerability Index'}
-              <span className="hidden sm:inline font-normal text-slate-400"> (FWI + TMA + FRP)</span>
+              <span className="hidden sm:inline font-normal text-slate-400 font-mono text-[11px]"> (FWI + TMA + FRP)</span>
             </span>
-            <span className="font-bold font-mono text-[#1d1d1f] dark:text-white shrink-0 self-end sm:self-auto text-xs sm:text-sm">{compositeScore} / 100</span>
+            <span className="font-bold font-mono text-slate-900 dark:text-white shrink-0 whitespace-nowrap text-xs sm:text-sm">
+              {compositeScore} / 100
+            </span>
           </div>
-          <div className="w-full h-2 bg-[#e5e5ea] dark:bg-[#1f2937] rounded-md overflow-hidden">
+          <div className="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden">
             <div
               className={`h-full transition-all duration-300 ${
-                compositeScore >= 70 ? 'bg-red-600 dark:bg-red-500'
+                compositeScore >= 70 ? 'bg-rose-600'
                 : compositeScore >= 45 ? 'bg-orange-500'
                 : compositeScore >= 25 ? 'bg-amber-500'
-                : 'bg-emerald-600 dark:bg-emerald-500'
+                : 'bg-emerald-600'
               }`}
               style={{ width: `${compositeScore}%` }}
             />
           </div>
 
-          <div className="mt-2.5 grid grid-cols-1 min-[420px]:grid-cols-2 gap-2 text-[11px]">
-            <div className="flex items-center gap-2 text-[#515154] dark:text-[#d1d5db]">
-              <IconBadge icon={Droplets} variant="sky" size="sm" />
-              <span>{language === 'id' ? 'TMA Gambut:' : 'Peat Water Table:'}</span>
-              <strong className={`font-mono ${currentTmat <= -40 ? 'text-rose-600 dark:text-rose-400 font-bold' : 'text-[#1d1d1f] dark:text-white'}`}>
+          <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div className="flex items-center justify-between gap-2 p-2 rounded-lg bg-white dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60">
+              <div className="flex items-center gap-1.5 min-w-0">
+                <IconBadge icon={Droplets} variant="sky" size="sm" />
+                <span className="text-slate-600 dark:text-slate-300 text-[11px] truncate">{language === 'id' ? 'TMA Gambut:' : 'Peat Water Table:'}</span>
+              </div>
+              <strong className={`font-mono text-xs whitespace-nowrap shrink-0 ${currentTmat <= -40 ? 'text-rose-600 dark:text-rose-400 font-bold' : 'text-slate-900 dark:text-white'}`}>
                 {currentTmat} cm
               </strong>
             </div>
-            <div className="flex items-center gap-2 text-[#515154] dark:text-[#d1d5db]">
-              <IconBadge icon={Flame} variant="rose" size="sm" />
-              <span>{language === 'id' ? 'Titik Api Aktif:' : 'Active Hotspots:'}</span>
-              <strong className="font-mono text-[#1d1d1f] dark:text-white">
+            <div className="flex items-center justify-between gap-2 p-2 rounded-lg bg-white dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60">
+              <div className="flex items-center gap-1.5 min-w-0">
+                <IconBadge icon={Flame} variant="rose" size="sm" />
+                <span className="text-slate-600 dark:text-slate-300 text-[11px] truncate">{language === 'id' ? 'Titik Api Aktif:' : 'Active Hotspots:'}</span>
+              </div>
+              <strong className="font-mono text-xs whitespace-nowrap shrink-0 text-slate-900 dark:text-white">
                 {isLiveSync ? `${liveHotspotCount} titik` : `${Math.round(baseline.mean)} titik/mgg`}
               </strong>
             </div>
