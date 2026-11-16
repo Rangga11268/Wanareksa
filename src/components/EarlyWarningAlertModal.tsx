@@ -231,46 +231,57 @@ Mohon konfirmasi kesiapan posko MPA!`;
   if (!isOpen) return null;
 
   const content = (
-    <div className="fixed inset-0 z-[2000] flex items-center justify-center p-3 sm:p-5 animate-in fade-in duration-150">
-      {/* Backdrop with click to dismiss */}
+    <div className="fixed inset-0 z-[2000] flex items-end sm:items-center justify-center p-0 sm:p-5 animate-in fade-in duration-150">
+      {/* Lightweight GPU-friendly backdrop without expensive full-screen blur */}
       <div 
-        className="fixed inset-0 bg-black/75 backdrop-blur-md transition-opacity" 
+        className="fixed inset-0 bg-slate-950/75 transition-opacity" 
         onClick={onClose}
         aria-hidden="true"
       />
 
+      {/* Modal on Desktop / Bottom Sheet on Mobile */}
       <div 
-        className="relative z-10 w-full max-w-4xl max-h-[92vh] flex flex-col rounded-3xl bg-white dark:bg-[#0c121e] border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150"
+        className="relative z-10 w-full sm:max-w-4xl max-h-[88dvh] sm:max-h-[90vh] flex flex-col rounded-t-[28px] sm:rounded-3xl bg-white dark:bg-[#0c121e] border-t sm:border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden transform-gpu will-change-transform animate-in slide-in-from-bottom-8 sm:slide-in-from-bottom-0 sm:zoom-in-95 duration-200"
         role="dialog"
         aria-modal="true"
       >
+        {/* Mobile Bottom Sheet Grab Indicator */}
+        <div className="sm:hidden flex justify-center pt-2.5 pb-1 bg-slate-900 border-b border-rose-900/20">
+          <div className="w-12 h-1.5 rounded-full bg-slate-500/50" />
+        </div>
+
         {/* TOP STATUS HEADER */}
-        <div className="p-5 sm:p-6 bg-gradient-to-r from-rose-950/60 via-slate-900 to-slate-900 border-b border-rose-900/30 text-white flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3.5">
-            <IconBadge icon={ShieldAlert} variant="rose" size="xl" />
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono font-bold tracking-widest text-rose-400 uppercase">
+        <div className="p-3.5 sm:p-6 bg-gradient-to-r from-rose-950/80 via-slate-900 to-slate-900 border-b border-rose-900/30 text-white flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+            <div className="shrink-0 hidden sm:block">
+              <IconBadge icon={ShieldAlert} variant="rose" size="xl" />
+            </div>
+            <div className="shrink-0 sm:hidden">
+              <IconBadge icon={ShieldAlert} variant="rose" size="md" />
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                <span className="text-[9px] sm:text-[10px] font-mono font-bold tracking-widest text-rose-400 uppercase">
                   Live Emergency Broadcast
                 </span>
-                <span className="text-[11px] font-mono text-slate-400">
-                  {language === 'id' ? 'Protokol Peringatan Dini 72 Jam' : '72-Hour Pre-Ignition Protocol'}
+                <span className="text-[10px] sm:text-[11px] font-mono text-slate-400 hidden xs:inline">
+                  • {language === 'id' ? 'Protokol Peringatan Dini 72 Jam' : '72-Hour Pre-Ignition Protocol'}
                 </span>
               </div>
-              <h2 className="text-lg sm:text-xl font-bold tracking-tight text-white mt-0.5">
+              <h2 className="text-sm sm:text-xl font-bold tracking-tight text-white mt-0.5 truncate">
                 {language === 'id' 
-                  ? 'Pusat Siaga & Peringatan Dini Bencana Gambut' 
-                  : 'Peatland Early Warning & Incident Command Hub'}
+                  ? 'Pusat Siaga Bencana Gambut' 
+                  : 'Peatland Early Warning Hub'}
               </h2>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             {/* Siren Test Button */}
             <button
               onClick={playSirenPing}
               disabled={isPlayingSiren}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold font-mono transition-all cursor-pointer ${
+              className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border text-[11px] sm:text-xs font-semibold font-mono transition-all cursor-pointer ${
                 isPlayingSiren 
                   ? 'bg-rose-600 text-white border-rose-500 scale-95 animate-pulse'
                   : 'bg-white/10 hover:bg-white/15 text-slate-200 border-white/20'
@@ -288,7 +299,7 @@ Mohon konfirmasi kesiapan posko MPA!`;
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition cursor-pointer"
+              className="p-1.5 sm:p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition cursor-pointer"
               aria-label="Tutup"
             >
               <X className="w-5 h-5" />
@@ -317,46 +328,46 @@ Mohon konfirmasi kesiapan posko MPA!`;
         )}
 
         {/* ALERTS FEED CONTAINER */}
-        <div className="p-5 sm:p-6 overflow-y-auto space-y-4 flex-1 bg-slate-50/60 dark:bg-[#070b14]/60">
-          <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-            <span className="font-semibold uppercase tracking-wider">
-              {language === 'id' ? 'Daftar Siaga Aktif Berdasarkan Aturan PP 71/2014' : 'Active Peat Alerts Enforcing PP 71/2014 Mandate'}
+        <div className="p-3.5 sm:p-6 overflow-y-auto overscroll-contain space-y-3.5 sm:space-y-4 flex-1 bg-slate-50/70 dark:bg-[#070b14]/70">
+          <div className="flex items-center justify-between text-[11px] sm:text-xs text-slate-500 dark:text-slate-400">
+            <span className="font-semibold uppercase tracking-wider truncate mr-2">
+              {language === 'id' ? 'Daftar Siaga Mandat PP 71/2014' : 'Active Peat Alerts (PP 71/2014)'}
             </span>
-            <span className="font-mono">
-              {ACTIVE_ALERTS.length} {language === 'id' ? 'Zona Terpantau Kritis' : 'Critical Zones Detected'}
+            <span className="font-mono shrink-0">
+              {ACTIVE_ALERTS.length} {language === 'id' ? 'Zona Kritis' : 'Critical Zones'}
             </span>
           </div>
 
-          <div className="space-y-3.5">
+          <div className="space-y-3">
             {ACTIVE_ALERTS.map((alert) => {
               const isCritical = alert.level === 'CRITICAL';
               return (
                 <div
                   key={alert.id}
-                  className={`rounded-2xl p-4 sm:p-5 border transition-all ${
+                  className={`rounded-2xl p-3.5 sm:p-5 border transition-all ${
                     isCritical
-                      ? 'bg-rose-50/80 dark:bg-rose-950/20 border-rose-300 dark:border-rose-900/60 shadow-xs'
-                      : 'bg-amber-50/80 dark:bg-amber-950/20 border-amber-300 dark:border-amber-900/60 shadow-xs'
+                      ? 'bg-rose-50/90 dark:bg-rose-950/20 border-rose-300 dark:border-rose-900/60 shadow-xs'
+                      : 'bg-amber-50/90 dark:bg-amber-950/20 border-amber-300 dark:border-amber-900/60 shadow-xs'
                   }`}
                 >
                   {/* Alert Header */}
                   <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200/80 dark:border-slate-800">
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
                       <IconBadge icon={isCritical ? AlertTriangle : ShieldAlert} variant={isCritical ? 'rose' : 'amber'} size="sm" />
-                      <span className={`text-[11px] font-mono font-bold tracking-wider uppercase ${
+                      <span className={`text-[10px] sm:text-[11px] font-mono font-bold tracking-wider uppercase shrink-0 ${
                         isCritical
                           ? 'text-rose-600 dark:text-rose-400'
                           : 'text-amber-600 dark:text-amber-400'
                       }`}>
-                        {isCritical ? 'SIAGA 1 KRITIS' : 'WASPADA'}
+                        {isCritical ? (language === 'id' ? 'SIAGA 1' : 'ALERT 1') : (language === 'id' ? 'WASPADA' : 'WARNING')}
                       </span>
-                      <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white">
+                      <h3 className="font-bold text-xs sm:text-base text-slate-900 dark:text-white truncate">
                         {alert.khgName}
                       </h3>
-                      <span className="text-xs text-slate-500 font-medium">({alert.province})</span>
+                      <span className="text-[11px] text-slate-500 font-medium shrink-0">({alert.province})</span>
                     </div>
 
-                    <div className="flex items-center gap-3 font-mono text-xs">
+                    <div className="flex items-center gap-3 font-mono text-[11px] sm:text-xs">
                       <span className="text-slate-500 flex items-center gap-1">
                         <Clock className="w-3.5 h-3.5" />
                         <span>Estimasi: {alert.leadTimeHours}h Pre-Ignition</span>
@@ -365,61 +376,61 @@ Mohon konfirmasi kesiapan posko MPA!`;
                   </div>
 
                   {/* Telemetry Metrics Row */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 py-3 text-xs">
-                    <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800">
-                      <span className="text-[10px] text-slate-400 font-mono block">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 py-3 text-xs">
+                    <div className="p-2 sm:p-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800">
+                      <span className="text-[9px] sm:text-[10px] text-slate-400 font-mono block">
                         {language === 'id' ? 'Muka Air Tanah (PP 71)' : 'Groundwater Table (PP 71)'}
                       </span>
-                      <strong className={`text-base font-mono font-bold ${
+                      <strong className={`text-sm sm:text-base font-mono font-bold ${
                         isCritical ? 'text-rose-600 dark:text-rose-400' : 'text-amber-600 dark:text-amber-400'
                       }`}>
                         {alert.groundwaterCm} cm
                       </strong>
-                      <span className="text-[10px] text-slate-500 block">
+                      <span className="text-[9px] sm:text-[10px] text-slate-500 block truncate">
                         {alert.thresholdDeficitCm < 0 
                           ? (language === 'id' ? `${Math.abs(alert.thresholdDeficitCm)}cm di bawah batas` : `${Math.abs(alert.thresholdDeficitCm)}cm below threshold`) 
                           : (language === 'id' ? `${alert.thresholdDeficitCm}cm sisa aman` : `${alert.thresholdDeficitCm}cm safe margin`)}
                       </span>
                     </div>
 
-                    <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800">
-                      <span className="text-[10px] text-slate-400 font-mono block">NASA FIRMS Hotspots</span>
-                      <strong className="text-base font-mono font-bold text-amber-600 dark:text-amber-400">
+                    <div className="p-2 sm:p-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800">
+                      <span className="text-[9px] sm:text-[10px] text-slate-400 font-mono block">NASA FIRMS Hotspots</span>
+                      <strong className="text-sm sm:text-base font-mono font-bold text-amber-600 dark:text-amber-400">
                         {alert.firmsCount} {language === 'id' ? 'Titik' : 'Hotspots'}
                       </strong>
-                      <span className="text-[10px] text-slate-500 block">Total FRP: {alert.frpMw} MW</span>
+                      <span className="text-[9px] sm:text-[10px] text-slate-500 block">Total FRP: {alert.frpMw} MW</span>
                     </div>
 
-                    <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800">
-                      <span className="text-[10px] text-slate-400 font-mono block">
+                    <div className="p-2 sm:p-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800">
+                      <span className="text-[9px] sm:text-[10px] text-slate-400 font-mono block">
                         {language === 'id' ? 'Akses Air / Sekat Kanal' : 'Canal Water Access'}
                       </span>
                       <strong className="text-xs font-semibold text-slate-900 dark:text-slate-200 block truncate mt-0.5">
                         {language === 'id' ? alert.nearestCanal : (alert.nearestCanalEn || alert.nearestCanal)}
                       </strong>
-                      <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono">
-                        {language === 'id' ? 'Tersedia Sumber Air' : 'Water Supply Ready'}
+                      <span className="text-[9px] sm:text-[10px] text-emerald-600 dark:text-emerald-400 font-mono">
+                        {language === 'id' ? 'Sumber Air Siap' : 'Water Ready'}
                       </span>
                     </div>
 
-                    <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800">
-                      <span className="text-[10px] text-slate-400 font-mono block">
+                    <div className="p-2 sm:p-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800">
+                      <span className="text-[9px] sm:text-[10px] text-slate-400 font-mono block">
                         {language === 'id' ? 'Posko Satgas / MPA' : 'Satgas Patrol Post'}
                       </span>
                       <strong className="text-xs font-semibold text-slate-900 dark:text-slate-200 block truncate mt-0.5">
                         {alert.mpaContactName}
                       </strong>
-                      <span className="text-[10px] text-slate-500 font-mono">{alert.mpaPhone}</span>
+                      <span className="text-[9px] sm:text-[10px] text-slate-500 font-mono">{alert.mpaPhone}</span>
                     </div>
                   </div>
 
                   {/* Action Mandate & Buttons */}
-                  <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs border-t border-slate-200/60 dark:border-slate-800/60">
+                  <div className="pt-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs border-t border-slate-200/60 dark:border-slate-800/60">
                     <div className="flex items-start gap-2 text-slate-700 dark:text-slate-300">
                       <AlertTriangle className={`w-4 h-4 shrink-0 mt-0.5 ${
                         isCritical ? 'text-rose-500' : 'text-amber-500'
                       }`} />
-                      <p className="leading-relaxed">
+                      <p className="leading-relaxed text-[11px] sm:text-xs">
                         <strong className="font-semibold text-slate-900 dark:text-white">
                           {language === 'id' ? 'Mandat Tindakan: ' : 'Required Action: '}
                         </strong>
@@ -427,10 +438,10 @@ Mohon konfirmasi kesiapan posko MPA!`;
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-2 shrink-0">
+                    <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto">
                       <button
                         onClick={() => handleCopySitrep(alert)}
-                        className="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-2xs"
+                        className="flex-1 sm:flex-initial px-3 py-2 sm:py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 active:scale-95 text-slate-800 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer shadow-2xs min-h-[38px] sm:min-h-0"
                         title={language === 'id' ? 'Salin Situation Report (SitRep) ke Clipboard' : 'Copy Situation Report (SitRep) to Clipboard'}
                       >
                         {copiedId === alert.id ? (
@@ -452,7 +463,7 @@ Mohon konfirmasi kesiapan posko MPA!`;
                         href={createWhatsAppUrl(alert)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3.5 py-1.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-xs flex items-center gap-1.5 transition shadow-xs cursor-pointer"
+                        className="flex-1 sm:flex-initial px-3.5 py-2 sm:py-1.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] active:scale-95 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-xs cursor-pointer min-h-[38px] sm:min-h-0"
                         title={language === 'id' ? 'Kirim Peringatan Langsung ke Posko MPA via WhatsApp' : 'Dispatch Alert to Field Patrol via WhatsApp'}
                       >
                         <Send className="w-3.5 h-3.5" />
@@ -467,23 +478,23 @@ Mohon konfirmasi kesiapan posko MPA!`;
         </div>
 
         {/* FOOTER AUDIT STAMP */}
-        <div className="p-4 sm:p-5 bg-white dark:bg-[#0c121e] border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
-          <div className="flex items-center gap-2 font-mono text-[11px]">
-            <Radio className="w-3.5 h-3.5 text-emerald-500" />
-            <span>
+        <div className="p-3.5 sm:p-5 pb-5 sm:pb-5 bg-white dark:bg-[#0c121e] border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-3 text-xs text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-2 font-mono text-[10px] sm:text-[11px]">
+            <Radio className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+            <span className="truncate">
               {language === 'id'
-                ? 'Terhubung ke Feed NASA FIRMS & Model Hidrologi Kubah Gambut'
-                : 'Connected to NASA FIRMS Feed & Peat Hydrology Models'}
+                ? 'Terhubung ke Feed NASA FIRMS & Hidrologi Gambut'
+                : 'Connected to NASA FIRMS & Peat Hydrology'}
             </span>
           </div>
 
-          <div className="flex items-center gap-3">
-            <span className="text-[11px] font-mono">
-              {language === 'id' ? 'Standar Statutori PP RI No. 71/2014' : 'Statutory Standard PP RI No. 71/2014'}
+          <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-3">
+            <span className="text-[10px] sm:text-[11px] font-mono text-slate-400">
+              {language === 'id' ? 'PP RI No. 71/2014' : 'PP RI No. 71/2014'}
             </span>
             <button
               onClick={onClose}
-              className="px-4 py-1.5 rounded-xl bg-slate-900 hover:bg-black dark:bg-slate-800 dark:hover:bg-slate-700 text-white font-bold text-xs transition cursor-pointer"
+              className="px-4 py-2 sm:py-1.5 rounded-xl bg-slate-900 hover:bg-black dark:bg-slate-800 dark:hover:bg-slate-700 active:scale-95 text-white font-bold text-xs transition cursor-pointer min-h-[36px] sm:min-h-0"
             >
               {language === 'id' ? 'Tutup Panel' : 'Close Panel'}
             </button>

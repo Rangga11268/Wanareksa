@@ -78,9 +78,9 @@ export const ExecutiveBriefingModal: React.FC<ExecutiveBriefingModalProps> = ({
   const content = (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 overflow-y-auto print:p-0 print:bg-white print:static">
       
-      {/* Backdrop overlay (Click outside to dismiss) */}
+      {/* Backdrop overlay without GPU-heavy blur */}
       <div 
-        className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity print:hidden" 
+        className="fixed inset-0 bg-slate-950/75 transition-opacity print:hidden" 
         onClick={onClose}
         aria-hidden="true"
       />
@@ -90,7 +90,7 @@ export const ExecutiveBriefingModal: React.FC<ExecutiveBriefingModalProps> = ({
         role="dialog"
         aria-modal="true"
         aria-labelledby="sitrep-report-title"
-        className="relative z-10 w-full max-w-4xl bg-white dark:bg-[#0c121e] text-slate-900 dark:text-slate-100 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto print:max-h-none print:shadow-none print:border-none print:p-4 print:text-black print:bg-white my-auto"
+        className="relative z-10 w-full max-w-4xl bg-white dark:bg-[#0c121e] text-slate-900 dark:text-slate-100 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto overscroll-contain transform-gpu will-change-transform print:max-h-none print:shadow-none print:border-none print:p-4 print:text-black print:bg-white my-auto"
       >
         
         {/* Floating Quick Close Button (Always visible on mobile & desktop) */}
