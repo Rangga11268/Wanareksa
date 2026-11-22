@@ -1,27 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
-  <title>WANAREKSA App Icon</title>
-  <!-- Rounded Rect App Icon Background (Apple Squircle / NASA Dark Canvas) -->
-  <rect x="0" y="0" width="256" height="256" rx="56" fill="#08101E" />
-  
-  <!-- Planetary Disc -->
-  <circle cx="128" cy="128" r="98" fill="#0B3D91" />
-  <circle cx="128" cy="128" r="98" fill="none" stroke="#38BDF8" stroke-width="2.5" />
+  <title>WANAREKSA</title>
+  <circle cx="128" cy="128" r="118" fill="#090D16" stroke="#FFFFFF" stroke-width="3" stroke-opacity="0.2" />
+  <circle cx="128" cy="128" r="108" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="4 6" stroke-opacity="0.3" />
 
-  <!-- Biosphere Horizon -->
-  <path d="M 42,148 A 98,98 0 0 0 214,148 C 174,178 82,178 42,148 Z" fill="#059669" />
+  <line x1="128" y1="6" x2="128" y2="18" stroke="#FF453A" stroke-width="3" stroke-linecap="round" />
+  <line x1="128" y1="238" x2="128" y2="250" stroke="#00E5FF" stroke-width="3" stroke-linecap="round" />
+  <line x1="6" y1="128" x2="18" y2="128" stroke="#FFFFFF" stroke-width="3" stroke-opacity="0.4" stroke-linecap="round" />
+  <line x1="238" y1="128" x2="250" y2="128" stroke="#FFFFFF" stroke-width="3" stroke-opacity="0.4" stroke-linecap="round" />
 
-  <!-- NASA Orbit Trajectory -->
-  <ellipse cx="128" cy="128" rx="96" ry="30" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-dasharray="120 18" transform="rotate(-28 128 128)" />
+  <line x1="44" y1="116" x2="212" y2="116" stroke="#94A3B8" stroke-width="3" stroke-opacity="0.4" stroke-linecap="round" />
+  <line x1="62" y1="148" x2="194" y2="148" stroke="#00E5FF" stroke-width="2.5" stroke-dasharray="6 4" stroke-linecap="round" />
+  <line x1="84" y1="180" x2="172" y2="180" stroke="#64748B" stroke-width="2.5" stroke-opacity="0.3" stroke-linecap="round" />
 
-  <!-- Supersonic Chevron 'W' -->
-  <polygon points="68,158 100,74 128,134 110,144 100,116 82,158" fill="#FFFFFF" />
-  <polygon points="188,158 156,74 128,134 146,144 156,116 174,158" fill="#FC3D21" />
-  <polygon points="128,84 140,118 128,134 116,118" fill="#FFFFFF" />
+  <polyline points="56,76 96,164 128,104" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <polyline points="200,76 160,164 128,104" fill="none" stroke="#FF453A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
 
-  <!-- Thermal Node -->
-  <circle cx="128" cy="84" r="8.5" fill="#FC3D21" stroke="#FFFFFF" stroke-width="2" />
-  <circle cx="128" cy="84" r="4" fill="#FDE047" />
+  <circle cx="128" cy="148" r="10" fill="#FF453A" fill-opacity="0.3" />
+  <circle cx="128" cy="148" r="6.5" fill="#FF453A" stroke="#FFFFFF" stroke-width="2" />
+  <circle cx="128" cy="148" r="2.5" fill="#FFFFFF" />
 
-  <!-- Transponder -->
-  <circle cx="204" cy="86" r="5" fill="#FFFFFF" />
+  <polygon points="128,32 134,42 128,52 122,42" fill="#00E5FF" />
 </svg>

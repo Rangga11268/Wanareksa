@@ -84,19 +84,19 @@ export const BurningCalendar: React.FC<BurningCalendarProps> = ({
     };
   }, [isPlaying, calendarMatrix, onSelectCell]);
 
-  // Color intensity scale
+  // Precision Scientific Infrared Thermal Scale (Anti-Slop Pixel Atlas)
   const getCellColor = (item?: HarmonizedWeekData) => {
-    if (!item) return 'bg-[#f2f2f7] dark:bg-[#1e293b] hover:bg-[#e5e5ea] dark:hover:bg-[#334155]';
+    if (!item) return 'bg-slate-200/60 dark:bg-zinc-800/30 hover:bg-slate-300/80 dark:hover:bg-zinc-700/50';
 
     const value = rawMode
       ? Math.min(100, item.rawTotalCount * 2.2)
       : item.burningActivityIndex;
 
-    if (value <= 0) return 'bg-[#f2f2f7] dark:bg-[#1e293b] hover:bg-[#e5e5ea] dark:hover:bg-[#334155]';
-    if (value < 15) return 'bg-[#fef08a] dark:bg-[#ca8a04]/70 hover:bg-[#fde047] dark:hover:bg-[#ca8a04]'; // Level 1 (Low)
-    if (value < 35) return 'bg-[#fed7aa] dark:bg-[#f97316]/80 hover:bg-[#fdba74] dark:hover:bg-[#ea580c]'; // Level 2 (Moderate)
-    if (value < 65) return 'bg-[#fb923c] dark:bg-[#ea580c] hover:bg-[#f97316] dark:hover:bg-[#c2410c]';     // Level 3 (High)
-    return 'bg-[#dc2626] dark:bg-[#dc2626] hover:bg-[#b91c1c] text-white';                                  // Level 4 (Severe)
+    if (value <= 0) return 'bg-slate-200/60 dark:bg-zinc-800/30 hover:bg-slate-300/80 dark:hover:bg-zinc-700/50';
+    if (value < 15) return 'bg-amber-300 dark:bg-amber-500/35 hover:bg-amber-400 dark:hover:bg-amber-500/60'; // Level 1 (Low Alert)
+    if (value < 35) return 'bg-orange-400 dark:bg-orange-500/65 hover:bg-orange-500 dark:hover:bg-orange-500/85'; // Level 2 (Moderate)
+    if (value < 65) return 'bg-rose-500 dark:bg-rose-500/85 hover:bg-rose-600 dark:hover:bg-rose-500'; // Level 3 (High Smoldering)
+    return 'bg-red-600 dark:bg-[#FF453A] hover:bg-red-700 dark:hover:bg-[#FF6961] shadow-[0_0_6px_rgba(255,69,58,0.45)]'; // Level 4 (Severe Crisis)
   };
 
   const activeInspection = hoveredData || pinnedData || (selectedKey ? calendarMatrix[selectedKey] : null);
@@ -150,7 +150,7 @@ export const BurningCalendar: React.FC<BurningCalendarProps> = ({
   }, [focusYear, calendarMatrix, MONTHS]);
 
   return (
-    <div className="bg-white dark:bg-[#111827] border border-[#e5e5e7] dark:border-[#1f2937] rounded-2xl p-4 sm:p-6 shadow-xs space-y-5 transition-all">
+    <div className="bg-white dark:bg-[#07090E] border border-slate-200/90 dark:border-white/10 rounded-2xl p-4 sm:p-6 shadow-2xs space-y-5 transition-all">
       
       {/* Top Header & Interactive View Switcher */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-[#e5e5e7] dark:border-[#1f2937]">

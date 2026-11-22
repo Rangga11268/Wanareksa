@@ -199,36 +199,36 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
       </section>
 
       {/* 2. SENSOR ARCHITECTURE STRIP (Pilar Harmonisasi Sensorik) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 p-2 sm:p-3 rounded-2xl bg-white dark:bg-[#0c1220] border border-slate-200 dark:border-slate-800 shadow-xs">
-        <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-[#070b14] border border-slate-200/80 dark:border-slate-800/80">
-          <div className="w-8 h-8 rounded-lg bg-orange-100 dark:bg-orange-950/80 border border-orange-200 dark:border-orange-800 text-orange-600 dark:text-orange-400 flex items-center justify-center font-bold text-xs shrink-0">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-3 p-2 rounded-xl bg-slate-100/90 dark:bg-zinc-900/80 border border-slate-200 dark:border-white/10 shadow-2xs">
+        <div className="flex items-center gap-3 p-3 rounded-lg bg-white dark:bg-[#07090E] border border-slate-200/80 dark:border-white/5">
+          <div className="w-8 h-8 rounded-md bg-slate-100 dark:bg-zinc-800 border border-slate-300/80 dark:border-white/10 text-amber-500 font-mono font-bold text-xs flex items-center justify-center shrink-0">
             1K
           </div>
           <div className="min-w-0">
-            <span className="text-[10px] font-mono font-bold text-orange-600 dark:text-orange-400 uppercase tracking-wider block">MODIS (TERRA/AQUA)</span>
-            <span className="text-xs font-bold text-slate-800 dark:text-slate-200 block truncate">1.0 km Nadir Footprint</span>
+            <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 uppercase tracking-widest block">MODIS TERRA/AQUA</span>
+            <span className="text-xs font-semibold text-slate-900 dark:text-zinc-100 block truncate">1.0 km Nadir Footprint</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-[#070b14] border border-slate-200/80 dark:border-slate-800/80">
-          <div className="w-8 h-8 rounded-lg bg-red-100 dark:bg-red-950/80 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 flex items-center justify-center font-bold text-xs shrink-0">
+        <div className="flex items-center gap-3 p-3 rounded-lg bg-white dark:bg-[#07090E] border border-slate-200/80 dark:border-white/5">
+          <div className="w-8 h-8 rounded-md bg-slate-100 dark:bg-zinc-800 border border-slate-300/80 dark:border-white/10 text-rose-500 font-mono font-bold text-xs flex items-center justify-center shrink-0">
             375
           </div>
           <div className="min-w-0">
-            <span className="text-[10px] font-mono font-bold text-red-600 dark:text-red-400 uppercase tracking-wider block">VIIRS (SUOMI-NPP/NOAA)</span>
-            <span className="text-xs font-bold text-slate-800 dark:text-slate-200 block truncate">
-              {language === 'id' ? '375 m Resolusi Tinggi (7x)' : '375m High-Resolution (7x)'}
+            <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 uppercase tracking-widest block">VIIRS S-NPP/NOAA</span>
+            <span className="text-xs font-semibold text-slate-900 dark:text-zinc-100 block truncate">
+              {language === 'id' ? '375 m Sub-Pixel (7x Densitas)' : '375m Sub-Pixel (7x Density)'}
             </span>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-[#070b14] border border-slate-200/80 dark:border-slate-800/80">
-          <div className="w-8 h-8 rounded-lg bg-sky-100 dark:bg-sky-950/80 border border-sky-200 dark:border-sky-800 text-sky-600 dark:text-sky-400 flex items-center justify-center font-bold text-xs shrink-0">
+        <div className="flex items-center gap-3 p-3 rounded-lg bg-white dark:bg-[#07090E] border border-slate-200/80 dark:border-white/5">
+          <div className="w-8 h-8 rounded-md bg-slate-100 dark:bg-zinc-800 border border-slate-300/80 dark:border-white/10 text-cyan-400 font-mono font-bold text-xs flex items-center justify-center shrink-0">
             5.5
           </div>
           <div className="min-w-0">
-            <span className="text-[10px] font-mono font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider block">WANAREKSA CORE</span>
-            <span className="text-xs font-bold text-slate-800 dark:text-slate-200 block truncate">5.5 km Equal-Area Harmonized</span>
+            <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 uppercase tracking-widest block">WANAREKSA FUSION</span>
+            <span className="text-xs font-semibold text-slate-900 dark:text-zinc-100 block truncate">5.5 km Equal-Area Harmonized</span>
           </div>
         </div>
       </div>

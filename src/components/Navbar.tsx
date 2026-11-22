@@ -76,12 +76,12 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <>
-      <header className="print:hidden sticky top-0 z-[1000] bg-white/95 dark:bg-[#070c18]/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 transition-all w-full">
+      <header className="print:hidden sticky top-0 z-[1000] bg-white/95 dark:bg-[#07090E]/95 backdrop-blur-xl border-b border-slate-200/90 dark:border-white/10 transition-all w-full">
         {/* ROW 1: PRIMARY BRANDING & GLOBAL CONTROLS */}
         <div className="w-full px-2.5 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-1 sm:gap-4">
           
           {/* Brand Logo */}
-          <div className="flex items-center cursor-pointer shrink-0" onClick={() => onSelectTab('overview')}>
+          <div className="flex items-center cursor-pointer shrink-0 transition-transform active:scale-[0.98]" onClick={() => onSelectTab('overview')}>
             <div className="block sm:hidden">
               <Logo size="sm" showSubtitle={false} />
             </div>
@@ -91,43 +91,43 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Central Architectural Platform Perspective Switcher */}
-          <nav aria-label="Perspective Navigation" className="hidden md:flex items-center p-1 rounded-xl bg-slate-100/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-2xs h-10">
+          <nav aria-label="Perspective Navigation" className="hidden md:flex items-center p-1 rounded-xl bg-slate-100/90 dark:bg-zinc-900/90 border border-slate-200/80 dark:border-white/10 shadow-2xs h-10">
             <button
               onClick={() => {
                 telemetryAudio.playClick();
                 onToggleAppMode('citizen');
               }}
-              className={`h-8 px-3.5 rounded-lg transition-all cursor-pointer text-xs flex items-center gap-2 ${
+              className={`h-8 px-3.5 rounded-lg transition-all cursor-pointer text-xs flex items-center gap-2 active:scale-[0.97] ${
                 appMode === 'citizen'
-                  ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs font-bold border border-slate-200/80 dark:border-slate-700'
-                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium hover:bg-white/40 dark:hover:bg-slate-800/40'
+                  ? 'bg-white dark:bg-zinc-800 text-slate-900 dark:text-white shadow-xs font-bold border border-slate-200/80 dark:border-white/10'
+                  : 'text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white font-medium hover:bg-white/40 dark:hover:bg-zinc-800/40'
               }`}
               title={t.modeCitizenDesc}
             >
               <ShieldAlert className={`w-3.5 h-3.5 shrink-0 ${appMode === 'citizen' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`} />
               <span className="font-bold tracking-tight">{language === 'id' ? 'Portal Warga' : 'Citizen Portal'}</span>
-              <span className="text-[10px] font-mono font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wider hidden xl:inline">
+              <span className="text-[10px] font-mono font-medium text-slate-400 dark:text-zinc-500 uppercase tracking-wider hidden xl:inline">
                 {language === 'id' ? 'Aksi Cepat' : 'Rapid Action'}
               </span>
             </button>
 
-            <div className="h-4 w-px bg-slate-200 dark:bg-slate-800 mx-1" />
+            <div className="h-4 w-px bg-slate-200 dark:bg-white/10 mx-1" />
 
             <button
               onClick={() => {
                 telemetryAudio.playClick();
                 onToggleAppMode('science');
               }}
-              className={`h-8 px-3.5 rounded-lg transition-all cursor-pointer text-xs flex items-center gap-2 ${
+              className={`h-8 px-3.5 rounded-lg transition-all cursor-pointer text-xs flex items-center gap-2 active:scale-[0.97] ${
                 appMode === 'science'
-                  ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs font-bold border border-slate-200/80 dark:border-slate-700'
-                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium hover:bg-white/40 dark:hover:bg-slate-800/40'
+                  ? 'bg-white dark:bg-zinc-800 text-slate-900 dark:text-white shadow-xs font-bold border border-slate-200/80 dark:border-white/10'
+                  : 'text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white font-medium hover:bg-white/40 dark:hover:bg-zinc-800/40'
               }`}
               title={t.modeScienceDesc}
             >
               <Globe2 className={`w-3.5 h-3.5 shrink-0 ${appMode === 'science' ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400'}`} />
               <span className="font-bold tracking-tight">{language === 'id' ? 'Riset Sains & Satgas' : 'Science & Satgas'}</span>
-              <span className="text-[10px] font-mono font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wider hidden xl:inline">
+              <span className="text-[10px] font-mono font-medium text-slate-400 dark:text-zinc-500 uppercase tracking-wider hidden xl:inline">
                 NASA 26-Yr
               </span>
             </button>
@@ -139,7 +139,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {onOpenAlertModal && (
               <button
                 onClick={onOpenAlertModal}
-                className="flex items-center justify-center gap-1.5 h-9 w-9 sm:w-auto sm:px-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs font-semibold transition-all shadow-2xs cursor-pointer group"
+                className="flex items-center justify-center gap-1.5 h-9 w-9 sm:w-auto sm:px-3 rounded-lg border border-slate-200 dark:border-white/10 bg-slate-50/80 dark:bg-zinc-900/80 hover:bg-slate-100 dark:hover:bg-zinc-800 text-slate-700 dark:text-zinc-200 font-mono text-xs font-semibold transition-all shadow-2xs cursor-pointer active:scale-[0.97] group"
                 title={language === 'id' ? 'Pusat Peringatan Dini Gambut' : 'Early Warning Alert Hub'}
                 aria-label={language === 'id' ? 'Pusat Peringatan Dini' : 'Early Warning Alert Hub'}
               >
@@ -150,8 +150,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Live Indicator (Unboxed Monospace Text, Desktop Only) */}
             {isLiveSync && (
-              <span className="hidden sm:inline-flex items-center text-[11px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-1">
-                NASA FIRMS Live
+              <span className="hidden sm:inline-flex items-center text-[10.5px] font-mono font-medium text-slate-500 dark:text-zinc-400 uppercase tracking-widest px-1.5">
+                ● FIRMS LIVE
               </span>
             )}
 
@@ -160,7 +160,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={handleToggleAudio}
               aria-label={isMuted ? (language === 'id' ? 'Aktifkan Suara Telemetri' : 'Enable Telemetry Audio') : (language === 'id' ? 'Bisukan Suara' : 'Mute Audio')}
               title={isMuted ? (language === 'id' ? 'Suara Telemetri: Nonaktif' : 'Telemetry Sound: Muted') : (language === 'id' ? 'Suara Telemetri: Aktif' : 'Telemetry Sound: Active')}
-              className="hidden md:flex h-9 w-9 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-50/80 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800 items-center justify-center cursor-pointer shadow-2xs"
+              className="hidden md:flex h-9 w-9 rounded-lg text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white bg-slate-50/80 dark:bg-zinc-900/80 hover:bg-slate-100 dark:hover:bg-zinc-800 transition border border-slate-200 dark:border-white/10 items-center justify-center cursor-pointer shadow-2xs active:scale-[0.97]"
             >
               {isMuted ? (
                 <VolumeX className="w-4 h-4 text-slate-400" />
@@ -175,7 +175,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={onToggleTheme}
                 aria-label={themeLabel}
                 title={themeLabel}
-                className="hidden md:flex h-9 w-9 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-50/80 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800 items-center justify-center cursor-pointer shadow-2xs"
+                className="hidden md:flex h-9 w-9 rounded-lg text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white bg-slate-50/80 dark:bg-zinc-900/80 hover:bg-slate-100 dark:hover:bg-zinc-800 transition border border-slate-200 dark:border-white/10 items-center justify-center cursor-pointer shadow-2xs active:scale-[0.97]"
               >
                 {theme === 'dark' ? (
                   <Sun className="w-4 h-4 text-amber-400" />
@@ -186,23 +186,23 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
 
             {/* Language Switch (Desktop Only) */}
-            <div className="hidden md:flex items-center bg-slate-100/90 dark:bg-slate-900/90 rounded-lg p-0.5 text-xs font-mono font-bold border border-slate-200 dark:border-slate-800 h-9 shadow-2xs">
+            <div className="hidden md:flex items-center bg-slate-100/90 dark:bg-zinc-900/90 rounded-lg p-0.5 text-xs font-mono font-bold border border-slate-200 dark:border-white/10 h-9 shadow-2xs">
               <button
                 onClick={() => onToggleLanguage('en')}
-                className={`h-8 px-2.5 rounded-md transition-all cursor-pointer ${
+                className={`h-8 px-2.5 rounded-md transition-all cursor-pointer active:scale-[0.97] ${
                   language === 'en'
-                    ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs border border-slate-200/80 dark:border-slate-700'
-                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-white dark:bg-zinc-800 text-slate-900 dark:text-white shadow-xs border border-slate-200/80 dark:border-white/10'
+                    : 'text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 EN
               </button>
               <button
                 onClick={() => onToggleLanguage('id')}
-                className={`h-8 px-2.5 rounded-md transition-all cursor-pointer ${
+                className={`h-8 px-2.5 rounded-md transition-all cursor-pointer active:scale-[0.97] ${
                   language === 'id'
-                    ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs border border-slate-200/80 dark:border-slate-700'
-                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-white dark:bg-zinc-800 text-slate-900 dark:text-white shadow-xs border border-slate-200/80 dark:border-white/10'
+                    : 'text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 ID
@@ -213,7 +213,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {onOpenTour && (
               <button
                 onClick={onOpenTour}
-                className="hidden xl:inline-flex items-center gap-2 text-xs font-semibold px-3 h-9 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer shadow-2xs"
+                className="hidden xl:inline-flex items-center gap-2 text-xs font-semibold px-3 h-9 rounded-lg border border-slate-200 dark:border-white/10 bg-slate-50/80 dark:bg-zinc-900/80 text-slate-700 dark:text-zinc-200 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-all cursor-pointer shadow-2xs active:scale-[0.97]"
                 title={language === 'id' ? 'Buka Ringkasan Ilmiah 30 Detik (Pintasan: ?)' : 'Open 30-Second Science Briefing (Shortcut: ?)'}
               >
                 <Compass className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400 shrink-0" />

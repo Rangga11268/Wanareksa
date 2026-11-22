@@ -5,11 +5,23 @@
 @layer base {
   :root {
     color-scheme: light;
+    --bg-cosmos: #F8FAFC;
+    --bg-surface: #FFFFFF;
+    --bg-surface-elevated: #F1F5F9;
+    --border-subtle: rgba(15, 23, 42, 0.08);
+    --signal-fire: #E11D48;
+    --signal-hydro: #0284C7;
   }
 
   :root.dark,
   html.dark {
     color-scheme: dark;
+    --bg-cosmos: #07090E;
+    --bg-surface: #0E131F;
+    --bg-surface-elevated: #161D2E;
+    --border-subtle: rgba(255, 255, 255, 0.07);
+    --signal-fire: #FF453A;
+    --signal-hydro: #00E5FF;
   }
 
   html {
@@ -22,7 +34,7 @@
   }
 
   html.dark {
-    background-color: #070b14;
+    background-color: #07090e;
     color: #f1f5f9;
   }
 
@@ -47,13 +59,23 @@
 
   html.dark body,
   body.dark {
-    background-color: #070b14;
+    background-color: #07090e;
     color: #f1f5f9;
   }
 
   h1, h2, h3, h4 {
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
     color: inherit;
+  }
+
+  /* Tactile Physical Feedback for Emil Kowalski Standard */
+  button, [role="button"], a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:active:not(:disabled) {
+    transform: scale(0.98);
+    transition: transform 80ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   /* Tabular numbers for clean numeric column alignment */

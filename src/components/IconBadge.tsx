@@ -13,68 +13,91 @@ export interface IconBadgeProps {
   ariaHidden?: boolean;
 }
 
-const VARIANT_STYLES: Record<IconBadgeVariant, { container: string; dot: string }> = {
+/**
+ * Architectural Telemetry Glyph Frame
+ * Replaces loud AI-slop candy wrappers with crisp, restrained aerospace instrument frames.
+ * The frame is dark/graphite neutral while semantic colors are applied strictly to the vector stroke.
+ */
+const VARIANT_STYLES: Record<IconBadgeVariant, { iconColor: string; dot: string; glow: string }> = {
   rose: {
-    container: 'bg-rose-500/12 dark:bg-rose-950/40 border border-rose-500/25 dark:border-rose-500/35 text-rose-600 dark:text-rose-400 shadow-2xs',
+    iconColor: 'text-rose-500 dark:text-rose-400',
     dot: 'bg-rose-500',
+    glow: 'group-hover:border-rose-500/30',
   },
   emerald: {
-    container: 'bg-emerald-500/12 dark:bg-emerald-950/40 border border-emerald-500/25 dark:border-emerald-500/35 text-emerald-600 dark:text-emerald-400 shadow-2xs',
+    iconColor: 'text-emerald-600 dark:text-emerald-400',
     dot: 'bg-emerald-500',
+    glow: 'group-hover:border-emerald-500/30',
   },
   sky: {
-    container: 'bg-sky-500/12 dark:bg-sky-950/40 border border-sky-500/25 dark:border-sky-500/35 text-sky-600 dark:text-sky-400 shadow-2xs',
-    dot: 'bg-sky-500',
+    iconColor: 'text-cyan-600 dark:text-cyan-400',
+    dot: 'bg-cyan-500',
+    glow: 'group-hover:border-cyan-500/30',
   },
   amber: {
-    container: 'bg-amber-500/12 dark:bg-amber-950/40 border border-amber-500/25 dark:border-amber-500/35 text-amber-600 dark:text-amber-400 shadow-2xs',
+    iconColor: 'text-amber-600 dark:text-amber-400',
     dot: 'bg-amber-500',
+    glow: 'group-hover:border-amber-500/30',
   },
   purple: {
-    container: 'bg-purple-500/12 dark:bg-purple-950/40 border border-purple-500/25 dark:border-purple-500/35 text-purple-600 dark:text-purple-400 shadow-2xs',
-    dot: 'bg-purple-500',
+    iconColor: 'text-indigo-500 dark:text-indigo-400',
+    dot: 'bg-indigo-500',
+    glow: 'group-hover:border-indigo-500/30',
   },
   slate: {
-    container: 'bg-slate-500/10 dark:bg-slate-800/50 border border-slate-300 dark:border-slate-700/60 text-slate-700 dark:text-slate-300 shadow-2xs',
+    iconColor: 'text-slate-600 dark:text-zinc-400',
     dot: 'bg-slate-400',
+    glow: 'group-hover:border-zinc-500/30',
   },
 };
 
 const SIZE_STYLES: Record<IconBadgeSize, { container: string; icon: string }> = {
   sm: {
-    container: 'w-7 h-7 rounded-lg',
+    container: 'w-7 h-7 rounded-md',
     icon: 'w-3.5 h-3.5',
   },
   md: {
-    container: 'w-9 h-9 rounded-xl',
-    icon: 'w-4.5 h-4.5',
+    container: 'w-8.5 h-8.5 rounded-lg',
+    icon: 'w-4 h-4',
   },
   lg: {
-    container: 'w-11 h-11 rounded-2xl',
-    icon: 'w-5.5 h-5.5',
+    container: 'w-10 h-10 rounded-lg',
+    icon: 'w-5 h-5',
   },
   xl: {
-    container: 'w-14 h-14 rounded-2xl',
-    icon: 'w-7 h-7',
+    container: 'w-12 h-12 rounded-xl',
+    icon: 'w-6 h-6',
   },
 };
 
 export const IconBadge: React.FC<IconBadgeProps> = ({
   icon: Icon,
-  variant = 'emerald',
+  variant = 'slate',
   size = 'md',
+  ping = false,
   className = '',
   ariaHidden = true,
 }) => {
-  const variantStyle = VARIANT_STYLES[variant] || VARIANT_STYLES.emerald;
+  const variantStyle = VARIANT_STYLES[variant] || VARIANT_STYLES.slate;
   const sizeStyle = SIZE_STYLES[size] || SIZE_STYLES.md;
 
   return (
     <div
-      className={`relative inline-flex items-center justify-center shrink-0 transition-transform duration-200 ${sizeStyle.container} ${variantStyle.container} ${className}`}
+      className={`relative inline-flex items-center justify-center shrink-0 bg-slate-100/90 dark:bg-zinc-900/80 border border-slate-300/80 dark:border-white/10 shadow-2xs transition-all duration-150 ease-out active:scale-95 group ${sizeStyle.container} ${variantStyle.glow} ${className}`}
       aria-hidden={ariaHidden}
     >
-      <Icon className={`${sizeStyle.icon} stroke-[1.8]`} />
+      <Icon className={`${sizeStyle.icon} ${variantStyle.iconColor} stroke-[1.85] transition-colors`} />
+
+      {ping && (
+        <span className="absolute -top-1 -right-1 flex h-2 w-2">
+          <span
+            className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${variantStyle.dot}`}
+          />
+          <span className={`relative inline-flex rounded-full h-2 w-2 ${variantStyle.dot}`} />
+        </span>
+      )}
     </div>
   );
 };
+
+export default IconBadge;

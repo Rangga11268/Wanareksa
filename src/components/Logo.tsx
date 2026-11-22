@@ -7,45 +7,86 @@ interface LogoProps {
   showNasaBadge?: boolean;
 }
 
-export const WanareksaEmblem: React.FC<{ className?: string }> = ({ className = 'w-full h-full' }) => (
-  <svg viewBox="0 0 256 256" className={className} fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wanareksa Sentinel Emblem">
-    <title>Wanareksa Sentinel Emblem</title>
-    {/* Deep Blue NASA Planetary Core (Circular Mission Disc) */}
-    <circle cx="128" cy="128" r="114" fill="#0B3D91" />
+/**
+ * The Wanareksa Sentinel Mark
+ * High-precision mathematical vector representing:
+ * 1. Tri-layered Peat Stratigraphy (Surface, -40cm Critical Water Table, Deep Carbon Substrate)
+ * 2. Supersonic Nadir Optical Sensor Ray slicing down from Polar Orbit
+ * 3. Radiant Infrared Fire Radiative Power (FRP) Thermal Core
+ * 4. Geometric 'W' Aerospace Vector Wings
+ */
+export const WanareksaEmblem: React.FC<{ className?: string; darkTheme?: boolean }> = ({
+  className = 'w-full h-full',
+}) => (
+  <svg
+    viewBox="0 0 256 256"
+    className={className}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label="Wanareksa Sentinel Mark"
+  >
+    <title>Wanareksa Sentinel Mark</title>
 
-    {/* Outer Precision Aerospace Bezel Collar (Atmosphere Cyan + Deep Blue) */}
-    <circle cx="128" cy="128" r="114" fill="none" stroke="#38BDF8" strokeWidth="3" />
-    <circle cx="128" cy="128" r="108" fill="none" stroke="#0B3D91" strokeWidth="4" />
+    {/* Precision Telemetry Disc Base */}
+    <circle cx="128" cy="128" r="118" className="fill-slate-900/90 dark:fill-[#090D16]" stroke="currentColor" strokeWidth="2" strokeOpacity="0.15" />
+    <circle cx="128" cy="128" r="108" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3 6" strokeOpacity="0.25" />
 
-    {/* Indonesian Peatland Biosphere Horizon (Nadir Curvature) */}
-    <path d="M 28,152 A 114,114 0 0 0 228,152 C 182,186 74,186 28,152 Z" fill="#059669" />
+    {/* Cardinal Instrument Reticles */}
+    <line x1="128" y1="4" x2="128" y2="16" stroke="#FF453A" strokeWidth="2.5" strokeLinecap="round" />
+    <line x1="128" y1="240" x2="128" y2="252" stroke="#00E5FF" strokeWidth="2.5" strokeLinecap="round" />
+    <line x1="4" y1="128" x2="16" y2="128" stroke="currentColor" strokeWidth="2" strokeOpacity="0.4" strokeLinecap="round" />
+    <line x1="240" y1="128" x2="252" y2="128" stroke="currentColor" strokeWidth="2" strokeOpacity="0.4" strokeLinecap="round" />
 
-    {/* NASA Orbital Trajectory Ellipse (Pure White, Sun-Synchronous Polar Track) */}
-    <ellipse cx="128" cy="128" rx="112" ry="34" fill="none" stroke="#FFFFFF" strokeWidth="5" strokeDasharray="140 20" transform="rotate(-28 128 128)" />
+    {/* Stratigraphic Peat Depth Horizons */}
+    {/* Strata 01: Ground Surface Layer (0 cm) */}
+    <line x1="44" y1="116" x2="212" y2="116" stroke="currentColor" strokeWidth="2.5" strokeOpacity="0.35" strokeLinecap="round" />
+    {/* Strata 02: Critical Hydrological Threshold (-40 cm Water Table) */}
+    <line x1="62" y1="148" x2="194" y2="148" stroke="#00E5FF" strokeWidth="2" strokeDasharray="6 4" strokeLinecap="round" />
+    {/* Strata 03: Deep Carbon Storage Substrate (-100 cm) */}
+    <line x1="84" y1="180" x2="172" y2="180" stroke="currentColor" strokeWidth="2" strokeOpacity="0.2" strokeLinecap="round" />
 
-    {/* Supersonic Chevron 'W' (Twin Aerospace Vectors Slicing Orbit) */}
-    {/* Left Wing (Pristine Aerospace White for High Contrast) */}
-    <polygon points="58,164 96,66 128,136 108,146 96,114 76,164" fill="#FFFFFF" />
+    {/* Dynamic 'W' Aerospace Sentinel Chevron Wings */}
+    {/* Left Sensor Array Wing */}
+    <polyline
+      points="56,76 96,164 128,104"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="text-slate-100 dark:text-white"
+    />
 
-    {/* Right Wing (NASA Supersonic Red Vector) */}
-    <polygon points="198,164 160,66 128,136 148,146 160,114 180,164" fill="#FC3D21" />
+    {/* Right Supersonic Optical Vector Wing */}
+    <polyline
+      points="200,76 160,164 128,104"
+      fill="none"
+      stroke="#FF453A"
+      strokeWidth="7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
 
-    {/* Central Aerospace Chevron Apex Union */}
-    <polygon points="128,78 142,118 128,136 114,118" fill="#FFFFFF" />
+    {/* Nadir Sensing Beam (Orbital Zenith to Ground Nexus) */}
+    <line
+      x1="128"
+      y1="34"
+      x2="128"
+      y2="148"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeDasharray="4 3"
+      strokeOpacity="0.5"
+    />
 
-    {/* Fire Radiative Power (FRP) Thermal Core Node */}
-    <circle cx="128" cy="78" r="10" fill="#FC3D21" stroke="#FFFFFF" strokeWidth="2" />
-    <circle cx="128" cy="78" r="4.5" fill="#FDE047" />
+    {/* Thermal Hotspot Infrared Focal Node (FRP Thermal Anomaly) */}
+    <circle cx="128" cy="148" r="10" fill="#FF453A" fillOpacity="0.25" />
+    <circle cx="128" cy="148" r="6.5" fill="#FF453A" stroke="#FFFFFF" strokeWidth="2" />
+    <circle cx="128" cy="148" r="2.5" fill="#FFFFFF" />
 
-    {/* Satellite Sentinel Transponder at Orbital Apex */}
-    <circle cx="216" cy="80" r="6" fill="#FFFFFF" />
-    <circle cx="216" cy="80" r="3" fill="#0B3D91" />
-
-    {/* Four Cardinal Telemetry Crosshair Coordinates */}
-    <rect x="127" y="6" width="2" height="6" fill="#FC3D21" />
-    <rect x="127" y="244" width="2" height="6" fill="#059669" />
-    <rect x="6" y="127" width="6" height="2" fill="#38BDF8" />
-    <rect x="244" y="127" width="6" height="2" fill="#38BDF8" />
+    {/* Satellite Nadir Sensor Vertex (Orbital Apex) */}
+    <polygon points="128,32 134,42 128,52 122,42" fill="#00E5FF" />
   </svg>
 );
 
@@ -58,45 +99,42 @@ export const Logo: React.FC<LogoProps> = ({
   const sizeMap = {
     sm: {
       emblem: 'w-7 h-7 min-w-[28px] max-w-[28px]',
-      nasa: 'w-6 h-6 min-w-[24px] max-w-[24px]',
-      title: 'text-xs sm:text-sm font-bold',
-      sub: 'text-[9px]',
-      cross: 'text-[11px]',
+      nasa: 'w-5.5 h-5.5 min-w-[22px] max-w-[22px]',
+      title: 'text-xs sm:text-sm font-semibold tracking-wider font-mono',
+      sub: 'text-[8.5px]',
     },
     md: {
-      emblem: 'w-7.5 h-7.5 sm:w-9 sm:h-9 min-w-[30px] max-w-[36px]',
-      nasa: 'w-6.5 h-6.5 sm:w-8 sm:h-8 min-w-[26px] max-w-[32px]',
-      title: 'text-sm sm:text-base font-bold',
-      sub: 'text-[10px]',
-      cross: 'text-xs',
+      emblem: 'w-8 h-8 sm:w-9 sm:h-9 min-w-[32px] max-w-[36px]',
+      nasa: 'w-6.5 h-6.5 sm:w-7.5 sm:h-7.5 min-w-[26px] max-w-[30px]',
+      title: 'text-sm sm:text-base font-semibold tracking-wider font-mono',
+      sub: 'text-[9.5px]',
     },
     lg: {
-      emblem: 'w-9 h-9 sm:w-11 sm:h-11 min-w-[36px] max-w-[44px]',
-      nasa: 'w-8 h-8 sm:w-9.5 sm:h-9.5 min-w-[32px] max-w-[38px]',
-      title: 'text-base sm:text-lg font-extrabold',
-      sub: 'text-xs',
-      cross: 'text-sm',
+      emblem: 'w-10 h-10 sm:w-11 sm:h-11 min-w-[40px] max-w-[44px]',
+      nasa: 'w-8 h-8 sm:w-9 sm:h-9 min-w-[32px] max-w-[36px]',
+      title: 'text-base sm:text-lg font-bold tracking-wider font-mono',
+      sub: 'text-[11px]',
     },
   };
 
-  const { emblem, nasa, title, sub, cross } = sizeMap[size];
+  const { emblem, nasa, title, sub } = sizeMap[size];
 
   return (
-    <div className={`inline-flex items-center gap-2 select-none shrink-0 max-w-full overflow-hidden ${className}`}>
-      {/* Dual Logo Lockup: Wanareksa Emblem × NASA Meatball */}
-      <div className="flex items-center gap-1.5 shrink-0">
-        {/* Wanareksa Emblem (Adaptive SVG for light and dark modes) */}
-        <div className={`flex items-center justify-center shrink-0 ${emblem} filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.06)]`}>
+    <div className={`inline-flex items-center gap-2.5 select-none shrink-0 max-w-full overflow-hidden ${className}`}>
+      {/* Dual Logo Lockup: Wanareksa Sentinel Mark × NASA Insignia */}
+      <div className="flex items-center gap-2 shrink-0">
+        {/* Wanareksa Sentinel Mark */}
+        <div className={`flex items-center justify-center shrink-0 ${emblem} text-slate-900 dark:text-white transition-transform duration-150 hover:scale-105 active:scale-95`}>
           <WanareksaEmblem className="w-full h-full object-contain" />
         </div>
 
         {showNasaBadge && (
           <>
-            {/* Sleek Aerospace Vertical Divider */}
-            <span className="w-px h-5 sm:h-6 bg-slate-300 dark:bg-slate-700 mx-0.5 select-none shrink-0" />
+            {/* Architectural Telemetry Hairline Divider */}
+            <span className="w-px h-5 sm:h-6 bg-slate-300/80 dark:bg-white/15 select-none shrink-0" />
 
             {/* Official NASA Insignia */}
-            <div className={`flex items-center justify-center shrink-0 ${nasa} rounded-full overflow-hidden shadow-2xs`}>
+            <div className={`flex items-center justify-center shrink-0 ${nasa} rounded-full overflow-hidden opacity-90 hover:opacity-100 transition-opacity`}>
               <img
                 src="/nasa_meatball.svg"
                 alt="NASA Insignia"
@@ -108,17 +146,18 @@ export const Logo: React.FC<LogoProps> = ({
         )}
       </div>
 
-      {/* Brand Typography */}
-      <div className="flex flex-col justify-center min-w-0 leading-tight shrink truncate ml-0.5">
-        <div className={`tracking-tight text-slate-900 dark:text-white font-black flex items-center gap-1.5 truncate ${title}`}>
+      {/* Brand Typography (Scientific Editorial Grotesque) */}
+      <div className="flex flex-col justify-center min-w-0 leading-tight shrink truncate">
+        <div className={`text-slate-900 dark:text-zinc-100 flex items-center gap-1.5 truncate ${title}`}>
           <span className="truncate">WANAREKSA</span>
         </div>
         {showSubtitle && (
-          <span className={`text-slate-500 dark:text-slate-400 tracking-wider font-mono text-[9px] sm:text-[10px] font-medium hidden sm:block truncate uppercase`}>
-            NASA Space Apps 2026
+          <span className={`text-slate-500 dark:text-zinc-400 font-mono tracking-widest uppercase truncate ${sub}`}>
+            EARTH OBS // NASA SPACE APPS
           </span>
         )}
       </div>
     </div>
   );
 };
+export default Logo;
