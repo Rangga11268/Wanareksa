@@ -17,10 +17,10 @@ export const translations = {
     navData: 'Data & Satellite',
     navTeam: 'Creator Dossier',
     liveFirms: 'NASA FIRMS Live',
-    modeCitizen: 'Citizen Mode',
-    modeScience: 'Science & Satgas',
-    modeCitizenDesc: 'Plain-language fire alerts, smoke health guidance, and community action',
-    modeScienceDesc: '26-year satellite harmonization, physics engine, and geospatial intelligence',
+    modeCitizen: 'Citizen Action',
+    modeScience: 'Satellite Showcase',
+    modeCitizenDesc: 'Real-time peat hazards, smoke health alerts, and ground response in plain language',
+    modeScienceDesc: 'Interactive 26-year NASA satellite map, burning chrono-atlas, and sensor lab',
     
     // Quick Tools / Dashboard Control Bar
     mainIntelCalendar: 'Intel & Calendar',
@@ -362,10 +362,10 @@ export const translations = {
     navData: 'Data & Satelit',
     navTeam: 'Profil Kreator',
     liveFirms: 'NASA FIRMS Live',
-    modeCitizen: 'Mode Warga',
-    modeScience: 'Mode Riset / Satgas',
-    modeCitizenDesc: 'Status bahaya gambut, panduan kesehatan asap, dan aksi warga bahasa awam',
-    modeScienceDesc: 'Harmonisasi satelit 26 tahun, lab fisika, dan intelijen geospasial NASA',
+    modeCitizen: 'Aksi Warga',
+    modeScience: 'Showcase Satelit',
+    modeCitizenDesc: 'Status bahaya gambut, panduan kesehatan asap, dan aksi cepat warga',
+    modeScienceDesc: 'Peta interaktif, harmonisasi 26 tahun citra satelit NASA, dan atlas kebakaran',
     
     // Quick Tools / Dashboard Control Bar
     mainIntelCalendar: 'Kalender & Peta Utama',

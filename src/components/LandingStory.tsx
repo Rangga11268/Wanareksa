@@ -111,28 +111,28 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
           <div className="lg:col-span-7 space-y-4 sm:space-y-5 text-left">
             
             {/* Editorial Kicker Badge */}
-            <div className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 rounded-md bg-neutral-900/90 border border-neutral-700/80 text-[10px] sm:text-[11px] font-mono tracking-wider text-sky-400">
-              <span className="truncate">NASA SPACE APPS 2026 &bull; SENSOR HARMONIZATION</span>
+            <div className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 rounded-md bg-neutral-900/90 border border-neutral-700/80 text-[10px] sm:text-[11px] font-mono tracking-widest text-sky-400">
+              <span className="truncate">NASA SPACE APPS SHOWCASE &bull; PLANETARY INTELLIGENCE</span>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-2xl sm:text-4xl lg:text-6xl font-black tracking-[-0.035em] text-white leading-tight sm:leading-[1.08]">
+            {/* Main Headline (Space Grotesk Display) */}
+            <h1 className="font-display text-2xl sm:text-4xl lg:text-6xl font-bold tracking-tight text-white leading-tight sm:leading-[1.08]">
               {language === 'id' ? (
                 <>
-                  Harmonisasi <span className="text-sky-400">26 Tahun Titik Api</span> Satelit NASA di Indonesia
+                  Melihat yang Tak Kasat Mata: <span className="text-sky-400">26 Tahun Jejak Api Gambut</span> dari Orbit
                 </>
               ) : (
                 <>
-                  Harmonizing <span className="text-sky-400">26 Years of NASA Satellite</span> Fire Records
+                  Seeing the Unseen: <span className="text-sky-400">26 Years of Peatland Fires</span> from Orbit
                 </>
               )}
             </h1>
 
-            {/* Punchy, Clean Description */}
+            {/* Punchy, Human-Centered Description (Plus Jakarta Sans) */}
             <p className="text-xs sm:text-sm lg:text-base text-neutral-300 leading-relaxed font-normal max-w-xl">
               {language === 'id'
-                ? 'Mengoreksi bias sensorik 300% transisi MODIS ke VIIRS, merekonstruksi data iklim 2000–2026 secara homogen, dan memantau risiko kebakaran bawah tanah pada 13.4 juta hektar lahan gambut Indonesia.'
-                : 'Correcting the 300% sensor transition bias between MODIS and VIIRS, reconstructing 2000–2026 fire climatology, and monitoring peatland hydrology across 13.4 million hectares.'}
+                ? 'Ketika teknologi satelit berganti pada 2012, titik api tampak melonjak 4 kali lipat semata-mata karena resolusi kamera, bukan kebakaran nyata. Wanareksa mengungkap fakta fisik sebenarnya—menghubungkan mata satelit NASA di antariksa dengan bara gambut di bawah kaki kita.'
+                : 'When NASA satellite sensors upgraded in 2012, raw hotspots appeared to surge 4x solely due to camera sub-pixel resolution, not actual fire outbreaks. Wanareksa uncovers the ground reality—connecting orbital sensors directly to the peat under our feet.'}
             </p>
 
             {/* Action CTAs */}
@@ -142,7 +142,7 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
                 className="w-full sm:w-auto h-12 min-h-[48px] px-6 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
               >
                 <Activity className="w-4 h-4" />
-                <span>{language === 'id' ? 'Buka Peta & Data' : 'Launch Intel & Map'}</span>
+                <span>{language === 'id' ? 'Jelajahi Peta & Atlas' : 'Explore Map & Atlas'}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
@@ -151,7 +151,7 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
                 className="w-full sm:w-auto h-12 min-h-[48px] px-5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 hover:text-white border border-neutral-700 font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
               >
                 <Cpu className="w-4 h-4 text-sky-400" />
-                <span>{language === 'id' ? 'Lab Harmonisasi' : 'Harmonization Lab'}</span>
+                <span>{language === 'id' ? 'Uji Ilusi Sensorik' : 'Sensor Illusion Lab'}</span>
               </button>
 
               <button
@@ -159,7 +159,7 @@ export const LandingStory: React.FC<LandingStoryProps> = ({
                 className="w-full sm:w-auto h-12 min-h-[48px] px-4 rounded-xl text-neutral-400 hover:text-sky-300 text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-[0.98]"
               >
                 <PlayCircle className="w-3.5 h-3.5 text-sky-400" />
-                <span>{language === 'id' ? 'Tur 30 Detik' : '30-Sec Tour'}</span>
+                <span>{language === 'id' ? 'Kisah 30 Detik' : '30-Sec Story'}</span>
               </button>
             </div>
 

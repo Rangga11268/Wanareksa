@@ -130,13 +130,13 @@ export const JudgesEvaluationGuide: React.FC<JudgesEvaluationGuideProps> = ({
           <div>
             <div className="flex items-center gap-2">
               <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight">
-                {language === 'id' ? 'Protokol Evaluasi & Alur Pengujian Juri' : 'Evaluation Protocol & Interactive Testing Steps'}
+                {language === 'id' ? 'Panduan Showcase Interaktif: Cara Menguji Inovasi Wanareksa' : 'Interactive Showcase Guide: How to Test Wanareksa'}
               </h2>
             </div>
             <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
               {language === 'id'
-                ? 'Jelajahi inovasi sains, peta satelit multi-sensor, dan sistem mitigasi karhutla Wanareksa melalui 4 fase pengujian berikut:'
-                : "Explore Wanareksa's multi-sensor science, satellite intelligence, and field mitigation across 4 testing phases:"}
+                ? 'Jelajahi inovasi visual, peta satelit interaktif, dan bukti aksi nyata lapangan dalam 4 langkah mudah:'
+                : "Explore the visual innovations, interactive satellite map, and real-world ground action in 4 easy steps:"}
             </p>
           </div>
         </div>

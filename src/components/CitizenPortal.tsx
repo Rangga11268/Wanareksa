@@ -531,7 +531,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
           <div className="min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-400/40 uppercase tracking-wider">
-                {isIndo ? 'PANDUAN DEWAN JURI & PENELITI' : 'JUDGES & RESEARCHERS GUIDE'}
+                {isIndo ? 'PANDUAN SHOWCASE & DEWAN JURI' : 'SHOWCASE & EVALUATION GUIDE'}
               </span>
               <span className="text-sky-400/50 text-xs hidden sm:inline">&bull;</span>
               <span className="text-slate-300 text-xs font-mono hidden sm:inline">
@@ -540,8 +540,8 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
             </div>
             <p className="text-xs sm:text-sm font-semibold text-slate-100 mt-1 leading-snug">
               {isIndo
-                ? 'Halaman ini adalah Portal Aksi Cepat Warga. Untuk menguji Laboratorium Harmonisasi Satelit 26 Tahun NASA, Kalender Kebakaran, dan Simulasi Restorasi Gambut BRGM, buka Mode Sains.'
-                : 'You are viewing the Citizen Rapid Action Portal. To evaluate the 26-Year NASA Satellite Harmonization Lab, Burning Calendar, and BRGM Peat Physics Simulator, launch Science Mode.'}
+                ? 'Halaman ini adalah mode Aksi Cepat Lapangan Warga. Untuk melihat Peta Interaktif Satelit 26 Tahun NASA, Kalender Kebakaran, dan Simulator Kedalaman Gambut, buka Showcase Satelit.'
+                : 'You are viewing the Citizen Rapid Action Portal. To explore the 26-Year NASA Satellite Interactive Map, Burning Calendar, and Peat Depth Simulator, open Satellite Showcase.'}
             </p>
           </div>
         </div>
@@ -551,7 +551,7 @@ _Reported via Wanareksa Citizen Portal (NASA Space Apps 2026)_`;
           className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 cursor-pointer shrink-0 min-h-[42px]"
         >
           <Globe2 className="w-4 h-4 text-slate-950 shrink-0" />
-          <span>{isIndo ? 'Buka Mode Sains & Satgas' : 'Launch Science Mode'}</span>
+          <span>{isIndo ? 'Buka Showcase Satelit' : 'Launch Satellite Showcase'}</span>
           <ArrowRight className="w-4 h-4 text-slate-950 shrink-0" />
         </button>
       </div>

@@ -105,9 +105,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               title={t.modeCitizenDesc}
             >
               <ShieldAlert className={`w-3.5 h-3.5 shrink-0 ${appMode === 'citizen' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`} />
-              <span className="font-bold tracking-tight">{language === 'id' ? 'Portal Warga' : 'Citizen Portal'}</span>
+              <span className="font-bold tracking-tight">{language === 'id' ? 'Tanggap Warga' : 'Citizen Action'}</span>
               <span className="text-[10px] font-mono font-medium text-slate-400 dark:text-zinc-500 uppercase tracking-wider hidden xl:inline">
-                {language === 'id' ? 'Aksi Cepat' : 'Rapid Action'}
+                {language === 'id' ? 'Aksi Lapangan' : 'Field Dispatch'}
               </span>
             </button>
 
@@ -126,7 +126,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               title={t.modeScienceDesc}
             >
               <Globe2 className={`w-3.5 h-3.5 shrink-0 ${appMode === 'science' ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400'}`} />
-              <span className="font-bold tracking-tight">{language === 'id' ? 'Riset Sains & Satgas' : 'Science & Satgas'}</span>
+              <span className="font-bold tracking-tight">{language === 'id' ? 'Showcase & Satelit' : 'Showcase & Satellites'}</span>
               <span className="text-[10px] font-mono font-medium text-slate-400 dark:text-zinc-500 uppercase tracking-wider hidden xl:inline">
                 NASA 26-Yr
               </span>
@@ -250,7 +250,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               <ShieldAlert className={`w-3.5 h-3.5 shrink-0 ${appMode === 'citizen' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`} />
-              <span className="truncate">{language === 'id' ? 'Portal Warga' : 'Citizen'}</span>
+              <span className="truncate">{language === 'id' ? 'Tanggap Warga' : 'Citizen'}</span>
             </button>
 
             <button
@@ -265,7 +265,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               <Globe2 className={`w-3.5 h-3.5 shrink-0 ${appMode === 'science' ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400'}`} />
-              <span className="truncate">{language === 'id' ? 'Sains & Satgas' : 'Science 26-Yr'}</span>
+              <span className="truncate">{language === 'id' ? 'Showcase Satelit' : 'Showcase 26-Yr'}</span>
             </button>
           </div>
         </div>
